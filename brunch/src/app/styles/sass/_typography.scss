@@ -1,0 +1,43 @@
+@import "blueprint/typography";
+@import "compass/typography";
+
+// Typography defaults
+$base-font-size: 14px;
+$blueprint-font-size: 14px;
+$base-line-height: $base-font-size * 1.5;
+@include blueprint-typography();
+@include establish-baseline();
+
+a {
+  @include hover-link();
+  font-weight: bold;
+}
+
+h1,h2,h3,h4,h5, #navigation {
+  text-rendering: optimizeLegibility;
+}
+
+// For reference, the following is the traditional typographic hierarchy.
+// 6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 21, 24, 36, 48, 60, 72
+
+// If you'd like to change the size of headers, move all of the following either
+// up or down the hierarchy.
+h1 {
+  @include adjust-font-size-to(36px);
+  @include trailer(0.5);
+}
+h2 {
+  @include adjust-font-size-to(24px);
+}
+h3 {
+  @include adjust-font-size-to(21px);
+}
+h4 {
+  @include adjust-font-size-to(18px);
+}
+h5 {
+  @include adjust-font-size-to(16px);
+}
+h6 {
+  @include adjust-font-size-to(14px);
+}
