@@ -3,4 +3,5 @@ class exports.MainRouter extends Backbone.Router
     "home": "home"
 
   home: ->
-    $('body').html app.views.home.render().el
+    app.views.home.render()
+    app.collections.actions.fetch()
