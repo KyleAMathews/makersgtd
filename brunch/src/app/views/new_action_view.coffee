@@ -6,7 +6,6 @@ class exports.NewActionView extends Backbone.View
 
   events:
     'keypress #new-action'  : 'createOnEnter'
-    'keyup #new-action'     : 'showHint'
 
   render: ->
     @$(@el).html newActionTemplate()
@@ -22,13 +21,3 @@ class exports.NewActionView extends Backbone.View
     return unless event.keyCode is $.ui.keyCode.ENTER
     app.collections.actions.create @newAttributes()
     @$("#new-action").val ''
-
-  showHint: (event) ->
-    tooltip = @$(".ui-tooltip-top")
-    input = @$("#new-action")
-    tooltip.fadeOut()
-    clearTimeout(@tooltipTimeout) if @tooltipTimeout
-    return if input.val() is '' or  input.val() is input.attr 'placeholder'
-    fadeIn = ->
-      tooltip.fadeIn()
-    @tooltipTimeout = _.delay fadeIn, 1000

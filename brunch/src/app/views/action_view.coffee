@@ -12,6 +12,7 @@ class exports.ActionView extends Backbone.View
 
   initialize: ->
     @model.bind('change', @render)
+    @model.bind('change:cursorOn', @renderCursor)
     @model.view = @
 
   render: =>
@@ -21,6 +22,12 @@ class exports.ActionView extends Backbone.View
     # Originally, this event was only applicable to form elements.
     @$('.action-input').bind 'blur', @update
     @
+
+  renderCursor: =>
+    if @model.get 'cursorOn'
+      @$(@el).addClass 'cursor'
+    else
+      @$(@el).removeClass 'cursor'
 
   toggleDone: ->
     @model.toggle()

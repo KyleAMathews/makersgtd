@@ -48,38 +48,35 @@ ul {
 
 #actions {
   margin-top: 10px;
-
   li {
     padding: 12px 20px 11px 0;
     position: relative;
     font-size: 24px;
     line-height: 1.1em;
     border-bottom: 1px solid #cccccc;
+    @include pie-clearfix();
   }
-
-  li:after {
-    content: "\0020";
-    display: block;
-    height: 0;
-    clear: both;
-    overflow: hidden;
-    visibility: hidden;
-  }
-
   li.editing {
     padding: 0;
     border-bottom: 0;
   }
-
+  li.cursor {
+    &:before {
+      content: "|";
+      font-weight: bolder;
+      color: blue;
+      position: absolute;
+      left: -10px;
+      top: 13px;
+    }
+  }
   .editing .display, .edit {
     display: none;
   }
-
   .editing {
     .edit {
       display: block;
     }
-
     input {
       width: 444px;
       font-size: 24px;
@@ -92,14 +89,12 @@ ul {
       @include single-box-shadow($inset: true);
     }
   }
-
   .check {
     position: relative;
     top: 9px;
     margin: 0 10px 0 7px;
     float: left;
   }
-
   .done .action-content {
     text-decoration: line-through;
     color: #777777;
@@ -123,4 +118,5 @@ ul {
   .action-destroy:hover {
     background-position: 0 -20px;
   }
+
 }
