@@ -6,13 +6,14 @@ class exports.ActionView extends Backbone.View
 
   events:
     'click .check'           : 'toggleDone'
-    'dblclick .action-content' : 'edit'
-    'click .action-destroy'    : 'clear'
+    'dblclick .action-name' : 'edit'
+    'click .action-destroy'    : 'destroy'
     'keypress .action-input'   : 'updateOnEnter'
 
   initialize: ->
     @model.bind('change', @render)
     @model.bind('change:cursorOn', @renderCursor)
+    @model.bind('destroy', @remove)
     @model.view = @
 
   render: =>
@@ -37,14 +38,11 @@ class exports.ActionView extends Backbone.View
     @$('.action-input').focus()
 
   update: =>
-    @model.save(content: @$('.action-input').val())
+    @model.save(name: @$('.action-input').val())
     @$(@el).removeClass "editing"
 
   updateOnEnter: (e) ->
     @update() if e.keyCode is $.ui.keyCode.ENTER
 
-  remove: ->
-    $(@el).remove()
-
-  clear: ->
+  destroy: =>
     @model.clear()

@@ -29,7 +29,7 @@ $(document).ready ->
 #if next keystroke doesn't match something, exit and start over again.
 
 #e.g.
-     _i - call function navigateInbox
-   _|
-g |_
-    |_n - call function navigateNextActions
+#     _i - call function navigateInbox
+#   _|
+#g |_
+#    |_n - call function navigateNextActions

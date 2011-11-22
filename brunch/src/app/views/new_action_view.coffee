@@ -14,7 +14,7 @@ class exports.NewActionView extends Backbone.View
   newAttributes: ->
     attributes =
       order: app.collections.actions.nextOrder()
-    attributes.content = @$("#new-action").val() if @$("#new-action").val()
+    attributes.name = @$("#new-action").val() if @$("#new-action").val()
     attributes
 
   createOnEnter: (event) ->

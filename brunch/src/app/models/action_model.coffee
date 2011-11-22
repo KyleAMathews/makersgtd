@@ -1,7 +1,7 @@
 class exports.Action extends Backbone.Model
 
   defaults:
-    content: 'empty action...'
+    name: 'empty action...'
     done: false
 
   toggle: ->

@@ -4,7 +4,7 @@ class exports.ActionFullView extends Backbone.View
 
   events:
     'click .check'           : 'toggleDone'
-    'dblclick .action-content' : 'edit'
+    'dblclick .action-name' : 'edit'
     'click .action-destroy'    : 'clear'
     'keypress .action-input'   : 'updateOnEnter'
 
@@ -35,7 +35,7 @@ class exports.ActionFullView extends Backbone.View
     @$('.action-input').focus()
 
   update: =>
-    @model.save(content: @$('.action-input').val())
+    @model.save(name: @$('.action-input').val())
     @$(@el).removeClass "editing"
 
   updateOnEnter: (e) ->

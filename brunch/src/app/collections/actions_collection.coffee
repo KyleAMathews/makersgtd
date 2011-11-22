@@ -6,7 +6,7 @@ class exports.Actions extends Backbone.Collection
   url: '/actions'
 
   initialize: ->
-    @localStorage = new Store "actions"
+    console.log 'initing action collection'
 
   done: ->
     return @filter( (action) ->
