@@ -3,6 +3,7 @@ Action = require('models/action_model').Action
 class exports.Actions extends Backbone.Collection
 
   model: Action
+  url: '/actions'
 
   initialize: ->
     @localStorage = new Store "actions"
@@ -53,6 +54,9 @@ class exports.Actions extends Backbone.Collection
 
   checkAtCursor: =>
     @getActionAtCursor().toggle()
+
+  openAtCursor: =>
+     app.routers.main.navigate "actions/" + @getActionAtCursor().id, true
 
   getActionAtCursor: =>
     actions = @filter (action) ->

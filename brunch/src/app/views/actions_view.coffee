@@ -12,6 +12,7 @@ class exports.ActionsView extends Backbone.View
     $(document).bind 'keydown', 'k', @cursorUp
     $(document).bind 'keydown', 'x', @checkAtCursor
     $(document).bind 'keyup', 'a', @focusInput
+    $(document).bind 'keydown', 'o', @openAtCursor
 
   render: ->
     $(@el).html actionsTemplate()
@@ -37,3 +38,6 @@ class exports.ActionsView extends Backbone.View
   focusInput: (event) =>
     $('#new-action').focus()
     $('#new-action').val ""
+
+  openAtCursor: ->
+    app.collections.actions.openAtCursor()
