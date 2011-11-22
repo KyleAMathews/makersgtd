@@ -12,6 +12,7 @@ MainRouter = require('routers/main_router').MainRouter
 HomeView = require('views/home_view').HomeView
 NewActionView = require('views/new_action_view').NewActionView
 ActionsView = require('views/actions_view').ActionsView
+DoneActionsView = require('views/done_actions_view').DoneActionsView
 
 # app bootstrapping on document ready
 $(document).ready ->
@@ -24,6 +25,7 @@ $(document).ready ->
     app.views.home = new HomeView()
     app.views.newAction = new NewActionView()
     app.views.actions = new ActionsView()
+    app.views.doneActions = new DoneActionsView()
 
     app.routers.main.navigate 'home', true if Backbone.history.getFragment() is ''
   app.initialize()

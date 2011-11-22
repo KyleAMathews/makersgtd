@@ -13,6 +13,11 @@ class exports.Actions extends Backbone.Collection
       action.get 'done'
     )
 
+  notDone: ->
+    return @filter( (action) ->
+      not action.get 'done'
+    )
+
   remaining: ->
     @without.apply @, @done()
 

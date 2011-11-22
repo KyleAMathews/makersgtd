@@ -7,4 +7,5 @@ class exports.HomeView extends Backbone.View
     $(@el).html homeTemplate()
     $(@el).find('#simple-gtd-app').append app.views.newAction.render().el
     $(@el).find('#simple-gtd-app').append app.views.actions.render().el
+    $(@el).find('#simple-gtd-app').append app.views.doneActions.render().el
     @

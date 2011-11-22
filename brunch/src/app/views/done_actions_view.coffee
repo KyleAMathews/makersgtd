@@ -1,12 +1,11 @@
 ActionView = require('views/action_view').ActionView
 actionsTemplate = require('templates/actions')
 
-class exports.ActionsView extends Backbone.View
+class exports.DoneActionsView extends Backbone.View
 
-  id: 'actions-view'
+  id: 'done-actions-view'
 
   initialize: ->
-    app.collections.actions.bind 'add', @addOne
     app.collections.actions.bind 'reset', @addAll
     app.collections.actions.bind 'change:done', @changeDoneState
     $(document).bind 'keydown', 'j', @cursorDown
@@ -21,18 +20,20 @@ class exports.ActionsView extends Backbone.View
 
   addOne: (action) =>
     view = new ActionView model: action
-    $("#actions", @el).append view.render().el
+    $(@el).find("#actions").append view.render().el
 
   addAll: =>
-    @addOne action for action in app.collections.actions.notDone()
+    @addOne action for action in app.collections.actions.done()
     app.collections.actions.initCursor()
 
   changeDoneState: (action) =>
-    unless action.get('done')
-      console.log "UNDONE: I'm adding a new undone action"
+    if action.get('done')
+      console.log "DONE: I'm adding a new done action"
       @addOne action
     else
-      console.log "UNDONE: I'm removing a action because it is now done."
+      console.log "DONE: I'm removing a action because it is now /not/ done."
+      # $(action.view.el, @el).remove()
+      # console.log action.view.el
       @render().addAll()
 
   cursorDown: ->

@@ -119,3 +119,12 @@ ul {
   }
 
 }
+
+#done-actions-view {
+  #actions {
+    &:before {
+      content: "Completed actions";
+      font-weight: bolder;
+    }
+  }
+}
