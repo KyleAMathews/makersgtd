@@ -23,3 +23,13 @@ $(document).ready ->
     app.routers.main.navigate 'home', true if Backbone.history.getFragment() is ''
   app.initialize()
   Backbone.history.start()
+
+#represent character bindings as tree, once enter in tree, don't exit until reach leaf.
+
+#if next keystroke doesn't match something, exit and start over again.
+
+#e.g.
+     _i - call function navigateInbox
+   _|
+g |_
+    |_n - call function navigateNextActions
