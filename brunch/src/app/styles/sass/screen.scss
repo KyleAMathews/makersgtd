@@ -9,16 +9,18 @@
 @import "compass/css3";
 
 #simple-gtd-app {
-  width: 480px;
-  margin: 0 auto 40px;
+  width: 300px;
+  padding: 10px;
   background: white;
-  padding: 20px;
-  @include box-shadow();
+  @media (min-width:500px) {
+    margin-left: 100px;
+  }
 
   h1 {
     font-weight: bold;
     text-align: center;
-    padding: 20px 0 30px 0;
+    @include leader(0.5);
+    @include trailer(0.5);
   }
 }
 
@@ -26,13 +28,11 @@
   position: relative;
 
   input {
-    width: 466px;
-    font-size: 24px;
-    font-family: inherit;
-    line-height: 1.4em;
-    border: 1px solid #999999;
+    width: 284px;
+    @include rhythm-borders();
+    border-color: #999999;
     outline: none;
-    padding: 6px;
+    padding: .5em;
     @include single-box-shadow($inset: true);
   }
 
@@ -47,13 +47,13 @@ ul {
 }
 
 #actions {
-  margin-top: 10px;
+  @include leader(.5);
   li {
-    padding: 12px 20px 11px 0;
+    @include padding-leader(0.5);
+    @include padding-trailer(0.5);
+    @include trailing-border($lines: 0.5);
+    border-color: #cccccc;
     position: relative;
-    font-size: 24px;
-    line-height: 1.1em;
-    border-bottom: 1px solid #cccccc;
     @include pie-clearfix();
   }
   li.editing {
@@ -78,32 +78,31 @@ ul {
       display: block;
     }
     input {
-      width: 444px;
-      font-size: 24px;
-      font-family: inherit;
+      @include padding-leader(0.5);
+      @include padding-trailer(0.5);
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+      width: 284px;
       margin: 0;
-      line-height: 1.6em;
-      border: 1px solid #999999;
       outline: none;
-      padding: 10px 7px 0px 27px;
       @include single-box-shadow($inset: true);
     }
   }
   .check {
     position: relative;
-    top: 9px;
-    margin: 0 10px 0 7px;
+    top: 4px;
+    margin: 0 7px 0 7px;
     float: left;
   }
-  .done .action-content {
+  .done .action-name {
     text-decoration: line-through;
     color: #777777;
   }
 
   .action-destroy {
     position: absolute;
-    right: 5px;
-    top: 14px;
+    right: -10px;
+    top: 11px;
     display: none;
     cursor: pointer;
     width: 20px;
