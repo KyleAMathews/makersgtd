@@ -1,4 +1,4 @@
-<div class="action <% if @action.done: %>done<% end %>">
+<div class="action <% if @action.done: %>done<% end %>" data-id="<%- @action.id %>">
   <div class="display">
     <input class="check" type="checkbox" <% if @action.done: %>checked="checked"<% end %>>
   <div class="action-name"><%= @action.name %></div>

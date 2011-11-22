@@ -17,6 +17,8 @@ Schema = mongoose.Schema
 
 actionSchema = new Schema (
   name: String
+  done: Boolean
+  order: Number
 )
 
 projectSchema = new Schema (
@@ -45,6 +47,8 @@ app.get '/actions', (req, res) ->
         m =
           name: action.name
           id: action._id
+          done: action.done
+          order: action.order
         newModels.push m
 
       res.json newModels
@@ -68,6 +72,7 @@ app.put '/actions/:id', (req, res) ->
         if k is 'id' then continue
         action[k] = v
       action.save()
+      res.json saved: true
 
 app.del '/actions/:id', (req, res) ->
   console.log 'deleting an action'
@@ -113,6 +118,7 @@ app.put '/projects/:id', (req, res) ->
         if k is 'id' then continue
         project[k] = v
       project.save()
+      res.json saved: true
 
 app.del '/projects/:id', (req, res) ->
   console.log 'deleting an project'
@@ -158,6 +164,7 @@ app.put '/tags/:id', (req, res) ->
         if k is 'id' then continue
         tag[k] = v
       tag.save()
+      res.json saved: true
 
 app.del '/tag/:id', (req, res) ->
   console.log 'deleting an tag'

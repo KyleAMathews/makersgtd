@@ -26,14 +26,26 @@ class exports.ActionsView extends Backbone.View
   addAll: =>
     @addOne action for action in app.collections.actions.notDone()
     app.collections.actions.initCursor()
+    @$('ul').sortable(
+      start: (event, ui) ->
+        $(event.target).css('cursor', 'move')
+      stop: (event, ui) ->
+        $(event.target).css('cursor', 'default')
+    )
+    @$('ul').bind('sortupdate', @resetOrder)
 
   changeDoneState: (action) =>
     unless action.get('done')
-      console.log "UNDONE: I'm adding a new undone action"
-      @addOne action
-    else
-      console.log "UNDONE: I'm removing a action because it is now done."
       @render().addAll()
+    else
+      @render().addAll()
+
+  resetOrder: =>
+    @$('li div.action').each (index) ->
+      id = $(@).data('id')
+      # Save new order to action models but only to those which were changed.
+      unless app.collections.actions.get(id).get('order') is index
+        app.collections.actions.get(id).set( order: index ).save()
 
   cursorDown: ->
     app.collections.actions.cursorDown()

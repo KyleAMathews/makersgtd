@@ -9,14 +9,16 @@ class exports.Actions extends Backbone.Collection
     console.log 'initing action collection'
 
   done: ->
-    return @filter( (action) ->
+    items = @filter( (action) ->
       action.get 'done'
     )
+    return _.sortBy(items, (item) -> return item.get('order'))
 
   notDone: ->
-    return @filter( (action) ->
+    items = @filter( (action) ->
       not action.get 'done'
     )
+    return _.sortBy(items, (item) -> return item.get('order'))
 
   remaining: ->
     @without.apply @, @done()

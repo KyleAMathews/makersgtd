@@ -28,12 +28,8 @@ class exports.DoneActionsView extends Backbone.View
 
   changeDoneState: (action) =>
     if action.get('done')
-      console.log "DONE: I'm adding a new done action"
       @addOne action
     else
-      console.log "DONE: I'm removing a action because it is now /not/ done."
-      # $(action.view.el, @el).remove()
-      # console.log action.view.el
       @render().addAll()
 
   cursorDown: ->
