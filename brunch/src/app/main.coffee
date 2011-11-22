@@ -5,6 +5,9 @@ app.collections = {}
 app.views = {}
 
 Actions = require('collections/actions_collection').Actions
+Projects = require('collections/projects_collection').Projects
+Tags = require('collections/tags_collection').Tags
+
 MainRouter = require('routers/main_router').MainRouter
 HomeView = require('views/home_view').HomeView
 NewActionView = require('views/new_action_view').NewActionView
@@ -14,6 +17,8 @@ ActionsView = require('views/actions_view').ActionsView
 $(document).ready ->
   app.initialize = ->
     app.collections.actions = new Actions()
+    app.collections.projects = new Projects()
+    app.collections.tags = new Tags()
 
     app.routers.main = new MainRouter()
     app.views.home = new HomeView()

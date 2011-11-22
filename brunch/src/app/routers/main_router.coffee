@@ -8,6 +8,8 @@ class exports.MainRouter extends Backbone.Router
   home: ->
     app.views.home.render()
     app.collections.actions.fetch()
+    app.collections.projects.fetch()
+    app.collections.tags.fetch()
 
   actionView: (id) ->
     app.views.home.render()

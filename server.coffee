@@ -79,6 +79,7 @@ app.del '/actions/:id', (req, res) ->
 
 # REST endpoint for Projects
 app.get '/projects', (req, res) ->
+  console.log 'getting projects'
   Project = mongoose.model 'project'
   Project.find (err, projects) ->
     unless err or not projects?
@@ -123,6 +124,7 @@ app.del '/projects/:id', (req, res) ->
 
 # REST endpoint for Tags
 app.get '/tags', (req, res) ->
+  console.log 'getting tags'
   Tag = mongoose.model 'tag'
   Tag.find (err, tags) ->
     unless err or not tags?
