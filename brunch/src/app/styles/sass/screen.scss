@@ -8,8 +8,15 @@
 @import "typography";
 @import "compass/css3";
 
-body {
-  background: url(http://subtlepatterns.com/patterns/old_wall.png);
+@media (max-width:300px) {
+  body {
+    background: $grey90;
+  }
+}
+@media (min-width:1280px) {
+  body {
+    background: url(http://subtlepatterns.com/patterns/connect.png);
+  }
 }
 
 #simple-gtd-app {
@@ -29,7 +36,7 @@ body {
   h1 {
     font-weight: bold;
     text-align: center;
-    @include leader(0.25);
+    @include leader(0);
     @include trailer(0.5);
   }
 }
@@ -62,7 +69,7 @@ ul {
     @include padding-leader(0.5);
     @include padding-trailer(0.5);
     @include trailing-border($lines: 0.5);
-    border-color: #cccccc;
+    border-color: $grey90;
     position: relative;
     cursor: default;
     @include pie-clearfix();
@@ -171,15 +178,30 @@ nav {
       &.active {
         background: white;
         z-index: 4;
-        // @include single-box-shadow();
+        @include single-box-shadow();
         @include link-colors (#0b213d);
       }
     }
     li.first {
-      margin-right: 15px;
+      margin-right: 12px;
+      margin-left: 5px;
     }
     li.last {
-      margin-left: 15px;
+      margin-right: 5px;
+      @include float-right();
     }
   }
+}
+
+#shadow-cover {
+  width: 317px;
+  margin-left: 2px;
+  @media (min-width:500px) {
+    margin-left: 102px;
+  }
+  height: 10px;
+  position: absolute;
+  background: white;
+  z-index: 100;
+  top: 39px;
 }

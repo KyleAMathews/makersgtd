@@ -23,6 +23,7 @@ class exports.DoneActionsView extends Backbone.View
     $(@el).find("#actions").append view.render().el
 
   addAll: =>
+    @$('#actions').empty()
     @addOne action for action in app.collections.actions.done()
     app.collections.actions.initCursor()
 
