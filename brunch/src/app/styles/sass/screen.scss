@@ -8,10 +8,20 @@
 @import "typography";
 @import "compass/css3";
 
+body {
+  background: url(http://subtlepatterns.com/patterns/old_wall.png);
+}
+
 #simple-gtd-app {
-  width: 300px;
-  padding: 10px;
+  width: 279px;
+  @include padding-leader(0.5);
   background: white;
+  @include apply-side-rhythm-border('left', 2px);
+  @include apply-side-rhythm-border('right', 2px);
+  @include h-borders(2px);
+  @include single-box-shadow();
+  position: relative;
+  z-index: 3;
   @media (min-width:500px) {
     margin-left: 100px;
   }
@@ -19,7 +29,7 @@
   h1 {
     font-weight: bold;
     text-align: center;
-    @include leader(0.5);
+    @include leader(0.25);
     @include trailer(0.5);
   }
 }
@@ -28,7 +38,7 @@
   position: relative;
 
   input {
-    width: 284px;
+    width: 264px;
     @include rhythm-borders();
     border-color: #999999;
     outline: none;
@@ -83,7 +93,7 @@ ul {
       @include padding-trailer(0.5);
       padding-left: 0.5em;
       padding-right: 0.5em;
-      width: 284px;
+      width: 264px;
       margin: 0;
       outline: none;
       @include single-box-shadow($inset: true);
@@ -126,6 +136,50 @@ ul {
     &:before {
       content: "Completed actions";
       font-weight: bolder;
+    }
+  }
+}
+
+nav {
+  width: 319px;
+  margin-bottom: -2px;
+  @include leader(0.5);
+  @media (min-width:500px) {
+    margin-left: 100px;
+  }
+  ul {
+    @include pie-clearfix();
+    margin: 0;
+    padding: 0;
+    li {
+      float: left;
+    }
+    a {
+      padding: 3px 16px;
+      position: relative;
+      display: block;
+      background: #133868;
+      @include link-colors ($grey90, $grey90, $grey90, $grey90, $grey90);
+      @include border-top-radius(10px);
+      border-top: 2px solid #133868;
+      border-left: 2px solid #133868;
+      border-right: 2px solid #133868;
+      &:hover {
+        text-decoration: none;
+        background: lighten(#133868, 5%);
+      }
+      &.active {
+        background: white;
+        z-index: 4;
+        // @include single-box-shadow();
+        @include link-colors (#0b213d);
+      }
+    }
+    li.first {
+      margin-right: 15px;
+    }
+    li.last {
+      margin-left: 15px;
     }
   }
 }

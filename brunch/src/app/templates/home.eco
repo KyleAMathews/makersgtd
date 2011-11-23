@@ -1,3 +1,10 @@
+<nav>
+  <ul>
+    <li class="first"><a class="active" href="#">Next Actions</a></li>
+    <li><a href="#">Projects</a></li>
+    <li class="last"><a href="#">Tags</a></li>
+  </ul>
+</nav>
 <div id="simple-gtd-app">
   <h1>Next Actions</h1>
 </div>
