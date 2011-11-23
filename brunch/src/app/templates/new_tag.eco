@@ -1,1 +1,1 @@
-<input id="new-tag" placeholder="New tag name..." type="text">
+<input id="new-tag" placeholder="New tag..." type="text">

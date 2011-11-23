@@ -41,7 +41,7 @@
   }
 }
 
-#new-action-view {
+#new-action-view, #new-project-view, #new-tag-view {
   position: relative;
   @include leader(0.5);
   @include trailer(2);
@@ -65,7 +65,7 @@ ul {
   padding: 0;
 }
 
-#actions {
+#actions, #projects, #tags {
   padding: 0;
   margin: 0;
   li {
