@@ -17,6 +17,7 @@ class exports.ActionsView extends Backbone.View
 
   render: ->
     $(@el).html actionsTemplate()
+    @addAll()
     @
 
   addOne: (action) =>
@@ -26,7 +27,6 @@ class exports.ActionsView extends Backbone.View
   addAll: =>
     @$('#actions').empty()
     @addOne action for action in app.collections.actions.notDone()
-    app.collections.actions.initCursor()
     @$('ul').sortable(
       start: (event, ui) ->
         $(event.target).css('cursor', 'move')

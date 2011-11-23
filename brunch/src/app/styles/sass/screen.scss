@@ -8,14 +8,14 @@
 @import "typography";
 @import "compass/css3";
 
-@media (max-width:300px) {
+@media (max-width:500px) {
   body {
     background: $grey90;
   }
 }
 @media (min-width:1280px) {
   body {
-    background: url(http://subtlepatterns.com/patterns/connect.png);
+    background: url(../img/connect.png);
   }
 }
 
