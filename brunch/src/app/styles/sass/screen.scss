@@ -208,3 +208,11 @@ nav {
   z-index: 100;
   top: 39px;
 }
+
+// Add to items when moving them.
+.sorting {
+  background: white;
+  cursor: move;
+  padding: 0.5em;
+  @include single-box-shadow();
+}
