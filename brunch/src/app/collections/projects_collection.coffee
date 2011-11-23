@@ -21,3 +21,7 @@ class exports.Projects extends Backbone.Collection
     )
     # return _.sortBy(items, (item) -> return item.get('order'))
     return items
+
+  nextOrder: ->
+    return 1 unless @length
+    @last().get('order') + 1

@@ -94,7 +94,7 @@ app.get '/projects', (req, res) ->
       for project in projects
         m =
           name: project.name
-          id: action._id
+          id: project._id
         newModels.push m
 
       res.json newModels
@@ -152,8 +152,8 @@ app.post '/tags', (req, res) ->
     name: req.body.name
   )
   tag.save (err) ->
-    if err then console.log err
-    res.json id: tag._id
+    unless err
+      res.json id: tag._id
 
 app.put '/tags/:id', (req, res) ->
   console.log 'updating an tag'

@@ -10,3 +10,7 @@ class exports.Tags extends Backbone.Collection
 
   comparator: (tag) ->
     tag.get 'name'
+
+  nextOrder: ->
+    return 1 unless @length
+    @last().get('order') + 1

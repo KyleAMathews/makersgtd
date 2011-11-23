@@ -12,6 +12,8 @@ class exports.NewProjectView extends Backbone.View
     @
 
   newAttributes: ->
+    attributes =
+      order: app.collections.projects.nextOrder()
     attributes.name = @$("#new-project").val() if @$("#new-project").val()
     attributes
 
