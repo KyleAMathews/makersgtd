@@ -5,9 +5,7 @@ class exports.TagView extends Backbone.View
   tagName:  "li"
 
   events:
-    'click .check'           : 'toggleDone'
     'dblclick .tag-name' : 'edit'
-    'click .tag-destroy'    : 'destroy'
     'keypress .tag-input'   : 'updateOnEnter'
 
   initialize: ->
@@ -30,9 +28,6 @@ class exports.TagView extends Backbone.View
     else
       @$(@el).removeClass 'cursor'
 
-  toggleDone: ->
-    @model.toggle()
-
   edit: ->
     @$(@el).addClass "editing"
     @$('.tag-input').focus()
@@ -43,6 +38,3 @@ class exports.TagView extends Backbone.View
 
   updateOnEnter: (e) ->
     @update() if e.keyCode is $.ui.keyCode.ENTER
-
-  destroy: =>
-    @model.clear()

@@ -5,9 +5,7 @@ class exports.ProjectView extends Backbone.View
   tagName:  "li"
 
   events:
-    'click .check'           : 'toggleDone'
     'dblclick .project-name' : 'edit'
-    'click .project-destroy'    : 'destroy'
     'keypress .project-input'   : 'updateOnEnter'
 
   initialize: ->
@@ -30,9 +28,6 @@ class exports.ProjectView extends Backbone.View
     else
       @$(@el).removeClass 'cursor'
 
-  toggleDone: ->
-    @model.toggle()
-
   edit: ->
     @$(@el).addClass "editing"
     @$('.project-input').focus()
@@ -43,6 +38,3 @@ class exports.ProjectView extends Backbone.View
 
   updateOnEnter: (e) ->
     @update() if e.keyCode is $.ui.keyCode.ENTER
-
-  destroy: =>
-    @model.clear()

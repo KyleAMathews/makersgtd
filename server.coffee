@@ -1,5 +1,7 @@
 express = require('express')
 mongoose = require('mongoose')
+util = require('util')
+_und = require('underscore')
 
 app = express.createServer()
 
@@ -19,14 +21,23 @@ actionSchema = new Schema (
   name: String
   done: Boolean
   order: Number
+  completed: Date
+  created: Date
+  changed: Date
 )
 
 projectSchema = new Schema (
   name: String
+  done: Boolean
+  completed: Date
+  created: Date
+  changed: Date
 )
 
 tagSchema = new Schema (
   name: String
+  created: Date
+  changed: Date
 )
 
 mongoose.model 'action', actionSchema
@@ -44,21 +55,18 @@ app.get '/actions', (req, res) ->
       # So we create a copy.
       newModels = []
       for action in actions
-        m =
-          name: action.name
-          id: action._id
-          done: action.done
-          order: action.order
-        newModels.push m
+        action.setValue('id', action.getValue('_id'))
 
-      res.json newModels
+      res.json actions
 
 app.post '/actions', (req, res) ->
   console.log 'saving new action'
   Action = mongoose.model 'action'
-  action = new Action(
-    name: req.body.name
-  )
+  action = new Action()
+  for k,v of req.body
+    action[k] = v
+  action.created = new Date()
+  action.changed = new Date()
   action.save (err) ->
     unless err
       res.json id: action._id
@@ -71,6 +79,9 @@ app.put '/actions/:id', (req, res) ->
       for k,v of req.body
         if k is 'id' then continue
         action[k] = v
+      action.changed = new Date()
+      if action.done
+        action.completed = new Date()
       action.save()
       res.json saved: true
 
@@ -88,23 +99,19 @@ app.get '/projects', (req, res) ->
   Project = mongoose.model 'project'
   Project.find (err, projects) ->
     unless err or not projects?
-      # For some reason, we can't set an id attribute directly on the result object.
-      # So we create a copy.
-      newModels = []
       for project in projects
-        m =
-          name: project.name
-          id: project._id
-        newModels.push m
+        project.setValue('id', project.getValue('_id'))
 
-      res.json newModels
+      res.json projects
 
 app.post '/projects', (req, res) ->
   console.log 'saving new project'
   Project = mongoose.model 'project'
-  project = new Project(
-    name: req.body.name
-  )
+  project = new Project()
+  for k,v of req.body
+    project[k] = v
+  project.created = new Date()
+  project.changed = new Date()
   project.save (err) ->
     unless err
       res.json id: project._id
@@ -117,6 +124,9 @@ app.put '/projects/:id', (req, res) ->
       for k,v of req.body
         if k is 'id' then continue
         project[k] = v
+      project.changed = new Date()
+      if project.done
+        project.completed = new Date()
       project.save()
       res.json saved: true
 
@@ -134,23 +144,19 @@ app.get '/tags', (req, res) ->
   Tag = mongoose.model 'tag'
   Tag.find (err, tags) ->
     unless err or not tags?
-      # For some reason, we can't set an id attribute directly on the result object.
-      # So we create a copy.
-      newModels = []
       for tag in tags
-        m =
-          name: tag.name
-          id: tag._id
-        newModels.push m
+        tag.setValue('id', tag.getValue('_id'))
 
-      res.json newModels
+      res.json tags
 
 app.post '/tags', (req, res) ->
   console.log 'saving new tag'
   Tag = mongoose.model 'tag'
-  tag = new Tag(
-    name: req.body.name
-  )
+  tag = new Tag()
+  for k,v of req.body
+    tag[k] = v
+  tag.created = new Date()
+  tag.changed = new Date()
   tag.save (err) ->
     unless err
       res.json id: tag._id
@@ -163,6 +169,9 @@ app.put '/tags/:id', (req, res) ->
       for k,v of req.body
         if k is 'id' then continue
         tag[k] = v
+      tag.changed = new Date()
+      if tag.done
+        tag.completed = new Date()
       tag.save()
       res.json saved: true
 
