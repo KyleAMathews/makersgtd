@@ -178,12 +178,14 @@ nav {
       &:hover {
         text-decoration: none;
         background: lighten(#133868, 5%);
+        outline: none;
       }
       &.active {
         background: white;
         z-index: 4;
         @include single-box-shadow();
         @include link-colors (#0b213d);
+        outline: none;
       }
     }
     li.first {
@@ -216,4 +218,10 @@ nav {
   cursor: move;
   padding: 0.5em;
   @include single-box-shadow();
+}
+
+a.model-link {
+  @include unstyled-link();
+  cursor: pointer;
+  font-weight: normal;
 }

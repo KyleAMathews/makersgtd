@@ -1,12 +1,12 @@
-tagTemplate = require('templates/tag')
+projectTemplate = require('templates/project')
 
-class exports.TagView extends Backbone.View
+class exports.ProjectFullView extends Backbone.View
 
   tagName:  "li"
 
   events:
-    'dblclick .tag-name' : 'edit'
-    'keypress .tag-input'   : 'updateOnEnter'
+    'dblclick .project-name' : 'edit'
+    'keypress .project-input'   : 'updateOnEnter'
 
   initialize: ->
     @model.bind('change', @render)
@@ -15,13 +15,11 @@ class exports.TagView extends Backbone.View
     @model.view = @
 
   render: =>
-    json = @model.toJSON()
-    json.url = '#' + @model.url().substr(1)
-    @$(@el).html(tagTemplate(tag: json))
+    @$(@el).html(projectTemplate(project: @model.toJSON()))
     # Bind event directly to input, cause older browsers doesn't
     # support this event on several types of elements.
     # Originally, this event was only applicable to form elements.
-    @$('.tag-input').bind 'blur', @update
+    @$('.project-input').bind 'blur', @update
     @
 
   renderCursor: =>
@@ -32,10 +30,10 @@ class exports.TagView extends Backbone.View
 
   edit: ->
     @$(@el).addClass "editing"
-    @$('.tag-input').focus()
+    @$('.project-input').focus()
 
   update: =>
-    @model.save(name: @$('.tag-input').val())
+    @model.save(name: @$('.project-input').val())
     @$(@el).removeClass "editing"
 
   updateOnEnter: (e) ->

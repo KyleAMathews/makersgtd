@@ -1,6 +1,6 @@
 tagTemplate = require('templates/tag')
 
-class exports.TagView extends Backbone.View
+class exports.TagFullView extends Backbone.View
 
   tagName:  "li"
 
@@ -15,9 +15,7 @@ class exports.TagView extends Backbone.View
     @model.view = @
 
   render: =>
-    json = @model.toJSON()
-    json.url = '#' + @model.url().substr(1)
-    @$(@el).html(tagTemplate(tag: json))
+    @$(@el).html(tagTemplate(tag: @model.toJSON()))
     # Bind event directly to input, cause older browsers doesn't
     # support this event on several types of elements.
     # Originally, this event was only applicable to form elements.

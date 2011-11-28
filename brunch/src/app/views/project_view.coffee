@@ -15,7 +15,9 @@ class exports.ProjectView extends Backbone.View
     @model.view = @
 
   render: =>
-    @$(@el).html(projectTemplate(project: @model.toJSON()))
+    json = @model.toJSON()
+    json.url = '#' + @model.url().substr(1)
+    @$(@el).html(projectTemplate(project: json))
     # Bind event directly to input, cause older browsers doesn't
     # support this event on several types of elements.
     # Originally, this event was only applicable to form elements.
