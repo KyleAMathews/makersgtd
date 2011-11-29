@@ -1,8 +1,7 @@
 <div class="action <% if @action.done: %>done<% end %>" data-id="<%- @action.id %>">
   <div class="display">
     <input class="check" type="checkbox" <% if @action.done: %>checked="checked"<% end %>>
-  <div class="name"><a class="model-link" href="<%- @action.url %>"><%= @action.name %></a></div>
-    <span class="action-destroy"></span>
+    <div class="name"><a class="model-link" href="<%- @action.url %>"><%= @action.name %></a></div>
   </div>
   <div class="edit">
     <input class="input" type="text" value="<%= @action.name %>">

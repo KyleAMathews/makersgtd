@@ -7,7 +7,6 @@ class exports.ActionView extends Backbone.View
   events:
     'click .check'           : 'toggleDone'
     'dblclick .action-name' : 'edit'
-    'click .action-destroy'    : 'destroy'
     'keypress .action-input'   : 'updateOnEnter'
 
   initialize: ->
@@ -45,6 +44,3 @@ class exports.ActionView extends Backbone.View
 
   updateOnEnter: (e) ->
     @update() if e.keyCode is $.ui.keyCode.ENTER
-
-  destroy: =>
-    @model.clear()

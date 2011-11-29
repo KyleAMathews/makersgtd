@@ -1,8 +1,7 @@
 <div class="project <% if @project.done: %>done<% end %>" data-id="<%- @project.id %>">
   <div class="display">
     <input class="check" type="checkbox" <% if @project.done: %>checked="checked"<% end %>>
-  <div class="name"><a class="model-link" href="<%- @project.url %>"><%= @project.name %></a></div>
-    <span class="destroy"></span>
+    <div class="name"><a class="model-link" href="<%- @project.url %>"><%= @project.name %></a></div>
   </div>
   <div class="edit">
     <input class=input" type="text" value="<%= @project.name %>">

@@ -123,25 +123,6 @@ ul {
     color: #777777;
   }
 
-  .action-destroy {
-    position: absolute;
-    right: -10px;
-    top: 11px;
-    display: none;
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
-    background: url(../img/destroy.png) no-repeat 0 0;
-  }
-
-  li:hover .action-destroy {
-    display: block;
-  }
-
-  .action-destroy:hover {
-    background-position: 0 -20px;
-  }
-
 }
 
 #done-actions-view {
