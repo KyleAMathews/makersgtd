@@ -1,0 +1,30 @@
+<div class="editable on-enter name">
+  <strong class="display model-name">@<%= @tag.name %></strong>
+  <span class="edit-link">edit</span>
+  <div class="edit">
+    <textarea class="input"><%= @tag.name %></textarea>
+    <input type="submit" class="save" value="Save">
+    <input type="submit" class="cancel" value="X">
+  </div>
+</div>
+<div class="editable description">
+  <% if @tag.description?: %>
+    <span class="display"><%= @tag.description %></span>
+    <span class="edit-link">edit</span>
+  <% else: %>
+    <span class="blank-slate">Add Description</span>
+  <% end %>
+  <div class="edit">
+    <textarea class="input"><%= @tag.description %></textarea>
+    <input type="submit" class="save" value="Save">
+    <input type="submit" class="cancel" value="X">
+  </div>
+</div>
+<div class="meta-info">
+  <% if @tag.created?: %>
+    Created: <%- new Date(@tag.created).toDateString() %><br />
+  <% end %>
+  <% if @tag.changed?: %>
+    Last activity: <%- new Date(@tag.changed).toDateString() %><br />
+  <% end %>
+</div>

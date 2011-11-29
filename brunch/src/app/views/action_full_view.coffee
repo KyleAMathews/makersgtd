@@ -3,6 +3,7 @@ actionTemplate = require('templates/action_full')
 class exports.ActionFullView extends Backbone.View
 
   id: 'actions'
+  className: 'full-view'
 
   events:
     'keypress .on-enter .input'   : 'updateOnEnter'

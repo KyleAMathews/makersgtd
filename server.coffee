@@ -84,7 +84,10 @@ app.put '/actions/:id', (req, res) ->
       if action.done
         action.completed = new Date()
       action.save()
-      res.json saved: true
+      res.json {
+        saved: true
+        changed: action.changed
+      }
 
 app.del '/actions/:id', (req, res) ->
   console.log 'deleting an action'
@@ -129,7 +132,10 @@ app.put '/projects/:id', (req, res) ->
       if project.done
         project.completed = new Date()
       project.save()
-      res.json saved: true
+      res.json {
+        saved: true
+        changed: project.changed
+      }
 
 app.del '/projects/:id', (req, res) ->
   console.log 'deleting an project'
@@ -174,7 +180,10 @@ app.put '/tags/:id', (req, res) ->
       if tag.done
         tag.completed = new Date()
       tag.save()
-      res.json saved: true
+      res.json {
+        saved: true
+        changed: tag.changed
+      }
 
 app.del '/tag/:id', (req, res) ->
   console.log 'deleting an tag'

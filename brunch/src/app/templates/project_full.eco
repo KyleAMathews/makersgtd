@@ -1,35 +1,35 @@
 <div class="editable on-enter name">
-  <strong class="display model-name"><%= @action.name %></strong>
+  <strong class="display model-name">#<%= @project.name %></strong>
   <span class="edit-link">edit</span>
   <div class="edit">
-    <textarea class="input"><%= @action.name %></textarea>
+    <textarea class="input"><%= @project.name %></textarea>
     <input type="submit" class="save" value="Save">
     <input type="submit" class="cancel" value="X">
   </div>
 </div>
-<div class="project">in project <span class="project-name">#default</span></div>
 <div class="tags">tagged with <span class="tag-name">@work</span> <span class="tag-name">@errand</span></div>
 <div class="editable description">
-  <% if @action.description?: %>
-    <span class="display"><%= @action.description %></span>
+  <% if @project.description?: %>
+    <span class="display"><%= @project.description %></span>
     <span class="edit-link">edit</span>
   <% else: %>
     <span class="blank-slate">Add Description</span>
   <% end %>
   <div class="edit">
-    <textarea class="input"><%= @action.description %></textarea>
+    <textarea class="input"><%= @project.description %></textarea>
     <input type="submit" class="save" value="Save">
     <input type="submit" class="cancel" value="X">
   </div>
 </div>
 <div class="meta-info">
-  <% if @action.created?: %>
-    Created: <%- new Date(@action.created).toDateString() %><br />
+  <% if @project.created?: %>
+    Created: <%- new Date(@project.created).toDateString() %><br />
   <% end %>
-  <% if @action.changed?: %>
-    Last activity: <%- new Date(@action.changed).toDateString() %><br />
+  <% if @project.changed?: %>
+    Last activity: <%- new Date(@project.changed).toDateString() %><br />
   <% end %>
-  <% if @action.completed?: %>
-    Completed: <%- new Date(@action.completed).toDateString() %><br />
+  <% if @project.completed?: %>
+    Completed: <%- new Date(@project.completed).toDateString() %><br />
   <% end %>
 </div>
+

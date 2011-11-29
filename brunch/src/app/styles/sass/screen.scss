@@ -98,7 +98,7 @@ ul {
     .edit {
       display: block;
     }
-    .edit-link, .display, .add-description {
+    .edit-link, .display, .blank-slate {
       display: none;
     }
     input[type="text"], textarea {
@@ -118,7 +118,7 @@ ul {
     margin: 0 7px 0 7px;
     float: left;
   }
-  .done .action-name {
+  .done .name {
     text-decoration: line-through;
     color: #777777;
   }
@@ -229,7 +229,7 @@ a.model-link {
   font-weight: normal;
 }
 
-.content {
+.full-view {
   .description {
     @include leader(1);
     color: $grey30;
@@ -275,7 +275,7 @@ a.model-link {
     @include rhythm-borders(1px, 0.5);
     margin-left: 0.5em;
   }
-  .add-description {
+  .blank-slate {
     text-decoration: underline;
     cursor: pointer;
   }
