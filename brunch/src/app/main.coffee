@@ -4,6 +4,8 @@ app.models = {}
 app.collections = {}
 app.views = {}
 
+require('jquery_plugins')
+
 Actions = require('collections/actions_collection').Actions
 Projects = require('collections/projects_collection').Projects
 Tags = require('collections/tags_collection').Tags

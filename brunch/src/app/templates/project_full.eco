@@ -1,26 +1,6 @@
-<div class="editable on-enter name">
-  <strong class="display model-name">#<%= @project.name %></strong>
-  <span class="edit-link">edit</span>
-  <div class="edit">
-    <textarea class="input"><%= @project.name %></textarea>
-    <input type="submit" class="save" value="Save">
-    <input type="submit" class="cancel" value="X">
-  </div>
-</div>
+<%- @editableTemplate( class: 'on-enter name', display_text: "#" + @project.name, blank_slate_text: 'Add Name', edit_text: @project.name) %>
 <div class="tags">tagged with <span class="tag-name">@work</span> <span class="tag-name">@errand</span></div>
-<div class="editable description">
-  <% if @project.description?: %>
-    <span class="display"><%- @project.description_html %></span>
-    <span class="edit-link">edit</span>
-  <% else: %>
-    <span class="blank-slate">Add Description</span>
-  <% end %>
-  <div class="edit">
-    <textarea class="input"><%= @project.description %></textarea>
-    <input type="submit" class="save" value="Save">
-    <input type="submit" class="cancel" value="X">
-  </div>
-</div>
+<%- @editableTemplate( class: 'description', display_text: @project.description_html, blank_slate_text: 'Add Description', edit_text: @project.description) %>
 <div class="meta-info">
   <% if @project.created?: %>
     Created: <%- new Date(@project.created).toDateString() %><br />

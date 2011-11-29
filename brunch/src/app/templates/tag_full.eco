@@ -1,25 +1,5 @@
-<div class="editable on-enter name">
-  <strong class="display model-name">@<%= @tag.name %></strong>
-  <span class="edit-link">edit</span>
-  <div class="edit">
-    <textarea class="input"><%= @tag.name %></textarea>
-    <input type="submit" class="save" value="Save">
-    <input type="submit" class="cancel" value="X">
-  </div>
-</div>
-<div class="editable description">
-  <% if @tag.description?: %>
-    <span class="display"><%= @tag.description_html %></span>
-    <span class="edit-link">edit</span>
-  <% else: %>
-    <span class="blank-slate">Add Description</span>
-  <% end %>
-  <div class="edit">
-    <textarea class="input"><%= @tag.description %></textarea>
-    <input type="submit" class="save" value="Save">
-    <input type="submit" class="cancel" value="X">
-  </div>
-</div>
+<%- @editableTemplate( class: 'on-enter name', display_text: "@" + @tag.name, blank_slate_text: 'Add Name', edit_text: @tag.name) %>
+<%- @editableTemplate( class: 'description', display_text: @tag.description_html, blank_slate_text: 'Add Description', edit_text: @tag.description) %>
 <div class="meta-info">
   <% if @tag.created?: %>
     Created: <%- new Date(@tag.created).toDateString() %><br />

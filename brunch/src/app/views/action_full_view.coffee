@@ -1,4 +1,5 @@
 actionTemplate = require('templates/action_full')
+editableTemplate = require('templates/editable')
 
 class exports.ActionFullView extends Backbone.View
 
@@ -19,7 +20,11 @@ class exports.ActionFullView extends Backbone.View
   render: =>
     json = @model.toJSON()
     json.description_html = @model.getHtml('description')
-    @$(@el).html(actionTemplate(action: json))
+    @$(@el).html(actionTemplate(action: json, editableTemplate: editableTemplate ))
+
+    # Make sure HTML is finished being inserted.
+    callback = -> $('.expanding-area').makeExpandingArea()
+    setTimeout callback, 0
     # @$('.editable').each ->
     #   if $('.display', @).length > 0
     #     $(@el, @).hover(

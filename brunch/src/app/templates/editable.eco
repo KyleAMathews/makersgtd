@@ -1,0 +1,16 @@
+<div class="editable <%- @class %>">
+  <% if @edit_text? and @edit_text isnt '': %>
+    <span class="display"><%- @display_text %></span>
+    <span class="edit-link">edit</span>
+  <% else: %>
+    <span class="blank-slate"><%- @blank_slate_text %></span>
+  <% end %>
+  <div class="edit">
+    <div class="expanding-area">
+      <pre><span></span><br></pre>
+      <textarea class="input"><%= @edit_text %></textarea>
+    </div>
+    <input type="submit" class="save" value="Save">
+    <input type="submit" class="cancel" value="X">
+  </div>
+</div>

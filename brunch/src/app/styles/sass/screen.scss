@@ -11,6 +11,8 @@
 @media (max-width:500px) {
   body {
     background: $grey90;
+    /* Ensure that the soft keyboard doesn't cover the text area when editing */
+    min-height: 1200px;
   }
 }
 @media (min-width:1280px) {
@@ -222,8 +224,9 @@ a.model-link {
     color: $grey60;
     @include adjust-font-size-to(12px);
   }
-  .model-name {
+  .name .display{
     @include adjust-font-size-to(18px, 1);
+    font-weight: bold;
   }
   .project, .tags {
     @include leader(0.25);
@@ -274,4 +277,53 @@ input[type="submit"], input[type="button"], button, .button {
   color: white;
   font-weight: 700;
   @include trailer(0.5);
+}
+
+#simple-gtd-app .editable .edit .expanding-area {
+  position: relative;
+  background: #fff;
+  > textarea,
+  > pre {
+    background: transparent;
+    /* Make the text soft-wrap */
+    @include force-wrap();
+    font: inherit;
+    line-height: inherit;
+    width: 264px;
+    padding: 0.75em 0.5em;
+    margin: 0;
+    border: 0;
+    outline: 0;
+  }
+  > textarea {
+    /* The border-box box model is used to allow
+     * padding whilst still keeping the overall width
+     * at exactly that of the containing element.
+     */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    /* This height is used when JS is disabled */
+    height: 100px;
+  }
+  &.active > textarea {
+    /* Hide any scrollbars */
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    /* Remove WebKit user-resize widget */
+    resize: none;
+  }
+  > pre {
+    display: none;
+  }
+  &.active > pre {
+    display: block;
+    /* Hide the text; just using it for sizing */
+    visibility: hidden;
+  }
 }
