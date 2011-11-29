@@ -1,48 +1,45 @@
-actionTemplate = require('templates/action')
+actionTemplate = require('templates/action_full')
 
 class exports.ActionFullView extends Backbone.View
 
+  id: 'actions'
+
   events:
-    'click .check'           : 'toggleDone'
-    'dblclick .action-name' : 'edit'
-    'click .action-destroy'    : 'clear'
-    'keypress .action-input'   : 'updateOnEnter'
+    'keypress .on-enter .input'   : 'updateOnEnter'
+    'click .edit-link' : 'edit'
+    'click .edit .save' : 'update'
+    'click .edit .cancel' : 'stopEditing'
+    'click .blank-slate' : 'edit'
 
   initialize: ->
     @model.bind('change', @render)
-    @model.bind('change:cursorOn', @renderCursor)
     @model.view = @
 
   render: =>
     @$(@el).html(actionTemplate(action: @model.toJSON()))
-    # Bind event directly to input, cause older browsers doesn't
-    # support this event on several types of elements.
-    # Originally, this event was only applicable to form elements.
-    @$('.action-input').bind 'blur', @update
+    # @$('.editable').each ->
+    #   if $('.display', @).length > 0
+    #     $(@el, @).hover(
+    #       =>
+    #         @$('.edit-link').show()
+    #       =>
+    #         @$('.edit-link').hide()
+    #     )
     @
 
-  renderCursor: =>
-    if @model.get 'cursorOn'
-      @$(@el).addClass 'cursor'
-    else
-      @$(@el).removeClass 'cursor'
+  edit: (e) =>
+    @$(e.target).parent().addClass "editing"
+    @$(e.target).parent().find('.input').focus()
 
-  toggleDone: ->
-    @model.toggle()
-
-  edit: ->
-    @$(@el).addClass "editing"
-    @$('.action-input').focus()
+  stopEditing: (e) =>
+    @$(e.target).parent().parent().removeClass "editing"
 
   update: =>
-    @model.save(name: @$('.action-input').val())
-    @$(@el).removeClass "editing"
+    @model.save(
+      name: @$('.name .input').val()
+      description: @$('.description .input').val()
+    , {silent: true})
+    @model.trigger('change')
 
   updateOnEnter: (e) ->
     @update() if e.keyCode is $.ui.keyCode.ENTER
-
-  remove: ->
-    $(@el).remove()
-
-  clear: ->
-    @model.clear()

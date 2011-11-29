@@ -1,4 +1,4 @@
-projectTemplate = require('templates/project')
+projectTemplate = require('templates/project_full')
 
 class exports.ProjectFullView extends Backbone.View
 

@@ -46,7 +46,7 @@
   @include leader(0.5);
   @include trailer(2);
 
-  input {
+  input[type="text"], textarea {
     width: 264px;
     @include rhythm-borders();
     border-color: #999999;
@@ -91,14 +91,17 @@ ul {
       top: 13px;
     }
   }
-  .editing .display, .edit {
+  .edit {
     display: none;
   }
   .editing {
     .edit {
       display: block;
     }
-    input {
+    .edit-link, .display, .add-description {
+      display: none;
+    }
+    input[type="text"], textarea {
       @include padding-leader(0.5);
       @include padding-trailer(0.5);
       padding-left: 0.5em;
@@ -224,4 +227,70 @@ a.model-link {
   @include unstyled-link();
   cursor: pointer;
   font-weight: normal;
+}
+
+.content {
+  .description {
+    @include leader(1);
+    color: $grey30;
+  }
+  .meta-info {
+    @include leader(1);
+    @include leading-border(2px, .5);
+    border-color: $grey90;
+    color: $grey60;
+    @include adjust-font-size-to(12px);
+  }
+  .model-name {
+    @include adjust-font-size-to(18px, 1);
+  }
+  .project, .tags {
+    @include leader(0.25);
+    color: $grey60;
+    .project-name,.tag-name {
+      font-weight: bolder;
+      cursor: pointer;
+      display: inline-block;
+      padding: 1px 3px;
+      color: $grey40;
+      background-color: lightgreen;
+      @include border-radius(5px);
+    }
+  }
+  .edit-link {
+    display: inline-block;
+    padding: 1px 3px;
+    background: #ffffcc;
+    @include border-radius(3px);
+    text-decoration: underline;
+    cursor: pointer;
+    color: $grey80;
+  }
+  input.save {
+    background-color: #3da440;
+    border-color: #286c2a;
+  }
+  input.cancel {
+    background-color: $grey70;
+    @include rhythm-borders(1px, 0.5);
+    margin-left: 0.5em;
+  }
+  .add-description {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+input[type="submit"], input[type="button"], button, .button {
+  background-image: url(https://d2k1ftgv7pobq7.cloudfront.net/images/a35b0da5326591f9652ec7c51e44a86f/gradient.svg);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-color: #dcdcdc;
+  @include rhythm-borders(1px, 0.5);
+  border-color: $grey70;
+  @include single-box-shadow();
+  @include leader(0.25);
+  color: white;
+  font-weight: 700;
+  @include trailer(0.5);
 }

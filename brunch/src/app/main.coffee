@@ -45,15 +45,29 @@ $(document).ready ->
     app.views.tags = new TagsView()
 
     # GET models from server.
-    app.collections.actions.fetch()
-    app.collections.projects.fetch()
-    app.collections.tags.fetch()
+    # Don't initialize router until all the collection fetches have returned.
+    successCounter = ->
+      counter = 0
+      return {
+        add: ->
+          counter += 1
+          if counter is 3
+            app.routers.main.navigate 'next-actions', true if Backbone.history.getFragment() is ''
+            Backbone.history.start()
+      }
+    counter = successCounter()
 
-    app.routers.main.navigate 'next-actions', true if Backbone.history.getFragment() is ''
+    app.collections.actions.fetch success: => counter.add()
+    app.collections.projects.fetch success: => counter.add()
+    app.collections.tags.fetch success: => counter.add()
+
   app.initialize()
-  Backbone.history.start()
 
 #represent character bindings as tree, once enter in tree, don't exit until reach leaf.
+# Allow for global states, e.g. normal, input (don't do anything), a model is checked, etc
+# global states in stack. Normal is always active. If model is active, it can choose
+# which keys to override. If it doesn't override something, then things fallback
+# to the next stack.
 
 #if next keystroke doesn't match something, exit and start over again.
 

@@ -1,0 +1,32 @@
+<div class="editable on-enter name">
+  <strong class="display model-name"><%= @action.name %></strong>
+  <span class="edit-link">edit</span>
+  <div class="edit">
+    <textarea class="input"><%= @action.name %></textarea>
+    <input type="submit" class="save" value="Save">
+    <input type="submit" class="cancel" value="X">
+  </div>
+</div>
+<div class="project">in project <span class="project-name">#default</span></div>
+<div class="tags">tagged with <span class="tag-name">@work</span> <span class="tag-name">@errand</span></div>
+<div class="editable description">
+  <% if @action.description?: %>
+    <span class="display"><%= @action.description %></span>
+    <span class="edit-link">edit</span>
+  <% else: %>
+    <span class="blank-slate">Add Description</span>
+  <% end %>
+  <div class="edit">
+    <textarea class="input"><%= @action.description %></textarea>
+    <input type="submit" class="save" value="Save">
+    <input type="submit" class="cancel" value="X">
+  </div>
+</div>
+<div class="meta-info">
+  <% if @action.created?: %>
+    Created: <%- new Date(@action.created).toDateString() %><br />
+  <% if @action.changed?: %>
+    Last activity: <%- new Date(@action.changed).toDateString() %><br />
+  <% if @action.completed?: %>
+    Completed: <%- new Date(@action.completed).toDateString() %><br />
+</div>

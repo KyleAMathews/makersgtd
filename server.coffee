@@ -19,6 +19,7 @@ Schema = mongoose.Schema
 
 actionSchema = new Schema (
   name: String
+  description: String
   done: Boolean
   order: Number
   completed: Date
@@ -28,6 +29,7 @@ actionSchema = new Schema (
 
 projectSchema = new Schema (
   name: String
+  description: String
   done: Boolean
   completed: Date
   created: Date
@@ -36,6 +38,7 @@ projectSchema = new Schema (
 
 tagSchema = new Schema (
   name: String
+  description: String
   created: Date
   changed: Date
 )
@@ -51,8 +54,6 @@ app.get '/actions', (req, res) ->
   Action = mongoose.model 'action'
   Action.find (err, actions) ->
     unless err or not actions?
-      # For some reason, we can't set an id attribute directly on the result object.
-      # So we create a copy.
       newModels = []
       for action in actions
         action.setValue('id', action.getValue('_id'))

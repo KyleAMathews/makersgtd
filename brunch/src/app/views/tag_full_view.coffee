@@ -1,4 +1,4 @@
-tagTemplate = require('templates/tag')
+tagTemplate = require('templates/tag_full')
 
 class exports.TagFullView extends Backbone.View
 

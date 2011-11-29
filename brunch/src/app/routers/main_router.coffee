@@ -45,18 +45,35 @@ class exports.MainRouter extends Backbone.Router
 
   actionView: (id) ->
     action = app.collections.actions.get(id)
+    $('#simple-gtd-app h1.title').html 'Action'
+
+    $('nav li a.active').removeClass('active')
+    $('nav li a.next-actions').addClass('active')
+
     if action?
       actionView = new ActionFullView model: action
       $('#simple-gtd-app .content').html actionView.render().el
 
   projectView: (id) ->
     project = app.collections.projects.get(id)
+
+    $('#simple-gtd-app h1.title').html 'Project'
+
+    $('nav li a.active').removeClass('active')
+    $('nav li a.projects').addClass('active')
+
     if project?
       projectView = new ProjectFullView model: project
       $('#simple-gtd-app .content').html projectView.render().el
 
   tagView: (id) ->
     tag = app.collections.tags.get(id)
+
+    $('#simple-gtd-app h1.title').html 'Tag'
+
+    $('nav li a.active').removeClass('active')
+    $('nav li a.tags').addClass('active')
+
     if tag?
       tagView = new TagFullView model: tag
       $('#simple-gtd-app .content').html tagView.render().el
