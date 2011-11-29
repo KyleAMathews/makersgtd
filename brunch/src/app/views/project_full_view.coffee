@@ -17,8 +17,9 @@ class exports.ProjectFullView extends Backbone.View
     @model.view = @
 
   render: =>
-    console.log @model.toJSON()
-    @$(@el).html(projectTemplate(project: @model.toJSON()))
+    json = @model.toJSON()
+    json.description_html = @model.getHtml('description')
+    @$(@el).html(projectTemplate(project: json))
     # @$('.editable').each ->
     #   if $('.display', @).length > 0
     #     $(@el, @).hover(

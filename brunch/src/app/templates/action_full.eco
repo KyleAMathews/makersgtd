@@ -10,8 +10,8 @@
 <div class="project">in project <span class="project-name">#default</span></div>
 <div class="tags">tagged with <span class="tag-name">@work</span> <span class="tag-name">@errand</span></div>
 <div class="editable description">
-  <% if @action.description?: %>
-    <span class="display"><%= @action.description %></span>
+  <% if @action.description? and @action.description isnt '': %>
+    <span class="display"><%- @action.description_html %></span>
     <span class="edit-link">edit</span>
   <% else: %>
     <span class="blank-slate">Add Description</span>

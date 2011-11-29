@@ -9,7 +9,7 @@
 </div>
 <div class="editable description">
   <% if @tag.description?: %>
-    <span class="display"><%= @tag.description %></span>
+    <span class="display"><%= @tag.description_html %></span>
     <span class="edit-link">edit</span>
   <% else: %>
     <span class="blank-slate">Add Description</span>

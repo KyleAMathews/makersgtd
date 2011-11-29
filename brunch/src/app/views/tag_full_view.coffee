@@ -17,7 +17,9 @@ class exports.TagFullView extends Backbone.View
     @model.view = @
 
   render: =>
-    @$(@el).html(tagTemplate(tag: @model.toJSON()))
+    json = @model.toJSON()
+    json.description_html = @model.getHtml('description')
+    @$(@el).html(tagTemplate(tag: json))
     # @$('.editable').each ->
     #   if $('.display', @).length > 0
     #     $(@el, @).hover(

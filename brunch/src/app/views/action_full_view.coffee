@@ -17,7 +17,9 @@ class exports.ActionFullView extends Backbone.View
     @model.view = @
 
   render: =>
-    @$(@el).html(actionTemplate(action: @model.toJSON()))
+    json = @model.toJSON()
+    json.description_html = @model.getHtml('description')
+    @$(@el).html(actionTemplate(action: json))
     # @$('.editable').each ->
     #   if $('.display', @).length > 0
     #     $(@el, @).hover(

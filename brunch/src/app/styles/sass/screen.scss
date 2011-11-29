@@ -20,9 +20,9 @@
 }
 
 #simple-gtd-app {
+  background: white;
   width: 279px;
   @include padding-leader(0.5);
-  background: white;
   @include apply-side-rhythm-border('left', 2px);
   @include apply-side-rhythm-border('right', 2px);
   @include h-borders(2px);

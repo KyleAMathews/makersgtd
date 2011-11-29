@@ -10,7 +10,7 @@
 <div class="tags">tagged with <span class="tag-name">@work</span> <span class="tag-name">@errand</span></div>
 <div class="editable description">
   <% if @project.description?: %>
-    <span class="display"><%= @project.description %></span>
+    <span class="display"><%- @project.description_html %></span>
     <span class="edit-link">edit</span>
   <% else: %>
     <span class="blank-slate">Add Description</span>
