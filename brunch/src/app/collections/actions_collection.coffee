@@ -12,13 +12,13 @@ class exports.Actions extends Backbone.Collection
     items = @filter( (action) ->
       action.get 'done'
     )
-    return _.sortBy(items, (item) -> return item.get('order'))
+    return items
 
   notDone: ->
     items = @filter( (action) ->
       not action.get 'done'
     )
-    return _.sortBy(items, (item) -> return item.get('order'))
+    return items
 
   remaining: ->
     @without.apply @, @done()
