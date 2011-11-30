@@ -1,7 +1,7 @@
-<%- @editableTemplate( class: 'on-enter name', display_text: @action.name, blank_slate_text: 'Add Name', edit_text: @action.name) %>
+<%- @editableTemplate( field: 'name', class: 'on-enter', display_text: @action.name, blank_slate_text: 'Add Name', edit_text: @action.name) %>
 <div class="project">in project <span class="project-name">#default</span></div>
 <div class="tags">tagged with <span class="tag-name">@work</span> <span class="tag-name">@errand</span></div>
-<%- @editableTemplate( class: 'description', display_text: @action.description_html, blank_slate_text: 'Add Description', edit_text: @action.description) %>
+<%- @editableTemplate( field: 'description', display_text: @action.description_html, blank_slate_text: 'Add Description', edit_text: @action.description) %>
 <div class="meta-info">
   <% if @action.created?: %>
     Created: <%- new Date(@action.created).toDateString() %><br />

@@ -1,6 +1,6 @@
-<%- @editableTemplate( class: 'on-enter name', display_text: "#" + @project.name, blank_slate_text: 'Add Name', edit_text: @project.name) %>
+<%- @editableTemplate( field: 'name', class: 'on-enter', display_text: "#" + @project.name, blank_slate_text: 'Add Name', edit_text: @project.name) %>
 <div class="tags">tagged with <span class="tag-name">@work</span> <span class="tag-name">@errand</span></div>
-<%- @editableTemplate( class: 'description', display_text: @project.description_html, blank_slate_text: 'Add Description', edit_text: @project.description) %>
+<%- @editableTemplate( field: 'description', display_text: @project.description_html, blank_slate_text: 'Add Description', edit_text: @project.description) %>
 <div class="meta-info">
   <% if @project.created?: %>
     Created: <%- new Date(@project.created).toDateString() %><br />

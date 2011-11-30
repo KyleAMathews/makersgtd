@@ -35,9 +35,12 @@ class exports.ActionFullView extends Backbone.View
     @$(e.target).parent().parent().removeClass "editing"
 
   update: =>
+    fields = {}
+    @$('.editable').each ->
+      fields[$(@).data('field')] = $(@).find('.input').val()
+
     @model.save(
-      name: @$('.name .input').val()
-      description: @$('.description .input').val()
+      fields
     , {silent: true})
     @model.trigger('change')
 

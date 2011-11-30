@@ -244,6 +244,14 @@ a.model-link {
       @include border-radius(5px);
     }
   }
+}
+
+/* Editable Widget */
+.editable {
+  @include rhythm(1);
+  .display {
+    cursor: pointer;
+  }
   input.save {
     background-color: #3da440;
     border-color: #286c2a;
@@ -254,16 +262,12 @@ a.model-link {
     margin-left: 0.5em;
   }
   .blank-slate {
+    color: $grey80;
     text-decoration: underline;
     cursor: pointer;
   }
 }
 
-.editable {
-  .display {
-    cursor: pointer;
-  }
-}
 input[type="submit"], input[type="button"], button, .button {
   background-image: url(https://d2k1ftgv7pobq7.cloudfront.net/images/a35b0da5326591f9652ec7c51e44a86f/gradient.svg);
   background-size: 100% 100%;

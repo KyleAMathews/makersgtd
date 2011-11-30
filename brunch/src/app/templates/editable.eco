@@ -1,8 +1,8 @@
-<div class="editable <%- @class %>">
+<div class="editable <%- @class %> <%- @field %>" data-field="<%- @field %>">
   <% if @edit_text? and @edit_text isnt '': %>
     <span class="display"><%- @display_text %></span>
   <% else: %>
-    <span class="blank-slate"><%- @blank_slate_text %></span>
+    <div class="blank-slate"><%- @blank_slate_text %></div>
   <% end %>
   <div class="edit">
     <div class="expanding-area">
