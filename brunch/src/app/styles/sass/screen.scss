@@ -224,6 +224,9 @@ a.model-link {
     color: $grey60;
     @include adjust-font-size-to(12px);
   }
+  .display p {
+    @include force-wrap();
+  }
   .name .display{
     @include adjust-font-size-to(18px, 1);
     font-weight: bold;
