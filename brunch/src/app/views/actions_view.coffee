@@ -29,9 +29,9 @@ class exports.ActionsView extends Backbone.View
     @addOne action for action in app.collections.actions.notDone()
     @$('ul').sortable(
       start: (event, ui) ->
-        $(event.target).addClass('sorting')
+        $(event.target).parent().addClass('sorting')
       stop: (event, ui) ->
-        $(event.target).removeClass('sorting')
+        $(event.target).parent().removeClass('sorting')
     )
     @$('ul').bind('sortupdate', @resetOrder)
 
