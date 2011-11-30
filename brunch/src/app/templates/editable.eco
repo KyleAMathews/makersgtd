@@ -1,7 +1,6 @@
 <div class="editable <%- @class %>">
   <% if @edit_text? and @edit_text isnt '': %>
     <span class="display"><%- @display_text %></span>
-    <span class="edit-link">edit</span>
   <% else: %>
     <span class="blank-slate"><%- @blank_slate_text %></span>
   <% end %>

@@ -100,7 +100,7 @@ ul {
     .edit {
       display: block;
     }
-    .edit-link, .display, .blank-slate {
+    .display, .blank-slate {
       display: none;
     }
     input[type="text"], textarea {
@@ -244,15 +244,6 @@ a.model-link {
       @include border-radius(5px);
     }
   }
-  .edit-link {
-    display: inline-block;
-    padding: 1px 3px;
-    background: #ffffcc;
-    @include border-radius(3px);
-    text-decoration: underline;
-    cursor: pointer;
-    color: $grey80;
-  }
   input.save {
     background-color: #3da440;
     border-color: #286c2a;
@@ -268,6 +259,11 @@ a.model-link {
   }
 }
 
+.editable {
+  .display {
+    cursor: pointer;
+  }
+}
 input[type="submit"], input[type="button"], button, .button {
   background-image: url(https://d2k1ftgv7pobq7.cloudfront.net/images/a35b0da5326591f9652ec7c51e44a86f/gradient.svg);
   background-size: 100% 100%;

@@ -8,7 +8,7 @@ class exports.ProjectFullView extends Backbone.View
 
   events:
     'keypress .on-enter .input'   : 'updateOnEnter'
-    'click .edit-link' : 'edit'
+    'click .editable .display' : 'edit'
     'click .edit .save' : 'update'
     'click .edit .cancel' : 'stopEditing'
     'click .blank-slate' : 'edit'
@@ -25,19 +25,11 @@ class exports.ProjectFullView extends Backbone.View
     # Make sure HTML is finished being inserted.
     callback = -> $('.expanding-area').makeExpandingArea()
     setTimeout callback, 0
-    # @$('.editable').each ->
-    #   if $('.display', @).length > 0
-    #     $(@el, @).hover(
-    #       =>
-    #         @$('.edit-link').show()
-    #       =>
-    #         @$('.edit-link').hide()
-    #     )
     @
 
   edit: (e) =>
-    @$(e.target).parent().addClass "editing"
-    @$(e.target).parent().find('.input').focus()
+    @$(e.target).closest('.editable').addClass "editing"
+    @$(e.target).closest('.editable').find('.input').focus()
 
   stopEditing: (e) =>
     @$(e.target).parent().parent().removeClass "editing"
