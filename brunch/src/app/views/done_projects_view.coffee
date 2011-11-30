@@ -20,4 +20,7 @@ class exports.DoneProjectsView extends Backbone.View
 
   addAll: =>
     @$('#projects').empty()
-    @addOne project for project in app.collections.projects.done()
+    projects = app.collections.projects.done()
+    projects = _.sortBy projects, (project) -> project.get('completed')
+    projects.reverse()
+    @addOne project for project in projects

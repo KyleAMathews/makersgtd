@@ -22,6 +22,7 @@ class exports.DoneActionsView extends Backbone.View
     @$('#actions').empty()
     actions = app.collections.actions.done()
     actions = _.sortBy actions, (action) -> action.get('completed')
+    actions.reverse()
     @addOne action for action in actions
 
   changeDoneState: (action) =>

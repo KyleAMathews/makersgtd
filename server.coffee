@@ -2,6 +2,7 @@ express = require('express')
 mongoose = require('mongoose')
 util = require('util')
 _und = require('underscore')
+moment = require('moment')
 
 app = express.createServer()
 
@@ -52,13 +53,17 @@ mongoose.model 'tag', tagSchema
 app.get '/actions', (req, res) ->
   console.log 'getting actions'
   Action = mongoose.model 'action'
-  Action.find (err, actions) ->
-    unless err or not actions?
-      newModels = []
-      for action in actions
-        action.setValue('id', action.getValue('_id'))
+  query = Action.find()
+  date = moment().subtract('hours', 12)
+  query
+    .or([{ 'done': false }, {'completed': { $gte : date.native()}}])
+    .run (err, actions) ->
+      unless err or not actions?
+        newModels = []
+        for action in actions
+          action.setValue('id', action.getValue('_id'))
 
-      res.json actions
+        res.json actions
 
 app.post '/actions', (req, res) ->
   console.log 'saving new action'
