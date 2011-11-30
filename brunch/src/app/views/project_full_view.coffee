@@ -20,6 +20,7 @@ class exports.ProjectFullView extends Backbone.View
   render: =>
     json = @model.toJSON()
     json.description_html = @model.getHtml('description')
+    json.outcome_vision_html = @model.getHtml('outcome_vision')
     @$(@el).html(projectTemplate(project: json, editableTemplate: editableTemplate ))
 
     # Make sure HTML is finished being inserted.

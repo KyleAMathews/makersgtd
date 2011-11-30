@@ -131,7 +131,7 @@ ul {
   #actions {
     &:before {
       content: "Recently completed";
-      font-weight: bolder;
+      font-weight: bold;
     }
   }
 }
@@ -213,9 +213,11 @@ a.model-link {
 }
 
 .full-view {
-  .description {
-    @include leader(1);
+  .display {
     color: $grey30;
+    p {
+      @include force-wrap();
+    }
   }
   .meta-info {
     @include leader(1);
@@ -224,12 +226,21 @@ a.model-link {
     color: $grey60;
     @include adjust-font-size-to(12px);
   }
-  .display p {
-    @include force-wrap();
-  }
   .name .display{
     @include adjust-font-size-to(18px, 1);
     font-weight: bold;
+  }
+  .outcome_vision .display {
+    &:before {
+      content: "Outcome Vision";
+      font-weight: bold;
+    }
+  }
+  .description .display {
+    &:before {
+      content: "Description";
+      font-weight: bold;
+    }
   }
   .project, .tags {
     @include leader(0.25);

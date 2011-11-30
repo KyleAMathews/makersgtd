@@ -30,6 +30,7 @@ actionSchema = new Schema (
 
 projectSchema = new Schema (
   name: String
+  outcome_vision: String
   description: String
   done: Boolean
   completed: Date
@@ -56,6 +57,7 @@ app.get '/actions', (req, res) ->
   query = Action.find()
   date = moment().subtract('hours', 12)
   query
+    # Only get completed actions from past 12 hours.
     .or([{ 'done': false }, {'completed': { $gte : date.native()}}])
     .run (err, actions) ->
       unless err or not actions?
