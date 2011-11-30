@@ -327,3 +327,9 @@ input[type="submit"], input[type="button"], button, .button {
     visibility: hidden;
   }
 }
+
+code {
+  background: $grey93;
+  padding: 1px 5px 1px 5px;
+  font-family: Inconsolata, Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+}
