@@ -1,49 +1,33 @@
 tagTemplate = require('templates/tag_full')
-editableTemplate = require('templates/editable')
+editableView = require('views/editable_view').EditableView
 
 class exports.TagFullView extends Backbone.View
 
   id: 'tags'
   className: 'full-view'
 
-  events:
-    'keypress .on-enter .input'   : 'updateOnEnter'
-    'click .editable .display' : 'edit'
-    'click .edit .save' : 'update'
-    'click .edit .cancel' : 'stopEditing'
-    'click .blank-slate' : 'edit'
-
   initialize: ->
-    @model.bind('change', @render)
+    # @model.bind('change', @render)
     @model.view = @
 
   render: =>
     json = @model.toJSON()
-    json.description_html = @model.getHtml('description')
-    @$(@el).html(tagTemplate(tag: json, editableTemplate: editableTemplate ))
+    @$(@el).html(tagTemplate(tag: json))
 
-    # Make sure HTML is finished being inserted.
-    callback = -> $('.expanding-area').makeExpandingArea()
-    setTimeout callback, 0
+    new editableView(
+      field: 'name'
+      el: @$('.editable-name')
+      model: @model
+      prefix: '@'
+      options: ['save-on-enter']
+      blank_slate_text: 'Add Name'
+    ).render()
+    new editableView(
+      field: 'description'
+      el: @$('.editable-description')
+      model: @model
+      blank_slate_text: 'Add Description'
+      label: 'Description'
+      html: true
+    ).render()
     @
-
-  edit: (e) =>
-    @$(e.target).closest('.editable').addClass "editing"
-    @$(e.target).closest('.editable').find('.input').focus()
-
-  stopEditing: (e) =>
-    @$(e.target).parent().parent().removeClass "editing"
-
-  update: =>
-    fields = {}
-    @$('.editable').each ->
-      fields[$(@).data('field')] = $(@).find('.input').val()
-
-    @model.save(
-      fields
-    , {silent: true})
-    @model.trigger('change')
-
-  updateOnEnter: (e) ->
-    @update() if e.keyCode is $.ui.keyCode.ENTER
-

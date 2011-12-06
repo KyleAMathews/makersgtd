@@ -1,6 +1,9 @@
-<div class="editable <%- @class %> <%- @field %>" data-field="<%- @field %>">
+<div class="editable <%- @classes %> <%- @field %>" data-field="<%- @field %>">
   <% if @edit_text? and @edit_text isnt '': %>
-    <span class="display"><%- @display_text %></span>
+    <% if @label?: %>
+      <h6 class='label'><%- @label %></h6>
+    <% end %>
+    <span class="display"><%- @prefix %><%- @display_text %></span>
   <% else: %>
     <div class="blank-slate"><%- @blank_slate_text %></div>
   <% end %>

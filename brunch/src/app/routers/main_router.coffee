@@ -51,8 +51,8 @@ class exports.MainRouter extends Backbone.Router
     $('nav li a.next-actions').addClass('active')
 
     if action?
-      actionView = new ActionFullView model: action
-      $('#simple-gtd-app .content').html actionView.render().el
+      actionFullView = new ActionFullView model: action
+      $('#simple-gtd-app .content').html actionFullView.render().el
 
   projectView: (id) ->
     project = app.collections.projects.get(id)
@@ -63,8 +63,8 @@ class exports.MainRouter extends Backbone.Router
     $('nav li a.projects').addClass('active')
 
     if project?
-      projectView = new ProjectFullView model: project
-      $('#simple-gtd-app .content').html projectView.render().el
+      projectFullView = new ProjectFullView model: project
+      $('#simple-gtd-app .content').html projectFullView.render().el
 
   tagView: (id) ->
     tag = app.collections.tags.get(id)

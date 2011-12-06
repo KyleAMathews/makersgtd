@@ -1,5 +1,5 @@
-<%- @editableTemplate( field: 'name', class: 'on-enter', display_text: "@" + @tag.name, blank_slate_text: 'Add Name', edit_text: @tag.name) %>
-<%- @editableTemplate( field: 'description', display_text: @tag.description_html, blank_slate_text: 'Add Description', edit_text: @tag.description) %>
+<div class="editable-name"></div>
+<div class="editable-description"></div>
 <div class="meta-info">
   <% if @tag.created?: %>
     Created: <%- new Date(@tag.created).toDateString() %><br />

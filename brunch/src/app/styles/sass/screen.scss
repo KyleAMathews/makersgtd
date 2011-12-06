@@ -62,14 +62,11 @@
   }
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-#actions, #projects, #tags {
-  padding: 0;
-  margin: 0;
+.collection-view {
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
   li {
     @include padding-leader(0.5);
     @include padding-trailer(0.5);
@@ -93,27 +90,34 @@ ul {
       top: 13px;
     }
   }
+}
+
+/* Generic edit block styles */
+.edit {
+  display: none;
+}
+.editing {
   .edit {
+    display: block;
+  }
+  .display, .blank-slate {
     display: none;
   }
-  .editing {
-    .edit {
-      display: block;
-    }
-    .display, .blank-slate {
-      display: none;
-    }
-    input[type="text"], textarea {
-      @include padding-leader(0.5);
-      @include padding-trailer(0.5);
-      padding-left: 0.5em;
-      padding-right: 0.5em;
-      width: 264px;
-      margin: 0;
-      outline: none;
-      @include single-box-shadow($inset: true);
-    }
+  input[type="text"], textarea {
+    @include padding-leader(0.5);
+    @include padding-trailer(0.5);
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    width: 264px;
+    margin: 0;
+    outline: none;
+    @include single-box-shadow($inset: true);
   }
+}
+
+#actions, #projects, #tags {
+  padding: 0;
+  margin: 0;
   .check {
     position: relative;
     top: 4px;
@@ -230,31 +234,6 @@ a.model-link {
     @include adjust-font-size-to(18px, 1);
     font-weight: bold;
   }
-  .outcome_vision .display {
-    &:before {
-      content: "Outcome Vision";
-      font-weight: bold;
-    }
-  }
-  .description .display {
-    &:before {
-      content: "Description";
-      font-weight: bold;
-    }
-  }
-  .project, .tags {
-    @include leader(0.25);
-    color: $grey60;
-    .project-name,.tag-name {
-      font-weight: bolder;
-      cursor: pointer;
-      display: inline-block;
-      padding: 1px 3px;
-      color: $grey40;
-      background-color: lightgreen;
-      @include border-radius(5px);
-    }
-  }
 }
 
 /* Editable Widget */
@@ -277,12 +256,48 @@ a.model-link {
     text-decoration: underline;
     cursor: pointer;
   }
+  .label {
+    @include leader(0);
+    @include trailer(0);
+    color: $grey30;
+  }
+}
+
+/* Linker Widget */
+.linker {
+  position: relative;
+  @include leader(0.25);
+  color: $grey60;
+  &:hover {
+    .edit-icon {
+      display: block;
+    }
+  }
+  .name {
+    font-weight: bolder;
+    cursor: pointer;
+    display: inline-block;
+    padding: 1px 3px;
+    color: $grey40;
+    background-color: lightgreen;
+    @include border-radius(5px);
+  }
+  .edit-icon {
+    background: url(../img/edit.png) no-repeat 0 0;
+    width: 15px;
+    height: 21px;
+    position: absolute;
+    right: 10px;
+    top: 0;
+    cursor: pointer;
+    display: none;
+    &:hover {
+      background-position: -15px 0;
+    }
+  }
 }
 
 input[type="submit"], input[type="button"], button, .button {
-  background-image: url(https://d2k1ftgv7pobq7.cloudfront.net/images/a35b0da5326591f9652ec7c51e44a86f/gradient.svg);
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
   background-color: #dcdcdc;
   @include rhythm-borders(1px, 0.5);
   border-color: $grey70;
@@ -293,6 +308,7 @@ input[type="submit"], input[type="button"], button, .button {
   @include trailer(0.5);
 }
 
+/* TODO this should just be .expanding-area */
 #simple-gtd-app .editable .edit .expanding-area {
   position: relative;
   background: #fff;

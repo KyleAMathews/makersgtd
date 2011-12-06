@@ -3,6 +3,7 @@ actionsTemplate = require('templates/actions')
 
 class exports.ActionsView extends Backbone.View
 
+  className: 'collection-view'
   id: 'actions-view'
 
   initialize: ->

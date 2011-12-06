@@ -1,49 +1,41 @@
 projectTemplate = require('templates/project_full')
-editableTemplate = require('templates/editable')
+editableView = require('views/editable_view').EditableView
 
 class exports.ProjectFullView extends Backbone.View
 
   className: 'full-view'
   id: 'projects'
 
-  events:
-    'keypress .on-enter .input'   : 'updateOnEnter'
-    'click .editable .display' : 'edit'
-    'click .edit .save' : 'update'
-    'click .edit .cancel' : 'stopEditing'
-    'click .blank-slate' : 'edit'
-
   initialize: ->
-    @model.bind('change', @render)
+    # @model.bind('change', @render)
     @model.view = @
 
   render: =>
     json = @model.toJSON()
-    json.description_html = @model.getHtml('description')
-    json.outcome_vision_html = @model.getHtml('outcome_vision')
-    @$(@el).html(projectTemplate(project: json, editableTemplate: editableTemplate ))
-
-    # Make sure HTML is finished being inserted.
-    callback = -> $('.expanding-area').makeExpandingArea()
-    setTimeout callback, 0
+    @$(@el).html(projectTemplate(project: json))
+    new editableView(
+      field: 'name'
+      el: @$('.editable-name')
+      prefix: '#'
+      model: @model
+      options: ['save-on-enter']
+      blank_slate_text: 'Add Name'
+    ).render()
+    new editableView(
+      field: 'outcome_vision'
+      el: @$('.editable-outcome-vision')
+      model: @model
+      blank_slate_text: 'Add Outcome Vision'
+      label: 'Outcome Vision'
+      html: true
+    ).render()
+    new editableView(
+      field: 'description'
+      el: @$('.editable-description')
+      model: @model
+      blank_slate_text: 'Add Description'
+      label: 'Description'
+      html: true
+    ).render()
     @
 
-  edit: (e) =>
-    @$(e.target).closest('.editable').addClass "editing"
-    @$(e.target).closest('.editable').find('.input').focus()
-
-  stopEditing: (e) =>
-    @$(e.target).parent().parent().removeClass "editing"
-
-  update: =>
-    fields = {}
-    @$('.editable').each ->
-      fields[$(@).data('field')] = $(@).find('.input').val()
-
-    @model.save(
-      fields
-    , {silent: true})
-    @model.trigger('change')
-
-  updateOnEnter: (e) ->
-    @update() if e.keyCode is $.ui.keyCode.ENTER
