@@ -5,3 +5,4 @@ dependencies:
   - underscore-1.1.7.js
   - backbone-0.5.3.js
   - Markdown.Converter.js
+  - fuzzymatcher.js

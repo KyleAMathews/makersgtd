@@ -6,7 +6,12 @@ class exports.Actions extends Backbone.Collection
   url: '/actions'
 
   initialize: ->
-    console.log 'initing action collection'
+    # Tie collection our fuzzymatcher quicksearch.
+    @addToFuzzymatcher()
+    @bind('reset', @addToFuzzymatcher)
+    @bind('add', @addToFuzzymatcher)
+    @bind('remove', @addToFuzzymatcher)
+    @bind('change:name', @addToFuzzymatcher)
 
   done: ->
     items = @filter( (action) ->
@@ -77,3 +82,11 @@ class exports.Actions extends Backbone.Collection
     _.each(@done(), (action) ->
       action.clear()
     )
+
+  # Add all the current objects as a list in the Fuzzymatcher library.
+  addToFuzzymatcher: =>
+    fuzzymatcher.addList('actions', @toJSON())
+
+  # Query model names using the Fuzzymatcher library.
+  query: (query) =>
+    return fuzzymatcher.query('actions', query)
