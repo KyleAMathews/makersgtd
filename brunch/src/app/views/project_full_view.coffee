@@ -1,5 +1,6 @@
 projectTemplate = require('templates/project_full')
 editableView = require('views/editable_view').EditableView
+linkerView = require('views/linker_view').LinkerView
 
 class exports.ProjectFullView extends Backbone.View
 
@@ -36,6 +37,16 @@ class exports.ProjectFullView extends Backbone.View
       blank_slate_text: 'Add Description'
       label: 'Description'
       html: true
+    ).render()
+    new linkerView(
+      el: @$('.linker-tag')
+      model: @model
+      blank_slate: 'Add a tag'
+      type: 'tag'
+      collection: 'tags'
+      intro: 'tagged with '
+      prefix: '@'
+      models: @model.get('tags')
     ).render()
     @
 

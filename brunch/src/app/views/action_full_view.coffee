@@ -53,10 +53,6 @@ class exports.ActionFullView extends Backbone.View
       collection: 'tags'
       intro: 'tagged with '
       prefix: '@'
-      models: ['4ecd214d5ab897c937000029', '4ed43eb8bbb4deda3c0003fc']
+      models: @model.get('tags')
     ).render()
-
-    # Make sure HTML is finished being inserted.
-    callback = -> $('.expanding-area').makeExpandingArea()
-    setTimeout callback, 0
     @
