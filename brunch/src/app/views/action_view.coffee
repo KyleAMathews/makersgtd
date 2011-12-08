@@ -17,7 +17,7 @@ class exports.ActionView extends Backbone.View
 
   render: =>
     json = @model.toJSON()
-    json.url = '#' + @model.url().substr(1)
+    json.url = @model.iurl()
     @$(@el).html(actionTemplate(action: json))
     # Bind event directly to input, cause older browsers doesn't
     # support this event on several types of elements.

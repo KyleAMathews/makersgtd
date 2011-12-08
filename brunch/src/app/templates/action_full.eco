@@ -1,6 +1,6 @@
 <div class="editable-name"></div>
-<%- @linkerTemplate( type: 'project', count: 1, preface: 'in project', prefix: '#', models: [{name: 'default'}] ) %>
-<%- @linkerTemplate( type: 'tag', count: 0, preface: 'tagged with', prefix: '@', models: [{name: 'work'}, {name:'errand'}] ) %>
+<div class="linker-project"></div>
+<div class="linker-tag"></div>
 <div class="editable-description"></div>
 <div class="meta-info">
   <% if @action.created?: %>

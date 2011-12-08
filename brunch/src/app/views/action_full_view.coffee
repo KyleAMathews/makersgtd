@@ -1,6 +1,7 @@
 actionTemplate = require('templates/action_full')
 linkerTemplate = require('templates/linker')
 editableView = require('views/editable_view').EditableView
+linkerView = require('views/linker_view').LinkerView
 
 class exports.ActionFullView extends Backbone.View
 
@@ -33,10 +34,29 @@ class exports.ActionFullView extends Backbone.View
       html: true
     ).render()
 
+    new linkerView(
+      el: @$('.linker-project')
+      model: @model
+      blank_slate: 'Add to project'
+      type: 'project'
+      collection: 'projects'
+      limit: 1
+      intro: 'in project '
+      prefix: '#'
+      models: @model.get('projects')
+    ).render()
+    new linkerView(
+      el: @$('.linker-tag')
+      model: @model
+      blank_slate: 'Add a tag'
+      type: 'tag'
+      collection: 'tags'
+      intro: 'tagged with '
+      prefix: '@'
+      models: ['4ecd214d5ab897c937000029', '4ed43eb8bbb4deda3c0003fc']
+    ).render()
+
     # Make sure HTML is finished being inserted.
     callback = -> $('.expanding-area').makeExpandingArea()
     setTimeout callback, 0
     @
-
-    # TODO convert other editable views.
-    # Start on linker widget.

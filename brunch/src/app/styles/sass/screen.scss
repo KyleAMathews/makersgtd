@@ -48,15 +48,6 @@
   @include leader(0.5);
   @include trailer(2);
 
-  input[type="text"], textarea {
-    width: 264px;
-    @include rhythm-borders();
-    border-color: #999999;
-    outline: none;
-    padding: .5em;
-    @include single-box-shadow($inset: true);
-  }
-
   input::-webkit-input-placeholder {
     font-style: italic;
   }
@@ -103,7 +94,7 @@
   .display, .blank-slate {
     display: none;
   }
-  input[type="text"], textarea {
+  textarea {
     @include padding-leader(0.5);
     @include padding-trailer(0.5);
     padding-left: 0.5em;
@@ -236,6 +227,13 @@ a.model-link {
   }
 }
 
+/* Blank slate class */
+.blank-slate {
+  color: $grey80;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 /* Editable Widget */
 .editable {
   @include rhythm(1);
@@ -251,11 +249,6 @@ a.model-link {
     @include rhythm-borders(1px, 0.5);
     margin-left: 0.5em;
   }
-  .blank-slate {
-    color: $grey80;
-    text-decoration: underline;
-    cursor: pointer;
-  }
   .label {
     @include leader(0);
     @include trailer(0);
@@ -267,32 +260,76 @@ a.model-link {
 .linker {
   position: relative;
   @include leader(0.25);
+  @include pie-clearfix();
   color: $grey60;
+  /* Add some extra space to activate the edit icon */
+  margin-right: -10px;
+  padding-right: 10px;
   &:hover {
     .edit-icon {
       display: block;
     }
+    .name .delete {
+      visibility: visible;
+    }
+  }
+  .intro {
+    float: left;
+    margin-right: 0.5em;
   }
   .name {
     font-weight: bolder;
     cursor: pointer;
-    display: inline-block;
-    padding: 1px 3px;
-    color: $grey40;
-    background-color: lightgreen;
-    @include border-radius(5px);
+    a {
+      @include unstyled-link();
+      background-color: lightgreen;
+      color: $grey40;
+      @include border-radius(5px);
+      padding: 1px 5px;
+    }
+    .delete {
+      visibility: hidden;
+      @include border-radius(5px);
+      padding: 1px 1px;
+      color: $grey90;
+      &:hover {
+        color: $grey70;
+      }
+      &:active {
+        background: $grey90;
+      }
+    }
   }
   .edit-icon {
     background: url(../img/edit.png) no-repeat 0 0;
     width: 15px;
     height: 21px;
     position: absolute;
-    right: 10px;
+    right: 0;
     top: 0;
     cursor: pointer;
     display: none;
     &:hover {
       background-position: -15px 0;
+    }
+  }
+  ul.autocomplete {
+    list-style: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: none;
+    background: white;
+    z-index: 10;
+    @include rhythm-borders(1px, 0.25);
+    @include single-box-shadow();
+    li {
+      padding: 0.375em 0.75em;
+      color: $grey10;
+      cursor: pointer;
+      &.active {
+        background: #A6E8FF;
+      }
     }
   }
 }

@@ -1,0 +1,20 @@
+<div class="linker">
+  <% if @models.length > 0: %>
+    <span class="intro"><%- @intro %></span>
+    <span class="<%- @type %> display">
+    <% for model in @models: %>
+      <span class="name" data-id="<%- model.id %>">
+        <a href="<%- model.iurl() %>"><%- @prefix %><%- model.get('name') %></a>
+        <span class="delete">x</span>
+      </span>
+    <% end %>
+  <% else: %>
+    <span class="blank-slate"><%- @blank_slate %></span>
+  <% end %>
+    <span class='edit-icon'></span>
+  </span>
+  <div class="edit">
+    <input type="text" class="input"><%= @edit_text %></input>
+    <ul class="autocomplete"></ul>
+  </div>
+</div>

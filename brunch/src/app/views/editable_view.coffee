@@ -15,26 +15,26 @@ class exports.EditableView extends Backbone.View
     @model.bind('change:' + @options.field, @render)
 
   render: =>
-    model = {}
+    context = {}
     # Options get added as classes to the widget.
-    model.classes = ""
+    context.classes = ""
     if @options.options?
       for option in @options.options
-        model.classes += option + " "
+        context.classes += option + " "
 
     # Add all other settings.
     for k,v of @options
-      model[k] = v
+      context[k] = v
 
     # Render with markdown if necessary.
     if @options.html and @model.get(@options.field)?
-      model.display_text = markdown.makeHtml(@model.get(@options.field))
+      context.display_text = markdown.makeHtml(@model.get(@options.field))
     else
-      model.display_text = @model.get(@options.field)
+      context.display_text = @model.get(@options.field)
 
-    model.edit_text = @model.get(@options.field)
+    context.edit_text = @model.get(@options.field)
 
-    $(@el).html(editableTemplate(model))
+    $(@el).html(editableTemplate(context))
 
     # Make sure HTML is inserted first.
     callback = -> @$('.expanding-area').makeExpandingArea()

@@ -67,6 +67,11 @@ $(document).ready ->
 
 window.markdown = new Markdown.Converter()
 
+app.util = {}
+app.util.getModel = (type, id) ->
+  type = type + "s"
+  return app.collections[type].get(id)
+
 #represent character bindings as tree, once enter in tree, don't exit until reach leaf.
 # Allow for global states, e.g. normal, input (don't do anything), a model is checked, etc
 # global states in stack. Normal is always active. If model is active, it can choose

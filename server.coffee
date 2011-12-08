@@ -26,6 +26,8 @@ actionSchema = new Schema (
   completed: Date
   created: Date
   changed: Date
+  projects: [String] # ObjectId pointing at a project.
+  tags: [String] # Array of ObjectIds pointing at tags.
 )
 
 projectSchema = new Schema (
@@ -36,6 +38,7 @@ projectSchema = new Schema (
   completed: Date
   created: Date
   changed: Date
+  tags: [String] # Array of ObjectIds pointing at tags.
 )
 
 tagSchema = new Schema (

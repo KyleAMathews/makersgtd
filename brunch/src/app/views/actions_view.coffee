@@ -23,10 +23,9 @@ class exports.ActionsView extends Backbone.View
 
   addOne: (action) =>
     view = new ActionView model: action
-    $("#actions", @el).append view.render().el
+    $("ul#actions", @el).append view.render().el
 
   addAll: =>
-    @$('#actions').empty()
     @addOne action for action in app.collections.actions.notDone()
     @$('ul').sortable(
       start: (event, ui) ->

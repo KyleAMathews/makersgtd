@@ -3,6 +3,7 @@ tagsTemplate = require('templates/tags')
 
 class exports.TagsView extends Backbone.View
 
+  className: 'collection-view'
   id: 'tags-view'
 
   initialize: ->

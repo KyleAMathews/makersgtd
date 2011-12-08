@@ -19,3 +19,7 @@ class exports.Project extends Backbone.Model
   clear: ->
     @destroy()
     @view.remove()
+
+  # Internal URL
+  iurl: =>
+    return "#projects/" + @id

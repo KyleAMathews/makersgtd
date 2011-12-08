@@ -17,12 +17,14 @@ class exports.Actions extends Backbone.Collection
     items = @filter( (action) ->
       action.get 'done'
     )
+    items = _.sortBy items, (item) -> return item.get('completed')
     return items
 
   notDone: ->
     items = @filter( (action) ->
       not action.get 'done'
     )
+    items = _.sortBy items, (item) -> return item.get('order')
     return items
 
   remaining: ->

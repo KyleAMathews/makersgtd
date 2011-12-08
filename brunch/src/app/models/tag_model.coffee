@@ -15,3 +15,7 @@ class exports.Tag extends Backbone.Model
   clear: ->
     @destroy()
     @view.remove()
+
+  # Internal URL
+  iurl: =>
+    return "#tags/" + @id

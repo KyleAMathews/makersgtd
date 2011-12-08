@@ -3,6 +3,7 @@ projectsTemplate = require('templates/projects')
 
 class exports.DoneProjectsView extends Backbone.View
 
+  className: 'collection-view'
   id: 'done-projects-view'
 
   initialize: ->
