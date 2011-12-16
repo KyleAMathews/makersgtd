@@ -8,7 +8,6 @@ class exports.ProjectFullView extends Backbone.View
   id: 'projects'
 
   initialize: ->
-    # @model.bind('change', @render)
     @model.view = @
 
   render: =>
@@ -42,8 +41,7 @@ class exports.ProjectFullView extends Backbone.View
       el: @$('.linker-tag')
       model: @model
       blank_slate: 'Add a tag'
-      type: 'tag'
-      collection: 'tags'
+      linking_to: 'tag'
       intro: 'tagged with '
       prefix: '@'
       models: @model.get('tags')

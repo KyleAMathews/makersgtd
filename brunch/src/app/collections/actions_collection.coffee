@@ -6,6 +6,8 @@ class exports.Actions extends Backbone.Collection
   url: '/actions'
 
   initialize: ->
+    @type = "actions"
+
     # Tie collection our fuzzymatcher quicksearch.
     @addToFuzzymatcher()
     @bind('reset', @addToFuzzymatcher)

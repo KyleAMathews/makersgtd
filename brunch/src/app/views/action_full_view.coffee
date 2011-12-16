@@ -38,9 +38,7 @@ class exports.ActionFullView extends Backbone.View
       el: @$('.linker-project')
       model: @model
       blank_slate: 'Add to project'
-      type: 'project'
-      collection: 'projects'
-      limit: 1
+      linking_to: 'project'
       intro: 'in project '
       prefix: '#'
       models: @model.get('projects')
@@ -49,8 +47,7 @@ class exports.ActionFullView extends Backbone.View
       el: @$('.linker-tag')
       model: @model
       blank_slate: 'Add a tag'
-      type: 'tag'
-      collection: 'tags'
+      linking_to: 'tag'
       intro: 'tagged with '
       prefix: '@'
       models: @model.get('tags')

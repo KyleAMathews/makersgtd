@@ -6,6 +6,8 @@ class exports.Tags extends Backbone.Collection
   url: '/tags'
 
   initialize: ->
+    @type = 'tags'
+
     # Tie collection our fuzzymatcher quicksearch.
     @addToFuzzymatcher()
     @bind('reset', @addToFuzzymatcher)

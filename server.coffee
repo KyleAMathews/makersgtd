@@ -26,8 +26,8 @@ actionSchema = new Schema (
   completed: Date
   created: Date
   changed: Date
-  projects: [String] # ObjectId pointing at a project.
-  tags: [String] # Array of ObjectIds pointing at tags.
+  project_links: []
+  tag_links: []
 )
 
 projectSchema = new Schema (
@@ -38,7 +38,8 @@ projectSchema = new Schema (
   completed: Date
   created: Date
   changed: Date
-  tags: [String] # Array of ObjectIds pointing at tags.
+  tag_links: []
+  action_links: []
 )
 
 tagSchema = new Schema (
@@ -46,6 +47,8 @@ tagSchema = new Schema (
   description: String
   created: Date
   changed: Date
+  action_links: []
+  project_links: []
 )
 
 mongoose.model 'action', actionSchema

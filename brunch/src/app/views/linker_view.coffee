@@ -16,7 +16,7 @@ class exports.LinkerView extends Backbone.View
     'click .name .delete' : 'delete'
 
   initialize: ->
-    @model.bind('change:' + @options.collection, @render)
+    @model.bind('change:' + @options.linking_to + "_links", @render)
 
     # TODO don't remove existing items to show text input
     # TODO for items with no limit, open up new text area to keep adding if desired
@@ -31,10 +31,10 @@ class exports.LinkerView extends Backbone.View
       context[k] = v
 
     # Add models from ids.
-    ids = @model.get(@options.collection)
+    ids = @model.get(@options.linking_to + "_links")
     context.models = []
     if ids?
-      context.models = (app.util.getModel(context.type, id) for id in ids)
+      context.models = (app.util.getModel(context.linking_to, id.id) for id in ids)
 
     $(@el).html(linkerTemplate(context))
 
@@ -53,24 +53,12 @@ class exports.LinkerView extends Backbone.View
       @stopEditing()
       return
     match = @matches[index]
+    @addNewLink(match.id)
 
-    # Check that id isn't already there.
-    ids = @model.get([@options.collection])
-    if _.include(ids, match.id) then return
-
-    # If we're at the limit of how models can be linked,
-    # remove the first before adding the new one.
-    if ids.length >= @options.limit then ids.shift()
-    ids.push match.id
-    field = {}
-    field[@options.collection] = ids
-
-    @model.save(
-      field
-    )
-
-    # For some reason, the save above isn't triggering the change event.
-    @model.trigger('change:' + @options.collection)
+  addNewLink: (linked_id) =>
+    @model.linker.create(@options.linking_to, linked_id)
+    linkedToModel = app.util.getModel(@options.linking_to, linked_id)
+    linkedToModel.linker.create(@model.get('type'), @model.id)
 
     @stopEditing()
 
@@ -84,7 +72,7 @@ class exports.LinkerView extends Backbone.View
       return
 
     @$('ul.autocomplete').empty().hide()
-    collection = @options.type + "s"
+    collection = @options.linking_to_collection
     @matches = []
     @matches = app.collections[collection].query @$('.input').val()
     for match in @matches
@@ -97,26 +85,78 @@ class exports.LinkerView extends Backbone.View
     # Exit editing on escape.
     if e.keyCode is $.ui.keyCode.ESCAPE then @stopEditing()
 
+    # When the user presses the down arrow, select the next item in the matches.
     if e.keyCode is $.ui.keyCode.DOWN
       @$('ul.autocomplete li.active').removeClass('active').next().addClass('active')
       if @$('ul.autocomplete li.active').length is 0
         @$('ul.autocomplete li').last().addClass('active')
       e.preventDefault()
+
+    # When the user presses the up arrow, select the previous item in the matches.
     if e.keyCode is $.ui.keyCode.UP
       @$('ul.autocomplete li.active').removeClass('active').prev().addClass('active')
       if @$('ul.autocomplete li.active').length is 0
         @$('ul.autocomplete li').first().addClass('active')
       e.preventDefault()
 
+  # Select the item the mouse is hovering over.
   hoverSelect: (e) =>
     @$('ul.autocomplete li.active').removeClass('active')
     $(e.target).addClass('active')
 
+  # When the delete icon is clicked, delete links on both models.
   delete: (e) =>
     id = @$(e.target).parent().data('id')
 
-    # Add a data-id + data-type to the name so we can identify what we clicked on
+    @model.linker.delete(@options.linking_to, id)
+    linkedToModel = app.util.getModel(@options.linking_to, id)
+    linkedToModel.linker.delete(@model.get('type'), @model.id)
+
+class exports.ModelLinker
+
+  constructor: (@model) ->
+    # f =
+    #   project_links: []
+    #   tag_links: []
+    #   action_links: []
+    # @model.save(f)
+
+  create: (type, id) ->
+    links = @model.get(type + "_links")
+    limit = @model.get(type + "_links_limit")
+
+    # Add id to the array if it isn't already there.
+    # TODO add a created timestamp.
+    if _.indexOf(links, id) is -1
+      id_obj =
+        id: id
+        created: new Date().toISOString()
+        type: type
+      links.push id_obj
+
+    # If the links array is over the limit, remove the oldest.
+    if links.length > limit and limit isnt 0
+      old_link = links.shift()
+      old_linked_model = app.util.getModel(old_link.type, old_link.id)
+      old_linked_model.linker.delete(@model.get('type'), @model.id)
+
+
     field = {}
-    field[@options.collection] = _.without(@model.get([@options.collection]), id)
-    @model.save( field )
-    return
+    field[type + "_links"] = links
+
+    @model.save field
+    # For some reason, saving here doesn't trigger the change events so we
+    # trigger them manually.
+    @model.trigger('change')
+    @model.trigger('change:' + type + "_links")
+
+  delete: (type, id) ->
+    links = @model.get(type + "_links")
+
+    new_links = link for link in links when link.id isnt id
+    # If now empty, the comprehension returns undefined. We don't want that.
+    unless new_links? then new_links = []
+
+    field = {}
+    field[type + "_links"] = new_links
+    @model.save field
