@@ -1036,8 +1036,6 @@
   // Useful when interfacing with server-side languages like **PHP** that make
   // it difficult to read the body of `PUT` requests.
   Backbone.sync = function(method, model, options) {
-    console.log("making backbone sync ajax call.");
-    console.log(method);
     var type = methodMap[method];
 
     // Default JSON-request options.
