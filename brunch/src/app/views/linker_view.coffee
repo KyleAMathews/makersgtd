@@ -20,7 +20,7 @@ class exports.LinkerView extends Backbone.View
 
     # TODO don't remove existing items to show text input
     # TODO for items with no limit, open up new text area to keep adding if desired
-    # TODO when click anywhere other than linker widget, close editing.
+    # TODO when clicking anywhere other than linker widget, close editing.
     # TODO only show delete icon when in edit mode.
 
   render: =>
@@ -126,7 +126,6 @@ class exports.ModelLinker
     limit = @model.get(type + "_links_limit")
 
     # Add id to the array if it isn't already there.
-    # TODO add a created timestamp.
     if _.indexOf(links, id) is -1
       id_obj =
         id: id

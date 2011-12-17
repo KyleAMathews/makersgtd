@@ -13,6 +13,8 @@ class exports.DoneProjectsView extends Backbone.View
   render: ->
     $(@el).html projectsTemplate()
     @addAll()
+    # Remove the last border.
+    @$('li:last').css('border-color', 'rgba(0,0,0,0)')
     @
 
   addOne: (project) =>

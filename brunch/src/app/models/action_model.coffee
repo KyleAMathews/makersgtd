@@ -26,7 +26,18 @@ class exports.Action extends Backbone.Model
       return ''
 
   toggle: ->
-    @save(done: not @get 'done')
+    if @get 'done'
+      @save({
+        done: false
+      }, { silent: true })
+      @unset('completed')
+      @trigger("change:done")
+    else
+      @save({
+        done: true
+        completed: new Date().toISOString()
+      }, { silent: true })
+      @trigger("change:done")
 
   clear: ->
     @destroy()

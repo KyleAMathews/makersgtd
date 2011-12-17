@@ -8,12 +8,20 @@ class exports.ActionsView extends Backbone.View
 
   initialize: ->
     @collection.bind 'add', @addOne
-    @collection.bind 'reset', @addAll
-    @collection.bind 'change:done', @changeDoneState
+    @collection.bind 'reset', @render
+    @collection.bind 'change:done', @render
 
-  render: ->
+  render: =>
     $(@el).html actionsTemplate()
+    # Return if there's no actions to render.
+    if @collection.notDone().length is 0 then return @
+    # Render each action.
     @addAll()
+    # Add label if one is specified.
+    if @options.label?
+      $(@el).prepend('<h4>' + @options.label + '</h4>')
+    # Remove the last border.
+    @$('li:last').css('border-color', 'rgba(0,0,0,0)')
     @
 
   addOne: (action) =>
@@ -29,12 +37,6 @@ class exports.ActionsView extends Backbone.View
         $(event.target).parent().removeClass('sorting')
     )
     @$('ul').bind('sortupdate', @resetOrder)
-
-  changeDoneState: (action) =>
-    unless action.get('done')
-      @render().addAll()
-    else
-      @render().addAll()
 
   resetOrder: =>
     @$('li div.action').each (index) ->

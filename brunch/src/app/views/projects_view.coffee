@@ -7,12 +7,19 @@ class exports.ProjectsView extends Backbone.View
   id: 'projects-view'
 
   initialize: ->
-    app.collections.projects.bind 'add', @addOne
-    app.collections.projects.bind 'reset', @addAll
+    @collection.bind 'add', @addOne
+    @collection.bind 'reset', @addAll
 
   render: ->
     $(@el).html projectsTemplate()
+    # Return if there's no projects to render.
+    if @collection.notDone().length is 0 then return @
     @addAll()
+    if @options.label?
+      $(@el).prepend('<h4>' + @options.label + '</h4>')
+    # Remove the last border.
+    @$('li:last').css('border-color', 'rgba(0,0,0,0)')
+    # TODO add completed views
     @
 
   addOne: (project) =>
@@ -21,4 +28,4 @@ class exports.ProjectsView extends Backbone.View
 
   addAll: =>
     @$('#projects').empty()
-    @addOne project for project in app.collections.projects.notDone()
+    @addOne project for project in @collection.notDone()

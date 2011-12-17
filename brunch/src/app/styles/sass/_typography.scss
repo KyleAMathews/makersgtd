@@ -34,6 +34,8 @@ h3 {
 }
 h4 {
   @include adjust-font-size-to(18px);
+  @include leader(0);
+  @include trailer(0);
 }
 h5 {
   @include adjust-font-size-to(16px);

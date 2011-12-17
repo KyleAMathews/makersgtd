@@ -7,12 +7,14 @@ class exports.DoneActionsView extends Backbone.View
   id: 'done-actions-view'
 
   initialize: ->
-    app.collections.actions.bind 'reset', @addAll
-    app.collections.actions.bind 'change:done', @changeDoneState
+    @collection.bind 'reset', @render
+    @collection.bind 'change:done', @render
 
-  render: ->
+  render: =>
     $(@el).html actionsTemplate()
     @addAll()
+    # Remove the last border.
+    @$('li:last').css('border-color', 'rgba(0,0,0,0)')
     @
 
   addOne: (action) =>
@@ -21,13 +23,7 @@ class exports.DoneActionsView extends Backbone.View
 
   addAll: =>
     @$('#actions').empty()
-    actions = app.collections.actions.done()
+    actions = @collection.done()
     actions = _.sortBy actions, (action) -> action.get('completed')
     actions.reverse()
     @addOne action for action in actions
-
-  changeDoneState: (action) =>
-    if action.get('done')
-      @addOne action
-    else
-      @render().addAll()

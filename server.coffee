@@ -94,8 +94,6 @@ app.put '/actions/:id', (req, res) ->
         if k is 'id' then continue
         action[k] = v
       action.changed = new Date()
-      if action.done
-        action.completed = new Date()
       action.save()
       res.json {
         saved: true
@@ -142,8 +140,6 @@ app.put '/projects/:id', (req, res) ->
         if k is 'id' then continue
         project[k] = v
       project.changed = new Date()
-      if project.done
-        project.completed = new Date()
       project.save()
       res.json {
         saved: true
@@ -190,8 +186,6 @@ app.put '/tags/:id', (req, res) ->
         if k is 'id' then continue
         tag[k] = v
       tag.changed = new Date()
-      if tag.done
-        tag.completed = new Date()
       tag.save()
       res.json {
         saved: true

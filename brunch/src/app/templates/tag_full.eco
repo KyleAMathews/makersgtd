@@ -1,5 +1,9 @@
 <div class="editable-name"></div>
 <div class="editable-description"></div>
+<div id="actions-view" class="collection-view"></div>
+<div id="done-actions-view" class="collection-view"></div>
+<div id="projects-view" class="collection-view"></div>
+<div id="done-projects-view" class="collection-view"></div>
 <div class="meta-info">
   <% if @tag.created?: %>
     Created: <%- new Date(@tag.created).toDateString() %><br />
