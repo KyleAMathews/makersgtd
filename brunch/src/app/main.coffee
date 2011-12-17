@@ -12,21 +12,7 @@ Tags = require('collections/tags_collection').Tags
 
 MainRouter = require('routers/main_router').MainRouter
 
-# Actions
-NewActionView = require('views/new_action_view').NewActionView
-ActionsView = require('views/actions_view').ActionsView
-DoneActionsView = require('views/done_actions_view').DoneActionsView
-
-# Projects
-NewProjectView = require('views/new_project_view').NewProjectView
-ProjectsView = require('views/projects_view').ProjectsView
-DoneProjectsView = require('views/done_projects_view').DoneProjectsView
-
-# Tags
-NewTagView = require('views/new_tag_view').NewTagView
-TagsView = require('views/tags_view').TagsView
-
-# app bootstrapping on document ready
+# App bootstrapping on document ready
 $(document).ready ->
   app.initialize = ->
     app.collections.actions = new Actions()
@@ -34,17 +20,6 @@ $(document).ready ->
     app.collections.tags = new Tags()
 
     app.routers.main = new MainRouter()
-
-    app.views.newAction = new NewActionView()
-    app.views.actions = new ActionsView( collection: app.collections.actions )
-    app.views.doneActions = new DoneActionsView( collection: app.collections.actions )
-
-    app.views.newProject = new NewProjectView()
-    app.views.projects = new ProjectsView()
-    app.views.doneProjects = new DoneProjectsView()
-
-    app.views.newTag = new NewTagView()
-    app.views.tags = new TagsView()
 
     # GET models from server.
     # Don't initialize router until all the collection fetches have returned.
