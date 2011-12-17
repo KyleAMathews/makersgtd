@@ -1,6 +1,8 @@
 projectTemplate = require('templates/project_full')
 editableView = require('views/editable_view').EditableView
 linkerView = require('views/linker_view').LinkerView
+actionsView = require('views/actions_view').ActionsView
+SubActions = require('collections/sub_actions_collection').SubActions
 
 class exports.ProjectFullView extends Backbone.View
 
@@ -45,6 +47,20 @@ class exports.ProjectFullView extends Backbone.View
       intro: 'tagged with '
       prefix: '@'
       models: @model.get('tags')
+    ).render()
+
+    # Render the project's actions.
+    subActions = new SubActions()
+    ids = @model.get("action_links")
+    actions = []
+    if ids?
+      actions = (app.util.getModel('action', id.id) for id in ids)
+
+    subActions.reset(actions)
+
+    new actionsView(
+      el: @$('#actions-view')
+      collection: subActions
     ).render()
     @
 

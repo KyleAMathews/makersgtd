@@ -36,8 +36,8 @@ $(document).ready ->
     app.routers.main = new MainRouter()
 
     app.views.newAction = new NewActionView()
-    app.views.actions = new ActionsView()
-    app.views.doneActions = new DoneActionsView()
+    app.views.actions = new ActionsView( collection: app.collections.actions )
+    app.views.doneActions = new DoneActionsView( collection: app.collections.actions )
 
     app.views.newProject = new NewProjectView()
     app.views.projects = new ProjectsView()

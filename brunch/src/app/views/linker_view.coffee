@@ -72,7 +72,7 @@ class exports.LinkerView extends Backbone.View
       return
 
     @$('ul.autocomplete').empty().hide()
-    collection = @options.linking_to_collection
+    collection = @options.linking_to + "s"
     @matches = []
     @matches = app.collections[collection].query @$('.input').val()
     for match in @matches
@@ -153,7 +153,7 @@ class exports.ModelLinker
   delete: (type, id) ->
     links = @model.get(type + "_links")
 
-    new_links = link for link in links when link.id isnt id
+    new_links = (link for link in links when link.id isnt id)
     # If now empty, the comprehension returns undefined. We don't want that.
     unless new_links? then new_links = []
 

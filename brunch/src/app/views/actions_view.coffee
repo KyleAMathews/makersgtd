@@ -7,14 +7,9 @@ class exports.ActionsView extends Backbone.View
   id: 'actions-view'
 
   initialize: ->
-    app.collections.actions.bind 'add', @addOne
-    app.collections.actions.bind 'reset', @addAll
-    app.collections.actions.bind 'change:done', @changeDoneState
-    $(document).bind 'keydown', 'j', @cursorDown
-    $(document).bind 'keydown', 'k', @cursorUp
-    $(document).bind 'keydown', 'x', @checkAtCursor
-    $(document).bind 'keyup', 'a', @focusInput
-    $(document).bind 'keydown', 'o', @openAtCursor
+    @collection.bind 'add', @addOne
+    @collection.bind 'reset', @addAll
+    @collection.bind 'change:done', @changeDoneState
 
   render: ->
     $(@el).html actionsTemplate()
@@ -26,7 +21,7 @@ class exports.ActionsView extends Backbone.View
     $("ul#actions", @el).append view.render().el
 
   addAll: =>
-    @addOne action for action in app.collections.actions.notDone()
+    @addOne action for action in @collection.notDone()
     @$('ul').sortable(
       start: (event, ui) ->
         $(event.target).parent().addClass('sorting')
@@ -45,21 +40,9 @@ class exports.ActionsView extends Backbone.View
     @$('li div.action').each (index) ->
       id = $(@).data('id')
       # Save new order to action models but only to those which were changed.
-      unless app.collections.actions.get(id).get('order') is index
-        app.collections.actions.get(id).set( order: index ).save()
-
-  cursorDown: ->
-    app.collections.actions.cursorDown()
-
-  cursorUp: ->
-    app.collections.actions.cursorUp()
-
-  checkAtCursor: ->
-    app.collections.actions.checkAtCursor()
+      unless @collection.get(id).get('order') is index
+        @collection.get(id).set( order: index ).save()
 
   focusInput: (event) =>
     $('#new-action').focus()
     $('#new-action').val ""
-
-  openAtCursor: ->
-    app.collections.actions.openAtCursor()
