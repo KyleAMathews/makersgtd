@@ -58,6 +58,13 @@ app.util.getModel = (type, id) ->
   type = type + "s"
   return app.collections[type].get(id)
 
+app.util.extend = (obj, mixin) ->
+  for name, method of mixin
+    obj[name] = method
+
+app.util.include = (klass, mixin) ->
+  app.util.extend klass.prototype, mixin
+
 #represent character bindings as tree, once enter in tree, don't exit until reach leaf.
 # Allow for global states, e.g. normal, input (don't do anything), a model is checked, etc
 # global states in stack. Normal is always active. If model is active, it can choose
