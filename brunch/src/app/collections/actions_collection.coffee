@@ -1,4 +1,5 @@
 Action = require('models/action_model').Action
+FuzzyMatcherIntegration = require('mixins/fuzzy_matcher_integration').FuzzyMatcherIntegration
 
 class exports.Actions extends Backbone.Collection
 
@@ -36,10 +37,5 @@ class exports.Actions extends Backbone.Collection
     return 1 unless @length
     @last().get('order') + 1
 
-  # Add all the current objects as a list in the Fuzzymatcher library.
-  addToFuzzymatcher: =>
-    fuzzymatcher.addList('actions', @toJSON())
-
-  # Query model names using the Fuzzymatcher library.
-  query: (query) =>
-    return fuzzymatcher.query('actions', query)
+$(document).ready ->
+  app.util.include exports.Actions, FuzzyMatcherIntegration

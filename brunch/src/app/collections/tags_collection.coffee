@@ -1,4 +1,5 @@
 Tag = require('models/tag_model').Tag
+FuzzyMatcherIntegration = require('mixins/fuzzy_matcher_integration').FuzzyMatcherIntegration
 
 class exports.Tags extends Backbone.Collection
 
@@ -22,10 +23,5 @@ class exports.Tags extends Backbone.Collection
     return 1 unless @length
     @last().get('order') + 1
 
-  # Add all the current objects as a list in the Fuzzymatcher library.
-  addToFuzzymatcher: =>
-    fuzzymatcher.addList('tags', @toJSON())
-
-  # Query model names using the Fuzzymatcher library.
-  query: (query) =>
-    return fuzzymatcher.query('tags', query)
+$(document).ready ->
+  app.util.include exports.Tags, FuzzyMatcherIntegration
