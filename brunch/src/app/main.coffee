@@ -10,6 +10,9 @@ Actions = require('collections/actions_collection').Actions
 Projects = require('collections/projects_collection').Projects
 Tags = require('collections/tags_collection').Tags
 
+ContextMenu = require('views/context_menu').ContextMenu
+ContextMenuModel = require('models/context_menu_model').ContextMenuModel
+
 MainRouter = require('routers/main_router').MainRouter
 
 # App bootstrapping on document ready
@@ -19,7 +22,15 @@ $(document).ready ->
     app.collections.projects = new Projects()
     app.collections.tags = new Tags()
 
+    app.models.contextMenu = new ContextMenuModel()
+
     app.routers.main = new MainRouter()
+
+    app.views.contextMenu = new ContextMenu( 
+      el: $('.context-menu') 
+      model: app.models.contextMenu
+    )
+    app.views.contextMenu.render()
 
     # GET models from server.
     # Don't initialize router until all the collection fetches have returned.

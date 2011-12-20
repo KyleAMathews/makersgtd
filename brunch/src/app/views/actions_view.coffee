@@ -39,11 +39,12 @@ class exports.ActionsView extends Backbone.View
     @$('ul').bind('sortupdate', @resetOrder)
 
   resetOrder: =>
+    that = @
     @$('li div.action').each (index) ->
       id = $(@).data('id')
       # Save new order to action models but only to those which were changed.
-      unless @collection.get(id).get('order') is index
-        @collection.get(id).set( order: index ).save()
+      unless that.collection.get(id).get('order') is index
+        that.collection.get(id).save( order: index )
 
   focusInput: (event) =>
     $('#new-action').focus()

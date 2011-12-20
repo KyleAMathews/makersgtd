@@ -5,7 +5,7 @@ class exports.ActionView extends Backbone.View
   tagName:  "li"
 
   events:
-    'click .check'           : 'toggleDone'
+    'click .check'           : 'injectModelMenu'
 
   initialize: ->
     @model.bind('change', @render)
@@ -20,3 +20,9 @@ class exports.ActionView extends Backbone.View
 
   toggleDone: ->
     @model.toggle()
+
+  injectModelMenu: (e) =>
+    if e.currentTarget.checked
+      app.models.contextMenu.add(@model)
+    else
+      app.models.contextMenu.remove(@model)

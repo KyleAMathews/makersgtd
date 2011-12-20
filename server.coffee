@@ -22,6 +22,7 @@ actionSchema = new Schema (
   name: String
   description: String
   done: Boolean
+  deleted: { type: Boolean, default: false }
   order: Number
   completed: Date
   created: Date
@@ -35,6 +36,7 @@ projectSchema = new Schema (
   outcome_vision: String
   description: String
   done: Boolean
+  deleted: { type: Boolean, default: false }
   completed: Date
   created: Date
   changed: Date
@@ -45,6 +47,7 @@ projectSchema = new Schema (
 tagSchema = new Schema (
   name: String
   description: String
+  deleted: { type: Boolean, default: false }
   created: Date
   changed: Date
   action_links: []
@@ -65,6 +68,7 @@ app.get '/actions', (req, res) ->
   query
     # Only get completed actions from past 12 hours.
     .or([{ 'done': false }, {'completed': { $gte : date.native()}}])
+    .notEqualTo('deleted', true)
     .run (err, actions) ->
       unless err or not actions?
         newModels = []

@@ -397,3 +397,12 @@ code {
   padding: 1px 5px 1px 5px;
   font-family: Inconsolata, Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
 }
+
+.context-menu {
+  z-index: 100;
+  &.floating {
+    .button {
+      @include single-box-shadow();
+    }
+  }
+}
