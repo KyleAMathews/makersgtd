@@ -1,5 +1,6 @@
 Action = require('models/action_model').Action
-FuzzyMatcherIntegration = require('mixins/fuzzy_matcher_integration').FuzzyMatcherIntegration
+FuzzyMatcherIntegration = require('mixins/collections/fuzzy_matcher_integration').FuzzyMatcherIntegration
+DoneOrNot = require('mixins/collections/done_or_not').DoneOrNot
 
 class exports.Actions extends Backbone.Collection
 
@@ -16,20 +17,6 @@ class exports.Actions extends Backbone.Collection
     @bind('remove', @addToFuzzymatcher)
     @bind('change:name', @addToFuzzymatcher)
 
-  done: ->
-    items = @filter( (action) ->
-      action.get 'done'
-    )
-    items = _.sortBy items, (item) -> return item.get('completed')
-    return items
-
-  notDone: ->
-    items = @filter( (action) ->
-      not action.get 'done'
-    )
-    items = _.sortBy items, (item) -> return item.get('order')
-    return items
-
   remaining: ->
     @without.apply @, @done()
 
@@ -37,5 +24,7 @@ class exports.Actions extends Backbone.Collection
     return 1 unless @length
     @last().get('order') + 1
 
+# Add Mixins
 $(document).ready ->
   app.util.include exports.Actions, FuzzyMatcherIntegration
+  app.util.include exports.Actions, DoneOrNot

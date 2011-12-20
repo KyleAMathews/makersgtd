@@ -1,5 +1,5 @@
 Tag = require('models/tag_model').Tag
-FuzzyMatcherIntegration = require('mixins/fuzzy_matcher_integration').FuzzyMatcherIntegration
+FuzzyMatcherIntegration = require('mixins/collections/fuzzy_matcher_integration').FuzzyMatcherIntegration
 
 class exports.Tags extends Backbone.Collection
 

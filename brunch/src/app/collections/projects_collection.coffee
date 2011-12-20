@@ -1,5 +1,6 @@
 Project = require('models/project_model').Project
-FuzzyMatcherIntegration = require('mixins/fuzzy_matcher_integration').FuzzyMatcherIntegration
+FuzzyMatcherIntegration = require('mixins/collections/fuzzy_matcher_integration').FuzzyMatcherIntegration
+DoneOrNot = require('mixins/collections/done_or_not').DoneOrNot
 
 class exports.Projects extends Backbone.Collection
 
@@ -16,23 +17,10 @@ class exports.Projects extends Backbone.Collection
     @bind('remove', @addToFuzzymatcher)
     @bind('change:name', @addToFuzzymatcher)
 
-  done: ->
-    items = @filter( (action) ->
-      action.get 'done'
-    )
-    # return _.sortBy(items, (item) -> return item.get('order'))
-    return items
-
-  notDone: ->
-    items = @filter( (action) ->
-      not action.get 'done'
-    )
-    # return _.sortBy(items, (item) -> return item.get('order'))
-    return items
-
   nextOrder: ->
     return 1 unless @length
     @last().get('order') + 1
 
 $(document).ready ->
   app.util.include exports.Projects, FuzzyMatcherIntegration
+  app.util.include exports.Projects, DoneOrNot
