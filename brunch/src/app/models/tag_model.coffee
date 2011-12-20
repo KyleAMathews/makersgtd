@@ -1,4 +1,4 @@
-ModelLinker = require('views/linker_view').ModelLinker
+ModelLinker = require('mixins/models/model_linker').ModelLinker
 
 class exports.Tag extends Backbone.Model
 
@@ -11,8 +11,6 @@ class exports.Tag extends Backbone.Model
     action_links: []
 
   initialize: ->
-    # Add the linker class to enable this model to create links to other models.
-    @linker = new ModelLinker(@)
 
   # TODO refactor stuff like this into a model mixin class (?) that gets added to each
   # model. Same with collections.
@@ -30,3 +28,7 @@ class exports.Tag extends Backbone.Model
   # Internal URL
   iurl: =>
     return "#tags/" + @id
+
+# Add Mixins
+$(document).ready ->
+  app.util.include exports.Tag, ModelLinker

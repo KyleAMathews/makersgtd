@@ -58,6 +58,7 @@ app.util.getModel = (type, id) ->
   type = type + "s"
   return app.collections[type].get(id)
 
+# Add extend and include functions from https://github.com/jashkenas/coffee-script/wiki/FAQ
 app.util.extend = (obj, mixin) ->
   for name, method of mixin
     obj[name] = method
