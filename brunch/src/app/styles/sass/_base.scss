@@ -30,3 +30,8 @@ $error_border_color: #dd5522;
 $status_color: #336600;
 $status_background: #ccff88;
 $status_border_color: #bbee77;
+
+@mixin my-button($color: $grey80) {
+  @include fancy-button($color, 1em, 0.5em);
+  padding: 0.5em 1em;
+}

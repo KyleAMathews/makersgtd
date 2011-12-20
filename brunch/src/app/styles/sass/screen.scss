@@ -7,6 +7,7 @@
 @import "base";
 @import "typography";
 @import "compass/css3";
+@import "fancy-buttons";
 
 @media (max-width:500px) {
   body {
@@ -240,14 +241,17 @@ a.model-link {
   .display {
     cursor: pointer;
   }
-  input.save {
+  .expanding-area {
+    @include trailer(0.25);
+  }
+  input[type="submit"].save {
+    @include my-button(#3da440);
     background-color: #3da440;
     border-color: #286c2a;
   }
-  input.cancel {
+  input[type="submit"].cancel {
     background-color: $grey70;
-    @include rhythm-borders(1px, 0.5);
-    margin-left: 0.5em;
+    margin-left: 0.25em;
   }
   .label {
     @include leader(0);
@@ -335,14 +339,7 @@ a.model-link {
 }
 
 input[type="submit"], input[type="button"], button, .button {
-  background-color: #dcdcdc;
-  @include rhythm-borders(1px, 0.5);
-  border-color: $grey70;
-  @include single-box-shadow();
-  @include leader(0.25);
-  color: white;
-  font-weight: 700;
-  @include trailer(0.5);
+  @include my-button();
 }
 
 /* TODO this should just be .expanding-area */
