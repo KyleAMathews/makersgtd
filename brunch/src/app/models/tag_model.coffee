@@ -1,4 +1,5 @@
 ModelLinker = require('mixins/models/model_linker').ModelLinker
+GetHtml = require('mixins/models/get_html').GetHtml
 
 class exports.Tag extends Backbone.Model
 
@@ -12,15 +13,6 @@ class exports.Tag extends Backbone.Model
 
   initialize: ->
 
-  # TODO refactor stuff like this into a model mixin class (?) that gets added to each
-  # model. Same with collections.
-  getHtml: (property) =>
-    if @get(property)?
-      html = markdown.makeHtml(@get(property))
-      return html
-    else
-      return ''
-
   clear: ->
     @destroy()
     @view.remove()
@@ -32,3 +24,4 @@ class exports.Tag extends Backbone.Model
 # Add Mixins
 $(document).ready ->
   app.util.include exports.Tag, ModelLinker
+  app.util.include exports.Tag, GetHtml

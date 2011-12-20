@@ -1,5 +1,6 @@
 ModelLinker = require('mixins/models/model_linker').ModelLinker
 ToggleDoneness = require('mixins/models/toggle_doneness').ToggleDoneness
+GetHtml = require('mixins/models/get_html').GetHtml
 
 class exports.Project extends Backbone.Model
 
@@ -14,15 +15,6 @@ class exports.Project extends Backbone.Model
 
   initialize: ->
 
-  # TODO refactor stuff like this into a model mixin class (?) that gets added to each
-  # model. Same with collections.
-  getHtml: (property) =>
-    if @get(property)?
-      html = markdown.makeHtml(@get(property))
-      return html
-    else
-      return ''
-
   clear: ->
     @destroy()
     @view.remove()
@@ -35,3 +27,4 @@ class exports.Project extends Backbone.Model
 $(document).ready ->
   app.util.include exports.Project, ModelLinker
   app.util.include exports.Project, ToggleDoneness
+  app.util.include exports.Project, GetHtml
