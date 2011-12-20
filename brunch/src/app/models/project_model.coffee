@@ -1,4 +1,5 @@
 ModelLinker = require('mixins/models/model_linker').ModelLinker
+ToggleDoneness = require('mixins/models/toggle_doneness').ToggleDoneness
 
 class exports.Project extends Backbone.Model
 
@@ -33,3 +34,4 @@ class exports.Project extends Backbone.Model
 # Add Mixins
 $(document).ready ->
   app.util.include exports.Project, ModelLinker
+  app.util.include exports.Project, ToggleDoneness

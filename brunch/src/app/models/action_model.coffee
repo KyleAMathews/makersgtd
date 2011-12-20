@@ -1,4 +1,5 @@
 ModelLinker = require('mixins/models/model_linker').ModelLinker
+ToggleDoneness = require('mixins/models/toggle_doneness').ToggleDoneness
 
 class exports.Action extends Backbone.Model
 
@@ -23,28 +24,18 @@ class exports.Action extends Backbone.Model
     else
       return ''
 
-  toggle: ->
-    if @get 'done'
-      @save({
-        done: false
-      }, { silent: true })
-      @unset('completed')
-      @trigger("change:done")
-    else
-      @save({
-        done: true
-        completed: new Date().toISOString()
-      }, { silent: true })
-      @trigger("change:done")
-
   clear: ->
-    @destroy()
     @view.remove()
 
   # Internal URL
   iurl: =>
     return "#actions/" + @id
 
+  delete: =>
+    @save deleted: true
+    @clear()
+
 # Add Mixins
 $(document).ready ->
   app.util.include exports.Action, ModelLinker
+  app.util.include exports.Action, ToggleDoneness
