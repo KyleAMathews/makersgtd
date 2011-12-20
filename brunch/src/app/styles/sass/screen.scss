@@ -9,6 +9,9 @@
 @import "compass/css3";
 @import "fancy-buttons";
 
+@import "ie";
+@import "ie6";
+
 @media (max-width:500px) {
   body {
     background: $grey90;
@@ -135,7 +138,7 @@
 nav {
   width: 319px;
   margin-bottom: -2px;
-  @include leader(0.5);
+  @include leader(2);
   @media (min-width:500px) {
     margin-left: 100px;
   }
@@ -191,7 +194,7 @@ nav {
   position: absolute;
   background: white;
   z-index: 100;
-  top: 39px;
+  top: 71px;
 }
 
 // Add to items when moving them.
