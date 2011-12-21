@@ -36,10 +36,20 @@ class exports.EditableView extends Backbone.View
 
     $(@el).html(editableTemplate(context))
 
-    # Make sure HTML is inserted first.
-    _.defer @$('.expanding-area').makeExpandingArea()
+    # Wait for the HTML to be inserted first.
+    _.defer @makeAreaExpandable
     @
 
+  makeAreaExpandable: =>
+    container = @$('.expanding-area')
+    area = container.find('textarea')
+    span = container.find('span')
+    area.on 'input', ->
+      span.text(area.val())
+    span.text(area.val())
+
+    # Enable extra CSS
+    container.addClass('active')
 
   edit: =>
     @$(@el).addClass "editing"
