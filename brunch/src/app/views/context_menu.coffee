@@ -4,6 +4,7 @@ class exports.ContextMenu extends Backbone.View
 
   initialize: ->
     @model.bind('change', @render)
+    $(window).on('hashchange', @empty)
 
   events:
     'click .delete': 'delete'
@@ -43,15 +44,14 @@ class exports.ContextMenu extends Backbone.View
   complete: =>
     for model in @model.get('models')
       model.toggle()
-
-    # Empty the context menu's store of models
-    @model.set( models: [] )
-    @model.trigger('change')
+    @empty()
 
   delete: =>
     for model in @model.get('models')
       model.delete()
+    @empty()
 
+  empty: =>
     # Empty the context menu's store of models
     @model.set( models: [] )
     @model.trigger('change')
