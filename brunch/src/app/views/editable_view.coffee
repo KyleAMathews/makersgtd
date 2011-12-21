@@ -28,7 +28,7 @@ class exports.EditableView extends Backbone.View
 
     # Render with markdown if necessary.
     if @options.html and @model.get(@options.field)?
-      context.display_text = markdown.makeHtml(@model.get(@options.field))
+      context.display_text = @model.getHtml(@options.field)
     else
       context.display_text = @model.get(@options.field)
 

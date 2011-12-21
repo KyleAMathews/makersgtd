@@ -33,7 +33,6 @@ class exports.ActionFullView extends Backbone.View
       label: 'Description'
       html: true
     ).render()
-
     new linkerView(
       el: @$('.linker-project')
       model: @model
