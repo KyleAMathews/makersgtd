@@ -37,8 +37,7 @@ class exports.EditableView extends Backbone.View
     $(@el).html(editableTemplate(context))
 
     # Make sure HTML is inserted first.
-    callback = -> @$('.expanding-area').makeExpandingArea()
-    setTimeout callback, 0
+    _.defer @$('.expanding-area').makeExpandingArea()
     @
 
 
