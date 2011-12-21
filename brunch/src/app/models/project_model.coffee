@@ -16,11 +16,8 @@ class exports.Project extends Backbone.Model
   initialize: ->
 
   clear: ->
-    @destroy()
     @view.remove()
 
 # Add Mixins
-$(document).ready ->
-  app.util.include exports.Project, ModelLinker
-  app.util.include exports.Project, ToggleDoneness
-  app.util.include exports.Project, GetHtml
+exports.Project.prototype = _.extend exports.Project.prototype,
+  ModelLinker, ToggleDoneness, GetHtml

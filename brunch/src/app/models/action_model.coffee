@@ -24,7 +24,5 @@ class exports.Action extends Backbone.Model
     @clear()
 
 # Add Mixins
-$(document).ready ->
-  app.util.include exports.Action, ModelLinker
-  app.util.include exports.Action, ToggleDoneness
-  app.util.include exports.Action, GetHtml
+exports.Action.prototype = _.extend exports.Action.prototype,
+  ModelLinker, ToggleDoneness, GetHtml

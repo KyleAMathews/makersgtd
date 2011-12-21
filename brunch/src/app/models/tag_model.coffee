@@ -14,10 +14,8 @@ class exports.Tag extends Backbone.Model
   initialize: ->
 
   clear: ->
-    @destroy()
     @view.remove()
 
 # Add Mixins
-$(document).ready ->
-  app.util.include exports.Tag, ModelLinker
-  app.util.include exports.Tag, GetHtml
+exports.Tag.prototype = _.extend exports.Tag.prototype,
+  ModelLinker, GetHtml
