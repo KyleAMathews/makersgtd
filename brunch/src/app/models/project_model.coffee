@@ -19,10 +19,6 @@ class exports.Project extends Backbone.Model
     @destroy()
     @view.remove()
 
-  # Internal URL
-  iurl: =>
-    return "#projects/" + @id
-
 # Add Mixins
 $(document).ready ->
   app.util.include exports.Project, ModelLinker

@@ -17,10 +17,6 @@ class exports.Tag extends Backbone.Model
     @destroy()
     @view.remove()
 
-  # Internal URL
-  iurl: =>
-    return "#tags/" + @id
-
 # Add Mixins
 $(document).ready ->
   app.util.include exports.Tag, ModelLinker

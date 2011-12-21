@@ -19,10 +19,6 @@ class exports.Action extends Backbone.Model
   clear: ->
     @view.remove()
 
-  # Internal URL
-  iurl: =>
-    return "#actions/" + @id
-
   delete: =>
     @save deleted: true
     @clear()

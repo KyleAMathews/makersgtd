@@ -79,3 +79,7 @@ app.util.include = (klass, mixin) ->
 #   _|
 #g |_
 #    |_n - call function navigateNextActions
+
+# Extend the Backbone model prototype to add an internal url generator.
+Backbone.Model.prototype.iurl = ->
+  return '#' + @get('type') + 's/' + @id
