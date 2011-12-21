@@ -7,7 +7,7 @@ ClearModel = require('mixins/models/clear_model').ClearModel
 class exports.Project extends Backbone.Model
 
   defaults:
-    name: 'empty project...'
+    name: 'Loading...'
     done: false
     type: 'project'
     project_links_limit: 1

@@ -6,10 +6,17 @@ app.views = {}
 
 require('jquery_plugins')
 
+# Collections
 Actions = require('collections/actions_collection').Actions
 Projects = require('collections/projects_collection').Projects
 Tags = require('collections/tags_collection').Tags
 
+# Models
+Action = require('models/action_model').Action
+Project = require('models/project_model').Project
+Tag = require('models/tag_model').Tag
+
+# Context Menu
 ContextMenu = require('views/context_menu').ContextMenu
 ContextMenuModel = require('models/context_menu_model').ContextMenuModel
 
@@ -26,8 +33,8 @@ $(document).ready ->
 
     app.routers.main = new MainRouter()
 
-    app.views.contextMenu = new ContextMenu( 
-      el: $('.context-menu') 
+    app.views.contextMenu = new ContextMenu(
+      el: $('.context-menu')
       model: app.models.contextMenu
     )
     app.views.contextMenu.render()
@@ -55,8 +62,17 @@ window.markdown = new Markdown.Converter()
 
 app.util = {}
 app.util.getModel = (type, id) ->
-  type = type + "s"
-  return app.collections[type].get(id)
+  collection = type + "s"
+  if app.collections[collection].get(id)?
+    return app.collections[collection].get(id)
+  # If the model isn't in the collection, create it and populate it from
+  # the server. We trust that someone isn't trying to get a non-existant model.
+  else
+    newModel = app.util.modelFactory(type)
+    newModel.id = id
+    app.collections[collection].add(newModel, { silent: true })
+    newModel.fetch()
+    return newModel
 
 # Add extend and include functions from https://github.com/jashkenas/coffee-script/wiki/FAQ
 app.util.extend = (obj, mixin) ->
@@ -65,6 +81,13 @@ app.util.extend = (obj, mixin) ->
 
 app.util.include = (klass, mixin) ->
   app.util.extend klass.prototype, mixin
+
+app.util.modelFactory = (type) ->
+  switch type
+    when 'action' then return new Action()
+    when 'project' then return new Project()
+    when 'tag' then return new Tag()
+
 
 #represent character bindings as tree, once enter in tree, don't exit until reach leaf.
 # Allow for global states, e.g. normal, input (don't do anything), a model is checked, etc

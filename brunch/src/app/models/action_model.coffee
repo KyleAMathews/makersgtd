@@ -7,7 +7,7 @@ ClearModel = require('mixins/models/clear_model').ClearModel
 class exports.Action extends Backbone.Model
 
   defaults:
-    name: 'empty action...'
+    name: 'Loading...'
     done: false
     order: 100
     type: 'action'

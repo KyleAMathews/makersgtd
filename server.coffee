@@ -77,6 +77,13 @@ app.get '/actions', (req, res) ->
 
         res.json actions
 
+app.get '/actions/:id', (req, res) ->
+  Action = mongoose.model 'action'
+  Action.findById req.params.id, (err, action) ->
+    unless err or not action?
+      console.log 'Getting action: ' + action.name
+      res.json action
+
 app.post '/actions', (req, res) ->
   console.log 'saving new action'
   Action = mongoose.model 'action'
@@ -123,6 +130,13 @@ app.get '/projects', (req, res) ->
 
       res.json projects
 
+app.get '/projects/:id', (req, res) ->
+  Project = mongoose.model 'project'
+  Project.findById req.params.id, (err, project) ->
+    unless err or not project?
+      console.log 'Getting project: ' + project.name
+      res.json project
+
 app.post '/projects', (req, res) ->
   console.log 'saving new project'
   Project = mongoose.model 'project'
@@ -168,6 +182,13 @@ app.get '/tags', (req, res) ->
         tag.setValue('id', tag.getValue('_id'))
 
       res.json tags
+
+app.get '/tags/:id', (req, res) ->
+  Tag = mongoose.model 'tag'
+  Tag.findById req.params.id, (err, tag) ->
+    unless err or not tag?
+      console.log 'Getting tag: ' + tag.name
+      res.json tag
 
 app.post '/tags', (req, res) ->
   console.log 'saving new tag'

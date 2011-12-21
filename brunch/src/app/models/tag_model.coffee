@@ -6,7 +6,7 @@ ClearModel = require('mixins/models/clear_model').ClearModel
 class exports.Tag extends Backbone.Model
 
   defaults:
-    name: 'tagname'
+    name: 'Loading...'
     type: 'tag'
     project_links_limit: 0
     action_links_limit: 0
