@@ -1,5 +1,7 @@
 ModelLinker = require('mixins/models/model_linker').ModelLinker
 GetHtml = require('mixins/models/get_html').GetHtml
+DeleteModel = require('mixins/models/delete_model').DeleteModel
+ClearModel = require('mixins/models/clear_model').ClearModel
 
 class exports.Tag extends Backbone.Model
 
@@ -11,11 +13,6 @@ class exports.Tag extends Backbone.Model
     project_links: []
     action_links: []
 
-  initialize: ->
-
-  clear: ->
-    @view.remove()
-
 # Add Mixins
 exports.Tag.prototype = _.extend exports.Tag.prototype,
-  ModelLinker, GetHtml
+  ModelLinker, GetHtml, DeleteModel, ClearModel

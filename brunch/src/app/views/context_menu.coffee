@@ -50,7 +50,6 @@ class exports.ContextMenu extends Backbone.View
 
   delete: =>
     for model in @model.get('models')
-      console.log 'deleting ' + model.get('name')
       model.delete()
 
     # Empty the context menu's store of models

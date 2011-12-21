@@ -1,6 +1,8 @@
 ModelLinker = require('mixins/models/model_linker').ModelLinker
 ToggleDoneness = require('mixins/models/toggle_doneness').ToggleDoneness
 GetHtml = require('mixins/models/get_html').GetHtml
+DeleteModel = require('mixins/models/delete_model').DeleteModel
+ClearModel = require('mixins/models/clear_model').ClearModel
 
 class exports.Project extends Backbone.Model
 
@@ -13,11 +15,6 @@ class exports.Project extends Backbone.Model
     project_links: []
     tag_links: []
 
-  initialize: ->
-
-  clear: ->
-    @view.remove()
-
 # Add Mixins
 exports.Project.prototype = _.extend exports.Project.prototype,
-  ModelLinker, ToggleDoneness, GetHtml
+  ModelLinker, ToggleDoneness, GetHtml, DeleteModel, ClearModel
