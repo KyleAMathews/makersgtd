@@ -74,14 +74,6 @@ app.util.getModel = (type, id) ->
     newModel.fetch()
     return newModel
 
-# Add extend and include functions from https://github.com/jashkenas/coffee-script/wiki/FAQ
-app.util.extend = (obj, mixin) ->
-  for name, method of mixin
-    obj[name] = method
-
-app.util.include = (klass, mixin) ->
-  app.util.extend klass.prototype, mixin
-
 app.util.modelFactory = (type) ->
   switch type
     when 'action' then return new Action()

@@ -21,6 +21,6 @@ class exports.Projects extends Backbone.Collection
     return 1 unless @length
     @last().get('order') + 1
 
-$(document).ready ->
-  app.util.include exports.Projects, FuzzyMatcherIntegration
-  app.util.include exports.Projects, DoneOrNot
+# Add Mixins
+exports.Projects.prototype = _.extend exports.Projects.prototype,
+  FuzzyMatcherIntegration, DoneOrNot

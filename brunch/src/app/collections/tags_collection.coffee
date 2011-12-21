@@ -23,5 +23,6 @@ class exports.Tags extends Backbone.Collection
     return 1 unless @length
     @last().get('order') + 1
 
-$(document).ready ->
-  app.util.include exports.Tags, FuzzyMatcherIntegration
+# Add Mixins
+exports.Tags.prototype = _.extend exports.Tags.prototype,
+  FuzzyMatcherIntegration

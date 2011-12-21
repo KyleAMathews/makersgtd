@@ -25,6 +25,5 @@ class exports.Actions extends Backbone.Collection
     @last().get('order') + 1
 
 # Add Mixins
-$(document).ready ->
-  app.util.include exports.Actions, FuzzyMatcherIntegration
-  app.util.include exports.Actions, DoneOrNot
+exports.Actions.prototype = _.extend exports.Actions.prototype,
+  FuzzyMatcherIntegration, DoneOrNot
