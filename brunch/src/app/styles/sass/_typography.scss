@@ -2,8 +2,8 @@
 @import "compass/typography";
 
 // Typography defaults
-$base-font-size: 14px;
-$blueprint-font-size: 14px;
+$base-font-size: 13px;
+$blueprint-font-size: 13px;
 $base-line-height: $base-font-size * 1.5;
 @include blueprint-typography();
 @include establish-baseline();
@@ -23,23 +23,23 @@ h1,h2,h3,h4,h5, #navigation {
 // If you'd like to change the size of headers, move all of the following either
 // up or down the hierarchy.
 h1 {
-  @include adjust-font-size-to(36px);
+  @include adjust-font-size-to(24px);
   @include trailer(0.5);
 }
 h2 {
-  @include adjust-font-size-to(24px);
-}
-h3 {
   @include adjust-font-size-to(21px);
 }
-h4 {
+h3 {
   @include adjust-font-size-to(18px);
+}
+h4 {
+  @include adjust-font-size-to(16px);
   @include leader(0);
   @include trailer(0);
 }
 h5 {
-  @include adjust-font-size-to(16px);
+  @include adjust-font-size-to(14px);
 }
 h6 {
-  @include adjust-font-size-to(14px);
+  @include adjust-font-size-to(13px);
 }

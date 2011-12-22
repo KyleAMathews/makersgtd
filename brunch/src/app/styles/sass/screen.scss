@@ -185,7 +185,7 @@ nav {
 }
 
 #shadow-cover {
-  width: 317px;
+  width: 313px;
   margin-left: 2px;
   @media (min-width:500px) {
     margin-left: 102px;
@@ -194,7 +194,7 @@ nav {
   position: absolute;
   background: white;
   z-index: 100;
-  top: 71px;
+  top: 66px;
 }
 
 // Add to items when moving them.
@@ -219,7 +219,7 @@ a.model-link {
     }
   }
   .name .display{
-    @include adjust-font-size-to(18px, 1);
+    @include adjust-font-size-to(16px, 1);
     font-weight: bold;
   }
 }
@@ -230,7 +230,7 @@ a.model-link {
   @include leading-border(2px, .5);
   border-color: $grey90;
   color: $grey60;
-  @include adjust-font-size-to(12px);
+  @include adjust-font-size-to(11px);
 }
 
 /* Blank slate class */
