@@ -1,0 +1,9 @@
+<% if @created?: %>
+  Created: <%- new Date(@created).toDateString() %><br />
+<% end %>
+<% if @changed?: %>
+  Last activity: <%- new Date(@changed).toDateString() %><br />
+<% end %>
+<% if @done and @completed?: %>
+  Completed: <%- new Date(@completed).toDateString() %><br />
+<% end %>
