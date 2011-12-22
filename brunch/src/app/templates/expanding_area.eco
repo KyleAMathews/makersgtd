@@ -1,0 +1,2 @@
+<pre><span></span><br></pre>
+<textarea class="input"><%= @edit_text %></textarea>

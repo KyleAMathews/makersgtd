@@ -246,9 +246,6 @@ a.model-link {
   .display {
     cursor: pointer;
   }
-  .expanding-area {
-    @include trailer(0.25);
-  }
   input[type="submit"].save {
     @include my-button(#3da440);
     background-color: #3da440;
@@ -348,7 +345,8 @@ input[type="submit"], input[type="button"], button, .button {
 }
 
 /* TODO this should just be .expanding-area */
-#simple-gtd-app .editable .edit .expanding-area {
+#simple-gtd-app .expanding-area {
+  @include trailer(0.25);
   position: relative;
   background: #fff;
   > textarea,

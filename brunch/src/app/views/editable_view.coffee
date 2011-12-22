@@ -1,4 +1,5 @@
 editableTemplate = require('templates/editable')
+ExpandingAreaView = require('views/expanding_area_view').ExpandingAreaView
 
 class exports.EditableView extends Backbone.View
 
@@ -35,21 +36,12 @@ class exports.EditableView extends Backbone.View
     context.edit_text = @model.get(@options.field)
 
     $(@el).html(editableTemplate(context))
-
-    # Wait for the HTML to be inserted first.
-    _.defer @makeAreaExpandable
+    new ExpandingAreaView(
+      el: @$('.expanding-area')
+      edit_text: @model.get(@options.field)
+    ).render()
     @
 
-  makeAreaExpandable: =>
-    container = @$('.expanding-area')
-    area = container.find('textarea')
-    span = container.find('span')
-    area.on 'input', ->
-      span.text(area.val())
-    span.text(area.val())
-
-    # Enable extra CSS
-    container.addClass('active')
 
   edit: =>
     @$(@el).addClass "editing"
