@@ -98,16 +98,6 @@
   .display, .blank-slate {
     display: none;
   }
-  textarea {
-    @include padding-leader(0.5);
-    @include padding-trailer(0.5);
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    width: 264px;
-    margin: 0;
-    outline: none;
-    @include single-box-shadow($inset: true);
-  }
 }
 
 #actions, #projects, #tags {
@@ -395,6 +385,16 @@ input[type="submit"], input[type="button"], button, .button {
     display: block;
     /* Hide the text; just using it for sizing */
     visibility: hidden;
+  }
+  > textarea {
+    @include padding-leader(0.5);
+    @include padding-trailer(0.5);
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    width: 264px;
+    margin: 0;
+    outline: none;
+    @include single-box-shadow($inset: true);
   }
 }
 

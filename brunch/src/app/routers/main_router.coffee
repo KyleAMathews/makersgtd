@@ -1,19 +1,17 @@
 ActionFullView = require('views/action_full_view').ActionFullView
 ProjectFullView = require('views/project_full_view').ProjectFullView
 TagFullView = require('views/tag_full_view').TagFullView
+AddNewModelView = require('views/add_new_model_view').AddNewModelView
 
 # Actions
-NewActionView = require('views/new_action_view').NewActionView
 ActionsView = require('views/actions_view').ActionsView
 DoneActionsView = require('views/done_actions_view').DoneActionsView
 
 # Projects
-NewProjectView = require('views/new_project_view').NewProjectView
 ProjectsView = require('views/projects_view').ProjectsView
 DoneProjectsView = require('views/done_projects_view').DoneProjectsView
 
 # Tags
-NewTagView = require('views/new_tag_view').NewTagView
 TagsView = require('views/tags_view').TagsView
 
 class exports.MainRouter extends Backbone.Router
@@ -28,7 +26,9 @@ class exports.MainRouter extends Backbone.Router
   nextActions: ->
     actions = new ActionsView( collection: app.collections.actions )
     doneActions = new DoneActionsView( collection: app.collections.actions )
-    newAction = new NewActionView()
+    newAction = new AddNewModelView(
+      type: 'action'
+    )
 
     $('#simple-gtd-app .content').empty()
 
@@ -41,9 +41,11 @@ class exports.MainRouter extends Backbone.Router
     $('#simple-gtd-app .content').append doneActions.render().el
 
   projects: ->
-    newProject = new NewProjectView()
     projects = new ProjectsView( collection: app.collections.projects )
     doneProjects = new DoneProjectsView( collection: app.collections.projects )
+    newProject = new AddNewModelView(
+      type: 'project'
+    )
     $('#simple-gtd-app .content').empty()
 
     $('nav li a.active').removeClass('active')
@@ -55,8 +57,10 @@ class exports.MainRouter extends Backbone.Router
     $('#simple-gtd-app .content').append doneProjects.render().el
 
   tags: ->
-    newTag = new NewTagView()
     tags = new TagsView()
+    newTag = new AddNewModelView(
+      type: 'tag'
+    )
     $('#simple-gtd-app .content').empty()
 
     $('nav li a.active').removeClass('active')
