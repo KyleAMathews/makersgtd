@@ -83,6 +83,8 @@ app.get '/actions/:id', (req, res) ->
     unless err or not action?
       console.log 'Getting action: ' + action.name
       res.json action
+    else
+      res.json { error: 'Couldn\'t load action' }
 
 app.post '/actions', (req, res) ->
   console.log 'saving new action'
@@ -136,6 +138,8 @@ app.get '/projects/:id', (req, res) ->
     unless err or not project?
       console.log 'Getting project: ' + project.name
       res.json project
+    else
+      res.json { error: 'Couldn\'t load project' }
 
 app.post '/projects', (req, res) ->
   console.log 'saving new project'
@@ -189,6 +193,8 @@ app.get '/tags/:id', (req, res) ->
     unless err or not tag?
       console.log 'Getting tag: ' + tag.name
       res.json tag
+    else
+      res.json { error: 'Couldn\'t load tag' }
 
 app.post '/tags', (req, res) ->
   console.log 'saving new tag'
