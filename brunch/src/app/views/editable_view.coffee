@@ -39,6 +39,7 @@ class exports.EditableView extends Backbone.View
     new ExpandingAreaView(
       el: @$('.expanding-area')
       edit_text: @model.get(@options.field)
+      placeholder: context.blank_slate_text
     ).render()
     @
 

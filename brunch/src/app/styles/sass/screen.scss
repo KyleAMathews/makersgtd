@@ -349,6 +349,9 @@ input[type="submit"], input[type="button"], button, .button {
   @include trailer(0.25);
   position: relative;
   background: #fff;
+  textarea::-webkit-input-placeholder {
+    font-style: italic;
+  }
   > textarea,
   > pre {
     background: transparent;

@@ -3,7 +3,10 @@ expandingArea = require('templates/expanding_area')
 class exports.ExpandingAreaView extends Backbone.View
 
   render: =>
-    $(@el).html(expandingArea( edit_text: @options.edit_text ))
+    context = {}
+    for k,v of @options
+      context[k] = v
+    $(@el).html(expandingArea( context ))
 
     # Wait for the HTML to be inserted first.
     _.defer @makeAreaExpandable

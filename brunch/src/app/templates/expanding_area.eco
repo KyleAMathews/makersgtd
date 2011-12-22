@@ -1,2 +1,2 @@
 <pre><span></span><br></pre>
-<textarea class="input"><%= @edit_text %></textarea>
+<textarea class="input" placeholder="<%- @placeholder %>"><%= @edit_text %></textarea>
