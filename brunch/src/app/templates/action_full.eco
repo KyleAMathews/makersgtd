@@ -2,14 +2,4 @@
 <div class="linker-project"></div>
 <div class="linker-tag"></div>
 <div class="editable-description"></div>
-<div class="meta-info">
-  <% if @action.created?: %>
-    Created: <%- new Date(@action.created).toDateString() %><br />
-  <% end %>
-  <% if @action.changed?: %>
-    Last activity: <%- new Date(@action.changed).toDateString() %><br />
-  <% end %>
-  <% if @action.completed?: %>
-    Completed: <%- new Date(@action.completed).toDateString() %><br />
-  <% end %>
-</div>
+<div class="meta-info"></div>

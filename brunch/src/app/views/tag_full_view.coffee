@@ -6,6 +6,7 @@ DoneActionsView = require('views/done_actions_view').DoneActionsView
 ProjectsView = require('views/projects_view').ProjectsView
 SubProjects = require('collections/sub_projects_collection').SubProjects
 DoneProjectsView = require('views/done_projects_view').DoneProjectsView
+MetaInfoView = require('views/meta_info').MetaInfoView
 
 class exports.TagFullView extends Backbone.View
 
@@ -75,5 +76,9 @@ class exports.TagFullView extends Backbone.View
       el: @$('#done-projects-view')
       collection: subProjects
       label: 'Completed Projects'
+    ).render()
+    new MetaInfoView(
+      el: @$('.meta-info')
+      model: @model
     ).render()
     @

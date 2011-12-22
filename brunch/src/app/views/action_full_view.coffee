@@ -2,6 +2,7 @@ actionTemplate = require('templates/action_full')
 linkerTemplate = require('templates/linker')
 editableView = require('views/editable_view').EditableView
 linkerView = require('views/linker_view').LinkerView
+MetaInfoView = require('views/meta_info').MetaInfoView
 
 class exports.ActionFullView extends Backbone.View
 
@@ -50,5 +51,9 @@ class exports.ActionFullView extends Backbone.View
       intro: 'tagged with '
       prefix: '@'
       models: @model.get('tags')
+    ).render()
+    new MetaInfoView(
+      el: @$('.meta-info')
+      model: @model
     ).render()
     @

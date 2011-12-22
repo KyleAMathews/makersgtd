@@ -218,17 +218,19 @@ a.model-link {
       @include force-wrap();
     }
   }
-  .meta-info {
-    @include leader(1);
-    @include leading-border(2px, .5);
-    border-color: $grey90;
-    color: $grey60;
-    @include adjust-font-size-to(12px);
-  }
   .name .display{
     @include adjust-font-size-to(18px, 1);
     font-weight: bold;
   }
+}
+
+/* MetaInfo widget */
+.meta-info {
+  @include leader(1);
+  @include leading-border(2px, .5);
+  border-color: $grey90;
+  color: $grey60;
+  @include adjust-font-size-to(12px);
 }
 
 /* Blank slate class */

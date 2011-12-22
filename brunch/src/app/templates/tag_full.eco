@@ -4,11 +4,4 @@
 <div id="done-actions-view" class="collection-view"></div>
 <div id="projects-view" class="collection-view"></div>
 <div id="done-projects-view" class="collection-view"></div>
-<div class="meta-info">
-  <% if @tag.created?: %>
-    Created: <%- new Date(@tag.created).toDateString() %><br />
-  <% end %>
-  <% if @tag.changed?: %>
-    Last activity: <%- new Date(@tag.changed).toDateString() %><br />
-  <% end %>
-</div>
+<div class="meta-info"></div>

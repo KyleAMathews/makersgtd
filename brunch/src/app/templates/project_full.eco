@@ -3,15 +3,4 @@
 <div class="editable-outcome-vision"></div>
 <div class="editable-description"></div>
 <div id="actions-view" class="collection-view"></div>
-<div class="meta-info">
-  <% if @project.created?: %>
-    Created: <%- new Date(@project.created).toDateString() %><br />
-  <% end %>
-  <% if @project.changed?: %>
-    Last activity: <%- new Date(@project.changed).toDateString() %><br />
-  <% end %>
-  <% if @project.completed?: %>
-    Completed: <%- new Date(@project.completed).toDateString() %><br />
-  <% end %>
-</div>
-
+<div class="meta-info"></div>

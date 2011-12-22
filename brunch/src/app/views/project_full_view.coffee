@@ -3,6 +3,7 @@ editableView = require('views/editable_view').EditableView
 linkerView = require('views/linker_view').LinkerView
 actionsView = require('views/actions_view').ActionsView
 SubActions = require('collections/sub_actions_collection').SubActions
+MetaInfoView = require('views/meta_info').MetaInfoView
 
 class exports.ProjectFullView extends Backbone.View
 
@@ -47,6 +48,10 @@ class exports.ProjectFullView extends Backbone.View
       intro: 'tagged with '
       prefix: '@'
       models: @model.get('tags')
+    ).render()
+    new MetaInfoView(
+      el: @$('.meta-info')
+      model: @model
     ).render()
 
     # Render the project's actions.
