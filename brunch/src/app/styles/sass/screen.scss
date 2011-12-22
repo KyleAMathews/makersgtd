@@ -63,10 +63,10 @@
     padding: 0;
   }
   li {
-    @include padding-leader(0.5);
-    @include padding-trailer(0.5);
+    @include padding-leader(0.25);
+    @include padding-trailer(0.25);
     @include trailing-border($lines: 0.5);
-    border-color: $grey90;
+    border-color: $grey93;
     position: relative;
     cursor: default;
     @include pie-clearfix();
@@ -105,7 +105,7 @@
   margin: 0;
   .check {
     position: relative;
-    top: 4px;
+    top: 3px;
     margin: 0 7px 0 7px;
     float: left;
   }
@@ -117,6 +117,7 @@
 }
 
 #done-actions-view {
+  @include leader(2);
   #actions {
     &:before {
       content: "Recently completed";
@@ -140,7 +141,7 @@ nav {
       float: left;
     }
     a {
-      padding: 3px 16px;
+      padding: 3px 19px;
       position: relative;
       display: block;
       background: #133868;
@@ -349,7 +350,6 @@ input[type="submit"], input[type="button"], button, .button {
     @include force-wrap();
     font: inherit;
     line-height: inherit;
-    width: 264px;
     padding: 0.75em 0.5em;
     margin: 0;
     border: 0;
@@ -391,7 +391,6 @@ input[type="submit"], input[type="button"], button, .button {
     @include padding-trailer(0.5);
     padding-left: 0.5em;
     padding-right: 0.5em;
-    width: 264px;
     margin: 0;
     outline: none;
     @include single-box-shadow($inset: true);
