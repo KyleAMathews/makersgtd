@@ -63,8 +63,8 @@ mongoose.model 'tag', tagSchema
 app.get '/actions', (req, res) ->
   console.log 'getting actions'
   Action = mongoose.model 'action'
-  query = Action.find()
   date = moment().subtract('hours', 12)
+  query = Action.find()
   query
     # Only get completed actions from past 12 hours.
     .or([{ 'done': false }, {'completed': { $gte : date.native()}}])
@@ -125,12 +125,18 @@ app.del '/actions/:id', (req, res) ->
 app.get '/projects', (req, res) ->
   console.log 'getting projects'
   Project = mongoose.model 'project'
-  Project.find (err, projects) ->
-    unless err or not projects?
-      for project in projects
-        project.setValue('id', project.getValue('_id'))
+  date = moment().subtract('hours', 12)
+  query = Project.find()
+  query
+    # Only get completed actions from past 12 hours.
+    .or([{ 'done': false }, {'completed': { $gte : date.native()}}])
+    .notEqualTo('deleted', true)
+    .run (err, projects) ->
+      unless err or not projects?
+        for project in projects
+          project.setValue('id', project.getValue('_id'))
 
-      res.json projects
+        res.json projects
 
 app.get '/projects/:id', (req, res) ->
   Project = mongoose.model 'project'
@@ -180,12 +186,15 @@ app.del '/projects/:id', (req, res) ->
 app.get '/tags', (req, res) ->
   console.log 'getting tags'
   Tag = mongoose.model 'tag'
-  Tag.find (err, tags) ->
-    unless err or not tags?
-      for tag in tags
-        tag.setValue('id', tag.getValue('_id'))
+  query = Tag.find()
+  query
+    .notEqualTo('deleted', true)
+    .run (err, tags) ->
+      unless err or not tags?
+        for tag in tags
+          tag.setValue('id', tag.getValue('_id'))
 
-      res.json tags
+        res.json tags
 
 app.get '/tags/:id', (req, res) ->
   Tag = mongoose.model 'tag'
