@@ -16,6 +16,9 @@ Action = require('models/action_model').Action
 Project = require('models/project_model').Project
 Tag = require('models/tag_model').Tag
 
+# Views
+GlobalSearch = require('views/global_search').GlobalSearch
+
 # Context Menu
 ContextMenu = require('views/context_menu').ContextMenu
 ContextMenuModel = require('models/context_menu_model').ContextMenuModel
@@ -38,6 +41,11 @@ $(document).ready ->
       model: app.models.contextMenu
     )
     app.views.contextMenu.render()
+
+    new GlobalSearch(
+      el: $('#global-search')
+    )
+    $('#global-search input').val('')
 
     # GET models from server.
     # Don't initialize router until all the collection fetches have returned.

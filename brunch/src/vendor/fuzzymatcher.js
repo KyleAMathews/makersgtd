@@ -294,7 +294,7 @@
     return d[ t.length ][ str.length ];
   }
 
-  //memoize.js - by @addyosmani, @philogb, @mathias
+  // memoize.js - by @addyosmani, @philogb, @mathias
   // with a few useful tweaks from @DmitryBaranovsk
   // @source http://jsperf.com/comparison-of-memoization-implementations/9
   exports.memoize = memoize = function memoize( fn, invalidate ) {
@@ -352,7 +352,7 @@
       }
       // No need to keep searching beyond 100 results. In an
       // autocomplete widget, the results are just an aid as people
-      // narrow down on a target so don't need to do an excaustive
+      // narrow down on a target so don't need to do an exhaustive
       // search.
       if (num_matchs > 100) { break; }
     }
