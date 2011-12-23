@@ -108,3 +108,9 @@ app.util.modelFactory = (type) ->
 # Extend the Backbone model prototype to add an internal url generator.
 Backbone.Model.prototype.iurl = ->
   return '#' + @get('type') + 's/' + @id
+
+# Mixin capitalize function to underscore.
+_.mixin(
+  capitalize : (string) ->
+    return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase();
+)
