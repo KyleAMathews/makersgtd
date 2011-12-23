@@ -117,7 +117,7 @@
 }
 
 #done-actions-view {
-  @include leader(2);
+  @include leader(1);
   #actions {
     &:before {
       content: "Recently completed";
@@ -389,8 +389,6 @@ input[type="submit"], input[type="button"], button, .button {
   > textarea {
     @include padding-leader(0.5);
     @include padding-trailer(0.5);
-    padding-left: 0.5em;
-    padding-right: 0.5em;
     margin: 0;
     outline: none;
     @include single-box-shadow($inset: true);
