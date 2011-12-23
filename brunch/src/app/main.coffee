@@ -114,3 +114,32 @@ _.mixin(
   capitalize : (string) ->
     return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase();
 )
+
+keyNav = []
+# Crude global navigation
+$(document).keypress (e) ->
+  if keyNav.length is 0
+    switch e.charCode
+      when 103
+        keyNav.push 'g'
+        return
+
+  if keyNav.length is 1
+    switch e.charCode
+      when 110 then keyNav.push 'n'
+      when 112 then keyNav.push 'p'
+      when 116 then keyNav.push 't'
+      else keyNav = []
+
+  if keyNav.length is 2
+    switch keyNav.toString()
+      when 'g,n'
+        app.routers.main.navigate '#next-actions', true
+        keyNav = []
+      when 'g,p'
+        app.routers.main.navigate '#projects', true
+        keyNav = []
+      when 'g,t'
+        app.routers.main.navigate '#tags', true
+        keyNav = []
+      else keyNav = []
