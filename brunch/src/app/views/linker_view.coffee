@@ -1,4 +1,5 @@
 linkerTemplate = require('templates/linker')
+Autocomplete = require('mixins/views/autocomplete').Autocomplete
 
 class exports.LinkerView extends Backbone.View
 
@@ -81,29 +82,6 @@ class exports.LinkerView extends Backbone.View
     @$('ul.autocomplete li').first().addClass('active')
     if @matches.length > 0 then @$('ul.autocomplete').show()
 
-  selectResult: (e) =>
-    # Exit editing on escape.
-    if e.keyCode is $.ui.keyCode.ESCAPE then @stopEditing()
-
-    # When the user presses the down arrow, select the next item in the matches.
-    if e.keyCode is $.ui.keyCode.DOWN
-      @$('ul.autocomplete li.active').removeClass('active').next().addClass('active')
-      if @$('ul.autocomplete li.active').length is 0
-        @$('ul.autocomplete li').last().addClass('active')
-      e.preventDefault()
-
-    # When the user presses the up arrow, select the previous item in the matches.
-    if e.keyCode is $.ui.keyCode.UP
-      @$('ul.autocomplete li.active').removeClass('active').prev().addClass('active')
-      if @$('ul.autocomplete li.active').length is 0
-        @$('ul.autocomplete li').first().addClass('active')
-      e.preventDefault()
-
-  # Select the item the mouse is hovering over.
-  hoverSelect: (e) =>
-    @$('ul.autocomplete li.active').removeClass('active')
-    $(e.target).addClass('active')
-
   # When the delete icon is clicked, delete links on both models.
   delete: (e) =>
     id = @$(e.target).parent().data('id')
@@ -111,3 +89,7 @@ class exports.LinkerView extends Backbone.View
     @model.deleteLink(@options.linking_to, id)
     linkedToModel = app.util.getModel(@options.linking_to, id)
     linkedToModel.deleteLink(@model.get('type'), @model.id)
+
+# Add Mixins
+exports.LinkerView.prototype = _.extend exports.LinkerView.prototype,
+  Autocomplete
