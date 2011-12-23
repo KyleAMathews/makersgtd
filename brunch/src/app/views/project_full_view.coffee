@@ -4,6 +4,7 @@ linkerView = require('views/linker_view').LinkerView
 actionsView = require('views/actions_view').ActionsView
 SubActions = require('collections/sub_actions_collection').SubActions
 MetaInfoView = require('views/meta_info').MetaInfoView
+AddNewModelView = require('views/add_new_model_view').AddNewModelView
 
 class exports.ProjectFullView extends Backbone.View
 
@@ -12,6 +13,7 @@ class exports.ProjectFullView extends Backbone.View
 
   initialize: ->
     @model.view = @
+    @model.bind("change:action_links", @renderActions)
 
   render: =>
     json = @model.toJSON()
@@ -49,11 +51,25 @@ class exports.ProjectFullView extends Backbone.View
       prefix: '@'
       models: @model.get('tags')
     ).render()
+    newAction = new AddNewModelView(
+      el: @$('.add-new-action')
+      type: 'action'
+      links: [
+        {
+          type: 'project'
+          id: @model.id
+        }
+      ]
+    ).render()
     new MetaInfoView(
       el: @$('.meta-info')
       model: @model
     ).render()
+    @renderActions()
+    @
 
+  # TODO add completed actions
+  renderActions: =>
     # Render the project's actions.
     subActions = new SubActions()
     ids = @model.get("action_links")

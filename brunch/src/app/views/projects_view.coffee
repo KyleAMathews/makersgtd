@@ -19,7 +19,7 @@ class exports.ProjectsView extends Backbone.View
       $(@el).prepend('<h4>' + @options.label + '</h4>')
     # Remove the last border.
     @$('li:last').css('border-color', 'rgba(0,0,0,0)')
-    # TODO add completed views
+    # TODO add completed projects
     @
 
   addOne: (project) =>

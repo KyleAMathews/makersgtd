@@ -21,18 +21,51 @@ class exports.AddNewModelView extends Backbone.View
     @
 
   save: (e) =>
-    console.log @$('span')
     if e.keyCode is $.ui.keyCode.ENTER
       # Save new model
       collection = @options.type + "s"
-      app.collections[collection].create @newAttributes()
-      self = @
-      _.defer ->
-        self.$('textarea').val('')
-        self.$('span').empty()
+      newModel = {}
+      newModel = app.util.modelFactory(@options.type)
+      # TODO figure out why in the world project_links
+      # has a value the second time through which causes things to fail
+      # unless it's set to nothing.
+      newModel.set("project_links": [])
+      for k,v of @newAttributes()
+        prop = {}
+        prop[k] = v
+        newModel.set( prop )
+
+      # TODO Change to use per project or per context ordering
+      newOrder = _.max(app.collections.actions.pluck('order')) + 1
+      newModel.set( 'order': newOrder )
+
+      app.collections[collection].add newModel
+      @addAutoLinks(newModel, true)
+      newModel.save({}, { success: (model, response) =>
+        @addAutoLinks(model, false)
+      })
 
   newAttributes: ->
-    attributes =
-      order: 150
+    attributes = {}
     attributes.name = @$("textarea").val() if @$("textarea").val()?
+    self = @
+    _.defer ->
+      self.$('textarea').val('')
+      self.$('span').empty()
     return attributes
+
+  addAutoLinks: (model, temp) ->
+    # Add any links.
+    unless @options.links? then return
+    for link in @options.links
+      if temp
+        linked_model = app.util.getModel(link.type, link.id)
+        # Create link with the model's temporary cid.
+        linked_model.createLink(model.get('type'), model.cid, true)
+      else
+        linked_model = app.util.getModel(link.type, link.id)
+        # Delete the temporary cid-based link.
+        linked_model.deleteLink(model.get('type'), model.cid, true)
+        # Create links on the linked model and the originating model.
+        linked_model.createLink(model.get('type'), model.id)
+        model.createLink(link.type, link.id)

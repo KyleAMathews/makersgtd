@@ -6,9 +6,12 @@ exports.ModelLinker =
     #   action_links: []
     # @model.save(f)
 
-  createLink: (type, id) ->
-    links = @.get(type + "_links")
-    limit = @.get(type + "_links_limit")
+  createLink: (type, id, temp) ->
+    # Default to false.
+    unless temp? then temp = false
+
+    links = @get(type + "_links")
+    limit = @get(type + "_links_limit")
 
     # Add id to the array if it isn't already there.
     if _.indexOf(links, id) is -1
@@ -22,20 +25,24 @@ exports.ModelLinker =
     if links.length > limit and limit isnt 0
       old_link = links.shift()
       old_linked_model = app.util.getModel(old_link.type, old_link.id)
-      old_linked_model.deleteLink(@.get('type'), @.id)
+      old_linked_model.deleteLink(@get('type'), @id)
 
 
     field = {}
     field[type + "_links"] = links
 
-    @.save field
+    if temp then @set field else @save field
+
     # For some reason, saving here doesn't trigger the change events so we
     # trigger them manually.
-    @.trigger('change')
-    @.trigger('change:' + type + "_links")
+    @trigger('change')
+    @trigger('change:' + type + "_links")
 
-  deleteLink: (type, id) ->
-    links = @.get(type + "_links")
+  deleteLink: (type, id, temp) ->
+    # Default to false.
+    unless temp? then temp = false
+
+    links = @get(type + "_links")
 
     new_links = (link for link in links when link.id isnt id)
     # If now empty, the comprehension returns undefined. We don't want that.
@@ -43,4 +50,4 @@ exports.ModelLinker =
 
     field = {}
     field[type + "_links"] = new_links
-    @.save field
+    if temp then @set field else @save field
