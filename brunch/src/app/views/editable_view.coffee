@@ -36,6 +36,9 @@ class exports.EditableView extends Backbone.View
     context.edit_text = @model.get(@options.field)
 
     $(@el).html(editableTemplate(context))
+
+    # Post processing on html
+    app.util.makeExternalLinksOpenNewTab(@$('.display'))
     new ExpandingAreaView(
       el: @$('.expanding-area')
       edit_text: @model.get(@options.field)
@@ -44,7 +47,10 @@ class exports.EditableView extends Backbone.View
     @
 
 
-  edit: =>
+  edit: (e) =>
+    # If the person clicked on a link, they probably don't want to start editing.
+    if e.target.nodeName is 'A' then return
+
     @$(@el).addClass "editing"
     @$('.input').focus()
 

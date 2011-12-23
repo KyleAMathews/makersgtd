@@ -90,6 +90,11 @@ app.util.modelFactory = (type) ->
     when 'project' then return new Project()
     when 'tag' then return new Tag()
 
+app.util.makeExternalLinksOpenNewTab = (context) ->
+  $("a[href^=http]", context).each ->
+    if @href.indexOf(location.hostname) is -1
+      $(@).attr
+        target: "_blank",
 
 #represent character bindings as tree, once enter in tree, don't exit until reach leaf.
 # Allow for global states, e.g. normal, input (don't do anything), a model is checked, etc
