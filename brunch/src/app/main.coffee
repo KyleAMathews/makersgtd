@@ -65,6 +65,8 @@ app.util.getModel = (type, id) ->
   collection = type + "s"
   if app.collections[collection].get(id)?
     return app.collections[collection].get(id)
+  else if id.substr(0,1) is "c" and app.collections[collection].getByCid(id)?
+    return app.collections[collection].getByCid(id)
   # If the model isn't in the collection, create it and populate it from
   # the server. We trust that someone isn't trying to get a non-existant model.
   else
