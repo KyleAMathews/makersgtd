@@ -460,3 +460,8 @@ code {
     }
   }
 }
+
+.add-new-model {
+  @include leader(0.5);
+  @include trailer(0.5);
+}
