@@ -123,6 +123,8 @@ _.mixin(
 keyNav = []
 # Crude global navigation
 $(document).keypress (e) ->
+  if e.target.nodeName is 'TEXTAREA' or e.target.nodeName is 'INPUT'
+    return
   if keyNav.length is 0
     switch e.charCode
       when 103
