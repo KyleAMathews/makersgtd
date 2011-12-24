@@ -65,12 +65,17 @@ class exports. GlobalSearch extends Backbone.View
 
         classes = ""
         if model.get('done') then classes += "done "
+        prefix = ""
+        switch model.get('type')
+          when 'tag' then prefix = "@"
+          when 'project' then prefix = "#"
         @$('ul.autocomplete').append(globalSearchTemplate(
           model: model
           match: match
           tag_names: tag_names
           project_names: project_names
           classes: classes
+          prefix: prefix
         ))
 
     @$('ul.autocomplete li').first().addClass('active')
