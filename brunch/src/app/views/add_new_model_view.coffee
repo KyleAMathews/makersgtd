@@ -35,6 +35,10 @@ class exports.AddNewModelView extends Backbone.View
         prop[k] = v
         newModel.set( prop )
 
+      # Don't save if the name is blank.
+      name = newModel.get('name')
+      unless name? and name isnt '' then return
+
       # TODO Change to use per project or per context ordering
       newOrder = _.max(app.collections.actions.pluck('order')) + 1
       newModel.set( 'order': newOrder )
@@ -47,7 +51,7 @@ class exports.AddNewModelView extends Backbone.View
 
   newAttributes: ->
     attributes = {}
-    attributes.name = @$("textarea").val() if @$("textarea").val()?
+    attributes.name = @$("textarea").val()
     self = @
     _.defer ->
       self.$('textarea').val('')
