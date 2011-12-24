@@ -11,7 +11,7 @@ class exports. GlobalSearch extends Backbone.View
 
   initialize: ->
     $(document).keypress (e) => 
-      if e.charCode is 47
+      if e.charCode is 47 and e.target.nodeName isnt 'TEXTAREA' and e.target.nodeName isnt 'INPUT'
         @$('input').focus()
         e.preventDefault()
 
