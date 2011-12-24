@@ -1,7 +1,7 @@
 <div class="tag <% if @tag.done: %>done<% end %>" data-id="<%- @tag.id %>">
   <div class="display">
-    <input class="check" type="checkbox" <% if @tag.done: %>checked="checked"<% end %>>
-    <div class="project-name"><a class="model-link" href="<%- @tag.url %>"><%= @tag.name %></a></div>
+    <input class="check" type="checkbox">
+    <div class="project-name"><a class="model-link" href="<%- @tag.url %>">@<%= @tag.name %></a></div>
   </div>
   <div class="edit">
     <input class="tag-input" type="text" value="<%= @tag.name %>">
