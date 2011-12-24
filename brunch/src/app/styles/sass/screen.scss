@@ -429,8 +429,9 @@ code {
   ul.autocomplete {
     list-style: none;
     position: absolute;
-    left: 0;
-    right: 0;
+    left: 10px;
+    right: -8px;
+    top: 30px;
     display: none;
     background: white;
     margin: 0;
