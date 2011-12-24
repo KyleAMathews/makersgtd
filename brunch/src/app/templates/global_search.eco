@@ -1,4 +1,5 @@
-<li data-url='<%- @model.iurl() %>'><%- @match.highlighted %>
+<li data-url='<%- @model.iurl() %>' class="<%- @classes %>">
+<%- @match.highlighted %>
 <% for name in @project_names: %>
   <span class='project-link'>#<%- name %></span>
 <% end %>

@@ -449,6 +449,9 @@ code {
       &.active {
         background: #A6E8FF;
       }
+      &.done {
+        text-decoration: line-through;
+      }
       .project-link {
         background: lightgreen;
         @include border-radius(5px);
