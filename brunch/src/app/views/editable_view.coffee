@@ -7,6 +7,7 @@ class exports.EditableView extends Backbone.View
 
   events:
     'keypress .save-on-enter .input'   : 'updateOnEnter'
+    'keydown' : 'escapeEditing'
     'click .editable .display' : 'edit'
     'click .edit .save' : 'update'
     'click .edit .cancel' : 'stopEditing'
@@ -39,6 +40,7 @@ class exports.EditableView extends Backbone.View
 
     # Post processing on html
     app.util.makeExternalLinksOpenNewTab(@$('.display'))
+
     new ExpandingAreaView(
       el: @$('.expanding-area')
       edit_text: @model.get(@options.field)
@@ -68,3 +70,6 @@ class exports.EditableView extends Backbone.View
 
   updateOnEnter: (e) ->
     @update() if e.keyCode is $.ui.keyCode.ENTER
+
+  escapeEditing: (e) ->
+    @stopEditing() if e.keyCode is 27

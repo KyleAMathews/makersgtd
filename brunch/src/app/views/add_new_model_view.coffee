@@ -7,6 +7,7 @@ class exports.AddNewModelView extends Backbone.View
 
   events:
     'keypress .input' : 'save'
+    'keydown' : 'escapeEditing'
 
   render: =>
     context = {}
@@ -18,6 +19,7 @@ class exports.AddNewModelView extends Backbone.View
       el: @$('.expanding-area')
       placeholder: "Add new " + context.type
     ).render()
+    $(@el).addClass('add-new-model')
     @
 
   save: (e) =>
@@ -73,3 +75,7 @@ class exports.AddNewModelView extends Backbone.View
         # Create links on the linked model and the originating model.
         linked_model.createLink(model.get('type'), model.id)
         model.createLink(link.type, link.id)
+
+  escapeEditing: (e) ->
+    if e.keyCode is 27
+      @$('.input').blur().val('')
