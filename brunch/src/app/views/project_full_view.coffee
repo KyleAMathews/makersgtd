@@ -18,14 +18,16 @@ class exports.ProjectFullView extends Backbone.View
   render: =>
     json = @model.toJSON()
     @$(@el).html(projectTemplate(project: json))
-    new editableView(
+    editableName = new editableView(
       field: 'name'
       el: @$('.editable-name')
       prefix: '#'
       model: @model
       options: ['save-on-enter']
       blank_slate_text: 'Add Name'
-    ).render()
+    )
+    if @model.get('done') then editableName.options.options.push 'done'
+    editableName.render()
     new editableView(
       field: 'outcome_vision'
       el: @$('.editable-outcome-vision')
@@ -82,6 +84,7 @@ class exports.ProjectFullView extends Backbone.View
     new actionsView(
       el: @$('#actions-view')
       collection: subActions
+      label: 'Actions'
     ).render()
     @
 

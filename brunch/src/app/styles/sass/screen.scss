@@ -252,6 +252,9 @@ a.model-link {
     @include trailer(0);
     color: $grey30;
   }
+  &.done {
+    text-decoration: line-through;
+  }
 }
 
 /* Linker Widget */

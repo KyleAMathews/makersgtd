@@ -1,5 +1,4 @@
 actionTemplate = require('templates/action_full')
-linkerTemplate = require('templates/linker')
 editableView = require('views/editable_view').EditableView
 linkerView = require('views/linker_view').LinkerView
 MetaInfoView = require('views/meta_info').MetaInfoView
@@ -17,15 +16,16 @@ class exports.ActionFullView extends Backbone.View
     json = @model.toJSON()
     @$(@el).html(actionTemplate(
       action: json
-      linkerTemplate: linkerTemplate
     ))
-    new editableView(
+    editableName = new editableView(
       field: 'name'
       el: @$('.editable-name')
       model: @model
       options: ['save-on-enter']
       blank_slate_text: 'Add Name'
-    ).render()
+    )
+    if @model.get('done') then editableName.options.options.push 'done'
+    editableName.render()
     new editableView(
       field: 'description'
       el: @$('.editable-description')
