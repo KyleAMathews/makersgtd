@@ -242,9 +242,10 @@ a.model-link {
     background-color: #3da440;
     border-color: #286c2a;
   }
-  input[type="submit"].cancel {
-    background-color: $grey70;
-    margin-left: 0.25em;
+  .cancel {
+    margin-left: 0.5em;
+    text-decoration: underline;
+    cursor: pointer;
   }
   .label {
     @include leader(0);

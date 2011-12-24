@@ -10,6 +10,6 @@
   <div class="edit">
     <div class="expanding-area"></div>
     <input type="submit" class="save" value="Save">
-    <input type="submit" class="cancel" value="X">
+    <span class="cancel">cancel</span>
   </div>
 </div>
