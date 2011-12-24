@@ -226,7 +226,7 @@ a.model-link {
 
 /* Blank slate class */
 .blank-slate {
-  color: $grey80;
+  color: $not_important_color;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -243,6 +243,7 @@ a.model-link {
     border-color: #286c2a;
   }
   .cancel {
+    color: $not_important_color;
     margin-left: 0.5em;
     text-decoration: underline;
     cursor: pointer;
