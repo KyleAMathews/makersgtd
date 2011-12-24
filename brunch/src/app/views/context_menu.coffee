@@ -33,7 +33,9 @@ class exports.ContextMenu extends Backbone.View
     a = () =>
       b = $(window).scrollTop()
       d = @$(@el).offset().top - 60
-      if b > d and d > 71
+      # console.log b
+      # console.log d
+      if b > d and d >= 71
         @$(@el).css( position:"fixed",top:"50px" ).addClass('floating')
       else
         @$(@el).css( position:"relative",top:"" ).removeClass('floating')
