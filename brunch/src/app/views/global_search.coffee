@@ -1,4 +1,5 @@
 Autocomplete = require('mixins/views/autocomplete').Autocomplete
+globalSearchTemplate = require('templates/global_search')
 
 class exports. GlobalSearch extends Backbone.View
 
@@ -48,7 +49,25 @@ class exports. GlobalSearch extends Backbone.View
       matches = matches.slice(0,5)
       for match in matches
         model = app.util.getModel(match.type, match.id)
-        @$('ul.autocomplete').append('<li data-url=' + model.iurl() + '>' + match.highlighted + '</li>')
+        # Get tag and project names to add.
+        tag_names = []
+        project_names = []
+        unless model.get('type') is 'tag'
+          tags = model.get('tag_links')
+          projects = model.get('project_links')
+          if projects?
+            for project in projects
+              project_names.push app.util.getModel('project', project.id).get('name')
+          if tags?
+            for tag in tags
+              tag_names.push app.util.getModel('tag', tag.id).get('name')
+
+        @$('ul.autocomplete').append(globalSearchTemplate(
+          model: model
+          match: match
+          tag_names: tag_names
+          project_names: project_names
+        ))
 
     @$('ul.autocomplete li').first().addClass('active')
     if @matches.length > 0 then @$('ul.autocomplete').show()
