@@ -452,17 +452,26 @@ code {
       &.done {
         text-decoration: line-through;
       }
-      .project-link {
-        background: lightgreen;
-        @include border-radius(5px);
-        padding: 1px 5px;
-      }
-      .tag-link {
-        background: palegoldenrod;
-        @include border-radius(5px);
-        padding: 1px 5px;
-      }
     }
+  }
+}
+
+.project-link {
+  background: lightgreen;
+  @include border-radius(5px);
+  padding: 1px 5px;
+  a {
+    @include unstyled-link();
+    cursor: pointer;
+  }
+}
+.tag-link {
+  background: palegoldenrod;
+  @include border-radius(5px);
+  padding: 1px 5px;
+  a {
+    @include unstyled-link();
+    cursor: pointer;
   }
 }
 

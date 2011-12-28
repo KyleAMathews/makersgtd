@@ -15,7 +15,9 @@ class exports.ActionView extends Backbone.View
   render: =>
     json = @model.toJSON()
     json.url = @model.iurl()
-    @$(@el).html(actionTemplate(action: json))
+    @$(@el).html(actionTemplate(
+      action: json
+    ))
     @
 
   toggleDone: ->
