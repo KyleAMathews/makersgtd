@@ -1,4 +1,4 @@
-<% if @options?.label?: %>
+<% if @options?.label? and @length > 0: %>
   <h6><%- @options.label %>
 <% end %>
 <ul id="actions"></ul>
