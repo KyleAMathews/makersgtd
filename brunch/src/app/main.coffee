@@ -97,6 +97,11 @@ app.util.makeExternalLinksOpenNewTab = (context) ->
       $(@).attr
         target: "_blank",
 
+app.util.shortenLongLinks = (context) ->
+  $('a', context).each ->
+    if $(@).text().length > 50
+      $(@).text($(@).text().substring(0,50) + String.fromCharCode(8230)) # Ellipsis
+
 app.util.ml = (model) ->
   return "<a href=" + model.iurl() + ">" + model.get('name') + "</a>"
 

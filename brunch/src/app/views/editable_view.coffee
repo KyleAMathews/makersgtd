@@ -40,6 +40,7 @@ class exports.EditableView extends Backbone.View
 
     # Post processing on html
     app.util.makeExternalLinksOpenNewTab(@$('.display'))
+    app.util.shortenLongLinks(@$('.display'))
 
     new ExpandingAreaView(
       el: @$('.expanding-area')
