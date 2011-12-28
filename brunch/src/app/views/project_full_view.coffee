@@ -62,7 +62,11 @@ class exports.ProjectFullView extends Backbone.View
           id: @model.id
         }
       ]
-    ).render()
+    )
+    # New actions should also inherit their parent project's tags.
+    for tag in @model.get('tag_links')
+      newAction.options.links.push tag
+    newAction.render()
     new MetaInfoView(
       el: @$('.meta-info')
       model: @model
