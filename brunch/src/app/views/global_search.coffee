@@ -53,7 +53,8 @@ class exports. GlobalSearch extends Backbone.View
         # Get tag and project names to add.
         tag_names = []
         project_names = []
-        if model? and model.get('type') isnt 'tag'
+        unless model? then continue
+        unless model.get('type') is 'tag'
           tags = model.get('tag_links')
           projects = model.get('project_links')
           if projects?
