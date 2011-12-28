@@ -1,4 +1,5 @@
 actionTemplate = require('templates/action')
+InjectModelMenu = require('mixins/views/inject_model_menu').InjectModelMenu
 
 class exports.ActionView extends Backbone.View
 
@@ -28,3 +29,7 @@ class exports.ActionView extends Backbone.View
       app.models.contextMenu.add(@model)
     else
       app.models.contextMenu.remove(@model)
+
+# Add Mixins InjectModelMenu
+exports.ActionView.prototype = _.extend exports.ActionView.prototype,
+  InjectModelMenu

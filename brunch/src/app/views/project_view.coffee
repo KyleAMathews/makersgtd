@@ -1,4 +1,5 @@
 projectTemplate = require('templates/project')
+InjectModelMenu = require('mixins/views/inject_model_menu').InjectModelMenu
 
 class exports.ProjectView extends Backbone.View
 
@@ -17,8 +18,6 @@ class exports.ProjectView extends Backbone.View
     @$(@el).html(projectTemplate(project: json))
     @
 
-  injectModelMenu: (e) =>
-    if e.currentTarget.checked
-      app.models.contextMenu.add(@model)
-    else
-      app.models.contextMenu.remove(@model)
+# Add Mixins InjectModelMenu
+exports.ProjectView.prototype = _.extend exports.ProjectView.prototype,
+  InjectModelMenu
