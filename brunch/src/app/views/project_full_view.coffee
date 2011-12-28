@@ -1,6 +1,7 @@
 projectTemplate = require('templates/project_full')
 editableView = require('views/editable_view').EditableView
 linkerView = require('views/linker_view').LinkerView
+DoneActionsView = require('views/done_actions_view').DoneActionsView
 actionsView = require('views/actions_view').ActionsView
 SubActions = require('collections/sub_actions_collection').SubActions
 MetaInfoView = require('views/meta_info').MetaInfoView
@@ -89,6 +90,11 @@ class exports.ProjectFullView extends Backbone.View
       el: @$('#actions-view')
       collection: subActions
       label: 'Actions'
+    ).render()
+    new DoneActionsView(
+      el: @$('#done-actions-view')
+      collection: subActions
+      label: 'Completed Actions'
     ).render()
     @
 

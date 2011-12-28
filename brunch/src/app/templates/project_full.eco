@@ -3,5 +3,6 @@
 <div class="editable-outcome-vision"></div>
 <div class="editable-description"></div>
 <div id="actions-view" class="collection-view"></div>
+<div id="done-actions-view" class="collection-view"></div>
 <div class='add-new-action'></div>
 <div class="meta-info"></div>
