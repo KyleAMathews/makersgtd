@@ -11,7 +11,9 @@ class exports.DoneActionsView extends Backbone.View
     @collection.bind 'change:done', @render
 
   render: =>
-    $(@el).html actionsTemplate()
+    $(@el).html actionsTemplate(
+      options: @options
+    )
     @addAll()
     # Remove the last border.
     @$('li:last').css('border-color', 'rgba(0,0,0,0)')

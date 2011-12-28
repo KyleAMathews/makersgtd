@@ -118,12 +118,6 @@
 
 #done-actions-view {
   @include leader(1);
-  #actions {
-    &:before {
-      content: "Recently completed";
-      font-weight: bold;
-    }
-  }
 }
 
 nav {

@@ -39,7 +39,11 @@ h4 {
 }
 h5 {
   @include adjust-font-size-to(14px);
+  @include leader(0);
+  @include trailer(0);
 }
 h6 {
   @include adjust-font-size-to(13px);
+  @include leader(0);
+  @include trailer(0);
 }
