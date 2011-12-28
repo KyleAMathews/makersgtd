@@ -249,39 +249,39 @@
    * @return {Integer} The minimum number of operations needed to transform one string into the other.
    */
   exports.levenshtein = levenshtein = function levenshtein(str1, str2) {
-     if (!str1 || !str2){
-       return false;
-     }
+    if (!str1 || !str2){
+      return false;
+    }
 
-    // Convert string to lowercase and remove any non-letters.
-    str = str1.toLowerCase().replace(/[^a-z]/g, "");
-    t = str2.toLowerCase().replace(/[^a-z]/g, "");
+    // Remove non-alphabetical charecters.
+    str1 = str1.replace(/[^a-z]/g, "");
+    str2 = str2.replace(/[^a-z]/g, "");
 
     var i;
     var j;
     var cost;
     var d = new Array();
 
-    if ( str.length == 0 ){
-      return str.length;
+    if ( str1.length == 0 ){
+      return str1.length;
     }
 
-    if ( t.length == 0 ){
-      return a.length;
+    if ( str2.length == 0 ){
+      return str1.length;
     }
 
-    for ( i = 0; i <= t.length; i++ ){
+    for ( i = 0; i <= str2.length; i++ ){
       d[ i ] = new Array();
       d[ i ][ 0 ] = i;
     }
 
-    for ( j = 0; j <= str.length; j++ ){
+    for ( j = 0; j <= str1.length; j++ ){
       d[ 0 ][ j ] = j;
     }
 
-    for ( i = 1; i <= t.length; i++ ) {
-      for ( j = 1; j <= str.length; j++ ) {
-        if ( t.toLowerCase().charAt( i - 1 ) == str.toLowerCase().charAt( j - 1 ) ) {
+    for ( i = 1; i <= str2.length; i++ ) {
+      for ( j = 1; j <= str1.length; j++ ) {
+        if ( str2.charAt( i - 1 ) == str1.charAt( j - 1 ) ) {
           cost = 0;
         }
         else {
@@ -291,7 +291,7 @@
       }
     }
 
-    return d[ t.length ][ str.length ];
+    return d[ str2.length ][ str1.length ];
   }
 
   // memoize.js - by @addyosmani, @philogb, @mathias
@@ -320,16 +320,20 @@
     var num_matchs = 0;
     var matches = [];
     for (var i = 0; i < l; i++) {
+      // Convert strings to lowercase.
+      str = data[i].name.toLowerCase();
+      query = query.toLowerCase();
+
       // Matching algorithm returns the position at the start of that
       // match or -1 if there isn't a match.
-      var position = matcher.match_main(data[i].name.toLowerCase(), query, 0);
+      var position = matcher.match_main(str, query, 0);
       if (position !== -1) {
         num_matchs += 1;
         // Make a shallow copy of the object.
         var datum = JSON.parse(JSON.stringify(data[i]));
 
         // Calculate the match score.
-        var distance = levenshtein(datum.name, query);
+        var distance = levenshtein(str, query);
         var score = distance + position;
 
         // Add <strong> around letters which match the query.
