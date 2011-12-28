@@ -47,11 +47,11 @@
     // Redefine these in your program to override the defaults.
 
     // At what point is no match declared (0.0 = perfection, 1.0 = very loose).
-    this.Match_Threshold = 0.5;
+    this.Match_Threshold = 0.3;
     // How far to search for a match (0 = exact location, 1000+ = broad match).
     // A match this many characters away from the expected location will add
     // 1.0 to the score (0.0 is a perfect match).
-    this.Match_Distance = 100;
+    this.Match_Distance = 150;
 
     // The number of bits in an int.
     this.Match_MaxBits = 32;
