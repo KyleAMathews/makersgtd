@@ -17,6 +17,7 @@ $grey98: #FAFAFA;
 $grey99: #FCFCFC;
 $white: #FFFFFF;
 $not_important_color: $grey80;
+$button_color: #3da440;
 
 // Status colors
 $messages_color: #003366;
@@ -37,4 +38,11 @@ $status_border_color: #bbee77;
   padding: 0.5em 1em;
   line-height: 1.5;
   font-family: inherit;
+}
+
+@mixin cancel-link() {
+  color: $not_important_color;
+  text-decoration: underline;
+  margin-left: 0.5em;
+  cursor: pointer;
 }

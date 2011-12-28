@@ -6,8 +6,11 @@ class exports.AddNewModelView extends Backbone.View
   className: 'add-new-model'
 
   events:
-    'keypress .input' : 'save'
+    'keypress .input' : 'saveOnEnter'
     'keydown' : 'escapeEditing'
+    'click .add' : 'save'
+    'click .cancel' : 'stopEditing'
+    'focus .expanding-area .input' : 'showButtons'
 
   render: =>
     context = {}
@@ -22,42 +25,45 @@ class exports.AddNewModelView extends Backbone.View
     $(@el).addClass('add-new-model')
     @
 
-  save: (e) =>
+  saveOnEnter: (e) =>
     if e.keyCode is $.ui.keyCode.ENTER
-      # Save new model
-      collection = @options.type + "s"
-      newModel = {}
-      newModel = app.util.modelFactory(@options.type)
-      # TODO figure out why in the world project_links
-      # has a value the second time through which causes things to fail
-      # unless it's set to nothing.
-      newModel.set("project_links": [])
-      for k,v of @newAttributes()
-        prop = {}
-        prop[k] = v
-        newModel.set( prop )
+      @save()
 
-      # Don't save if the name is blank.
-      name = newModel.get('name')
-      unless name? and name isnt '' then return
+  save: =>
+    # Save new model
+    collection = @options.type + "s"
+    newModel = {}
+    newModel = app.util.modelFactory(@options.type)
+    # TODO figure out why in the world project_links
+    # has a value the second time through which causes things to fail
+    # unless it's set to nothing.
+    newModel.set("project_links": [])
+    for k,v of @newAttributes()
+      prop = {}
+      prop[k] = v
+      newModel.set( prop )
 
-      # TODO Change to use per project or per context ordering
-      newOrder = _.max(app.collections.actions.pluck('order')) + 1
-      newModel.set( 'order': newOrder )
+    # Don't save if the name is blank.
+    name = newModel.get('name')
+    unless name? and name isnt '' then return
 
-      app.collections[collection].add newModel
-      @addAutoLinks(newModel, true)
-      newModel.save({}, { success: (model, response) =>
-        @addAutoLinks(model, false)
-      })
+    # TODO Change to use per project or per context ordering
+    newOrder = _.max(app.collections.actions.pluck('order')) + 1
+    newModel.set( 'order': newOrder )
 
-  newAttributes: ->
+    app.collections[collection].add newModel
+    @addAutoLinks(newModel, true)
+    newModel.save({}, { success: (model, response) =>
+      @addAutoLinks(model, false)
+    })
+
+  newAttributes: =>
     attributes = {}
     attributes.name = @$("textarea").val()
     self = @
     _.defer ->
-      self.$('textarea').val('')
-      self.$('span').empty()
+      self.$('.expanding-area textarea').val('')
+      self.$('.expanding-area span').empty()
     return attributes
 
   addAutoLinks: (model, temp) ->
@@ -76,6 +82,16 @@ class exports.AddNewModelView extends Backbone.View
         linked_model.createLink(model.get('type'), model.id)
         model.createLink(link.type, link.id)
 
-  escapeEditing: (e) ->
+  escapeEditing: (e) =>
     if e.keyCode is 27
-      @$('.input').blur().val('')
+      @stopEditing()
+
+  stopEditing: =>
+    @$('.expanding-area .input').blur().val('')
+    @hideButtons()
+
+  showButtons: =>
+    @$('.focused').show()
+
+  hideButtons: =>
+    @$('.focused').hide()

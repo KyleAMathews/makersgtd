@@ -238,15 +238,10 @@ a.model-link {
     cursor: pointer;
   }
   input[type="submit"].save {
-    @include my-button(#3da440);
-    background-color: #3da440;
-    border-color: #286c2a;
+    @include my-button($button_color);
   }
   .cancel {
-    color: $not_important_color;
-    margin-left: 0.5em;
-    text-decoration: underline;
-    cursor: pointer;
+    @include cancel-link();
   }
   .label {
     @include leader(0);
@@ -487,4 +482,13 @@ code {
 .add-new-model {
   @include leader(0.5);
   @include trailer(0.5);
+  input[type="submit"].add {
+    @include my-button($button_color);
+  }
+  .cancel {
+    @include cancel-link();
+  }
+  .focused {
+    display: none;
+  }
 }

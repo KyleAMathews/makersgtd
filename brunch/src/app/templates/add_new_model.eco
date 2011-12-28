@@ -1,1 +1,5 @@
 <div class="expanding-area"></div>
+<div class="focused">
+  <input type="submit" class="add" value="Add">
+  <span class="cancel">cancel</span>
+</div>
