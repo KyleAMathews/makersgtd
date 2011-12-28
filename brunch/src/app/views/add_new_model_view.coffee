@@ -47,6 +47,11 @@ class exports.AddNewModelView extends Backbone.View
     name = newModel.get('name')
     unless name? and name isnt '' then return
 
+    # Remove # or @ from the start of the name.
+    firstLetter = name.substring(0,1)
+    if firstLetter is "#" or firstLetter is "@"
+      newModel.set( name: name.substring(1) )
+
     # TODO Change to use per project or per context ordering
     newOrder = _.max(app.collections.actions.pluck('order')) + 1
     newModel.set( 'order': newOrder )
