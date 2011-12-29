@@ -1,13 +1,9 @@
-<div class="action <% if @action.done: %>done<% end %>" data-id="<%- @action.id %>">
-  <div class="display">
-    <input class="check" type="checkbox">
-    <div class="name">
-      <a class="model-link" href="<%- @action.url %>">
-        <%= @action.name %>
-      </a>
-    </div>
+<div class="action model-list-item <% if @action.done: %>done<% end %>" data-id="<%- @action.id %>">
+  <div class="name">
+    <a class="model-link" href="<%- @action.url %>">
+      <%= @action.name %>
+    </a>
   </div>
-  <div class="edit">
-    <input class="input" type="text" value="<%= @action.name %>">
+  <div class="commands">
   </div>
 </div>

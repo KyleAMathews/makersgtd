@@ -190,10 +190,15 @@ nav {
   @include single-box-shadow();
 }
 
-a.model-link {
-  @include unstyled-link();
-  cursor: pointer;
-  font-weight: normal;
+.model-list-item {
+  a.model-link {
+    @include unstyled-link();
+    cursor: pointer;
+    font-weight: normal;
+  }
+  .commands {
+    display:none;
+  }
 }
 
 .full-view {
