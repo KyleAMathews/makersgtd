@@ -13,7 +13,7 @@ class exports.DoneActionsView extends Backbone.View
   render: =>
     $(@el).html actionsTemplate(
       options: @options
-      length: @collection.length
+      length: @collection.done().length
     )
     @addAll()
     # Remove the last border.
