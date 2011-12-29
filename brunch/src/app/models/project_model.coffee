@@ -10,9 +10,9 @@ class exports.Project extends Backbone.Model
     name: 'Loading...'
     done: false
     type: 'project'
-    project_links_limit: 1
+    action_links_limit: 0
     tag_links_limit: 0
-    project_links: []
+    action_links: []
     tag_links: []
 
 # Add Mixins
