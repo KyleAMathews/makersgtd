@@ -491,3 +491,6 @@ code {
     display: none;
   }
 }
+.project-link, .tag-link, .linker {
+  @include adjust-font-size-to(11px);
+}
