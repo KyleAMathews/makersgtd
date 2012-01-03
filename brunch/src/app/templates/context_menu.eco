@@ -1,6 +1,0 @@
-<% if @action or @project or @tag: %>
-  <span class="button complete">Complete</span>
-<% end %>
-<% if @action or @project or @tag: %>
-  <span class="button delete">Delete</span>
-<% end %>

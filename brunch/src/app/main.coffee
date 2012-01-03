@@ -19,10 +19,6 @@ Tag = require('models/tag_model').Tag
 # Views
 GlobalSearch = require('views/global_search').GlobalSearch
 
-# Context Menu
-ContextMenu = require('views/context_menu').ContextMenu
-ContextMenuModel = require('models/context_menu_model').ContextMenuModel
-
 MainRouter = require('routers/main_router').MainRouter
 
 # App bootstrapping on document ready
@@ -32,15 +28,7 @@ $(document).ready ->
     app.collections.projects = new Projects()
     app.collections.tags = new Tags()
 
-    app.models.contextMenu = new ContextMenuModel()
-
     app.routers.main = new MainRouter()
-
-    app.views.contextMenu = new ContextMenu(
-      el: $('.context-menu')
-      model: app.models.contextMenu
-    )
-    app.views.contextMenu.render()
 
     new GlobalSearch(
       el: $('#global-search')
