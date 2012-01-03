@@ -42,7 +42,10 @@ class exports.MainRouter extends Backbone.Router
 
   projects: ->
     projects = new ProjectsView( collection: app.collections.projects )
-    doneProjects = new DoneProjectsView( collection: app.collections.projects )
+    doneProjects = new DoneProjectsView(
+      collection: app.collections.projects
+      label: 'Completed projects'
+    )
     newProject = new AddNewModelView(
       type: 'project'
     )

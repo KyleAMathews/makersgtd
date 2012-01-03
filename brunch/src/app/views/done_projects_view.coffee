@@ -7,11 +7,14 @@ class exports.DoneProjectsView extends Backbone.View
   id: 'done-projects-view'
 
   initialize: ->
-    app.collections.projects.bind 'reset', @addAll
-    app.collections.projects.bind 'change:done', @changeDoneState
+    @collection.bind 'reset', @addAll
+    @collection.bind 'change:done', @changeDoneState
 
   render: ->
-    $(@el).html projectsTemplate()
+    $(@el).html projectsTemplate(
+      options: @options
+      length: @collection.done().length
+    )
     @addAll()
     # Remove the last border.
     @$('li:last').css('border-color', 'rgba(0,0,0,0)')
@@ -23,7 +26,7 @@ class exports.DoneProjectsView extends Backbone.View
 
   addAll: =>
     @$('#projects').empty()
-    projects = app.collections.projects.done()
+    projects = @collection.done()
     projects = _.sortBy projects, (project) -> project.get('completed')
     projects.reverse()
     @addOne project for project in projects
