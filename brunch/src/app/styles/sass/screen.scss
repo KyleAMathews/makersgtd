@@ -257,9 +257,12 @@ nav {
       @include force-wrap();
     }
   }
-  .name .display{
-    @include adjust-font-size-to(18px, 1);
-    font-weight: bold;
+  .name {
+    padding-right: 10px;
+    .display{
+      @include adjust-font-size-to(18px, 1);
+      font-weight: bold;
+    }
   }
   >.dropdown {
     top: 78px;
