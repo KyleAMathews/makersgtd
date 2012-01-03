@@ -10,3 +10,6 @@ exports.DeleteModel =
         for link in links
           model = app.util.getModel(link.type, link.id)
           model.deleteLink(@get('type'), @id)
+
+  undelete: ->
+    @save deleted: false

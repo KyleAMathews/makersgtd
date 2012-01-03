@@ -93,13 +93,17 @@ app.util.shortenLongLinks = (context) ->
 app.util.ml = (model) ->
   return "<a href=" + model.iurl() + ">" + model.get('name') + "</a>"
 
-app.util.completeModel = (model) ->
+app.util.toggleDonenessModel = (model) ->
   if typeof model.toggle is 'function'
     model.toggle()
 
 app.util.deleteModel = (model) ->
   if typeof model.delete is 'function'
     model.delete()
+
+app.util.undeleteModel = (model) ->
+  if typeof model.undelete is 'function'
+    model.undelete()
 
 #represent character bindings as tree, once enter in tree, don't exit until reach leaf.
 # Allow for global states, e.g. normal, input (don't do anything), a model is checked, etc

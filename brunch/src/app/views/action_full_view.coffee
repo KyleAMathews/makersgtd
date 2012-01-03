@@ -56,9 +56,6 @@ class exports.ActionFullView extends Backbone.View
     new DropdownMenuView(
       el: @$('.dropdown')
       model: @model
-      commands:
-        'Complete' : app.util.completeModel
-        'Delete' : app.util.deleteModel
     ).render()
     new MetaInfoView(
       el: @$('.meta-info')

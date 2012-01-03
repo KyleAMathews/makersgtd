@@ -1,5 +1,6 @@
 actionTemplate = require('templates/action')
 DropdownMenuView = require('views/dropdown_menu_view').DropdownMenuView
+DropdownRenderHelper = require('mixins/views/dropdown_render_helper').DropdownRenderHelper
 
 class exports.ActionView extends Backbone.View
 
@@ -16,28 +17,19 @@ class exports.ActionView extends Backbone.View
     @$(@el).html(actionTemplate(
       action: json
     ))
-    new DropdownMenuView(
-      el: @$('.dropdown')
-      model: @model
-      commands:
-        'Complete' : app.util.completeModel
-        'Delete' : app.util.deleteModel
-    ).render()
-
-    # Add hoverIntent.
-    config =
-      over: @showDropdown
-      out: @hideDropdown
-      timeout: 100
-    $(@el).hoverIntent(config)
+    @renderDropdown()
     @
 
   toggleDone: ->
     @model.toggle()
 
-  # TODO move this code somehow to the dropdown_menu_view
   showDropdown: =>
     @$('.dropdown').addClass('over')
 
   hideDropdown: =>
-    @$('.dropdown').removeClass('over active').find('.commands').hide()
+    @$('.dropdown').removeClass('over')
+    @dropdownMenu.hide()
+
+# Add Mixins DropdownRenderHelper
+exports.ActionView.prototype = _.extend exports.ActionView.prototype,
+  DropdownRenderHelper

@@ -6,6 +6,7 @@ actionsView = require('views/actions_view').ActionsView
 SubActions = require('collections/sub_actions_collection').SubActions
 MetaInfoView = require('views/meta_info').MetaInfoView
 AddNewModelView = require('views/add_new_model_view').AddNewModelView
+DropdownMenuView = require('views/dropdown_menu_view').DropdownMenuView
 
 class exports.ProjectFullView extends Backbone.View
 
@@ -53,6 +54,10 @@ class exports.ProjectFullView extends Backbone.View
       intro: 'tagged with '
       prefix: '@'
       models: @model.get('tags')
+    ).render()
+    new DropdownMenuView(
+      el: @$('.dropdown')
+      model: @model
     ).render()
     newAction = new AddNewModelView(
       el: @$('.add-new-action')

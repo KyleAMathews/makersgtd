@@ -86,6 +86,6 @@ class exports. GlobalSearch extends Backbone.View
     $('#global-search input').blur().val('')
     @$('ul.autocomplete').empty().hide()
 
-# Add Mixins selectResult and hoverSelect
+# Add Mixins Autocomplete
 exports.GlobalSearch.prototype = _.extend exports.GlobalSearch.prototype,
   Autocomplete

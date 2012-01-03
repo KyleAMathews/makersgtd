@@ -7,6 +7,7 @@ ProjectsView = require('views/projects_view').ProjectsView
 SubProjects = require('collections/sub_projects_collection').SubProjects
 DoneProjectsView = require('views/done_projects_view').DoneProjectsView
 MetaInfoView = require('views/meta_info').MetaInfoView
+DropdownMenuView = require('views/dropdown_menu_view').DropdownMenuView
 
 class exports.TagFullView extends Backbone.View
 
@@ -36,6 +37,10 @@ class exports.TagFullView extends Backbone.View
       blank_slate_text: 'Add Description'
       label: 'Description'
       html: true
+    ).render()
+    new DropdownMenuView(
+      el: @$('.dropdown')
+      model: @model
     ).render()
 
     # Render the tag's actions.
