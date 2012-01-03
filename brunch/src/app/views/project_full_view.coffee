@@ -15,6 +15,7 @@ class exports.ProjectFullView extends Backbone.View
 
   initialize: ->
     @model.view = @
+    @model.bind('change:done', @render)
     @model.bind("change:action_links", @renderActions)
 
   render: =>
