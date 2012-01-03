@@ -106,7 +106,6 @@ app.util.ml = (model) ->
   return "<a href=" + model.iurl() + ">" + model.get('name') + "</a>"
 
 app.util.completeModel = (model) ->
-  console.log 'completing model'
   if typeof model.toggle is 'function'
     model.toggle()
 

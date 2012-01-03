@@ -1,6 +1,6 @@
 actionTemplate = require('templates/action')
 InjectModelMenu = require('mixins/views/inject_model_menu').InjectModelMenu
-ExpandCommandsView = require('views/expand_commands_view').ExpandCommandsView
+DropdownMenuView = require('views/dropdown_menu_view').DropdownMenuView
 
 class exports.ActionView extends Backbone.View
 
@@ -8,8 +8,6 @@ class exports.ActionView extends Backbone.View
 
   events:
     'click .check'           : 'injectModelMenu'
-    'mouseenter' : 'showCommands'
-    'mouseleave' : 'hideCommands'
 
   initialize: ->
     @model.bind('change', @render)
@@ -22,23 +20,31 @@ class exports.ActionView extends Backbone.View
     @$(@el).html(actionTemplate(
       action: json
     ))
-    new ExpandCommandsView(
-      el: @$('.commands')
+    new DropdownMenuView(
+      el: @$('.dropdown')
       model: @model
       commands:
         'Complete' : app.util.completeModel
         'Delete' : app.util.deleteModel
     ).render()
+
+    # Add hoverIntent.
+    config =
+      over: @showDropdown
+      out: @hideDropdown
+      timeout: 100
+    $(@el).hoverIntent(config)
     @
 
   toggleDone: ->
     @model.toggle()
 
-  showCommands: (e) =>
-    @$('.commands').slideDown('fast')
+  # TODO move this code somehow to the dropdown_menu_view
+  showDropdown: =>
+    @$('.dropdown').addClass('over')
 
-  hideCommands: (e) =>
-    @$('.commands').slideUp('fast')
+  hideDropdown: =>
+    @$('.dropdown').removeClass('over active').find('.commands').hide()
 
 # Add Mixins InjectModelMenu
 exports.ActionView.prototype = _.extend exports.ActionView.prototype,

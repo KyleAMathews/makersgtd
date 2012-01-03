@@ -44,6 +44,7 @@ class exports.AddNewModelView extends Backbone.View
       newModel.set( prop )
 
     # Don't save if the name is blank.
+    # TODO move this stuff into model validation
     name = newModel.get('name')
     unless name? and name isnt '' then return
 

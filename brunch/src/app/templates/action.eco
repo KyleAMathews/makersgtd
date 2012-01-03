@@ -4,6 +4,6 @@
       <%= @action.name %>
     </a>
   </div>
-  <div class="commands">
+  <span class='dropdown'></span>
   </div>
 </div>

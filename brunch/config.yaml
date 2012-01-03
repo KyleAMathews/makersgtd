@@ -6,3 +6,4 @@ dependencies:
   - backbone-0.5.3.js
   - Markdown.Converter.js
   - fuzzymatcher.js
+  - jquery.hoverIntent.js

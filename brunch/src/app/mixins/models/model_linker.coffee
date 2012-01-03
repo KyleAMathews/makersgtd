@@ -14,7 +14,7 @@ exports.ModelLinker =
     limit = @get(type + "_links_limit")
 
     # Add id to the array if it isn't already there.
-    if _.indexOf(links, id) is -1
+    if _.indexOf(_.pluck(links, 'id'), id) is -1
       id_obj =
         id: id
         created: new Date().toISOString()

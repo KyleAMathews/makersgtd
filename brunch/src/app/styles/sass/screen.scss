@@ -58,6 +58,9 @@
 }
 
 .collection-view {
+  h4 {
+    font-weight: bold;
+  }
   ul {
     list-style-type: none;
     padding: 0;
@@ -191,13 +194,59 @@ nav {
 }
 
 .model-list-item {
+  position: relative;
+  margin-right: -10px;
+  padding-right: 15px;
   a.model-link {
     @include unstyled-link();
     cursor: pointer;
     font-weight: normal;
   }
+  .dropdown {
+    display: none;
+    top: 2px;
+  }
+}
+
+.dropdown {
+  position: absolute;
+  right: 3px;
+  cursor: pointer;
+  z-index: 10;
+  ul {
+    @include no-bullets();
+    margin: 0;
+  }
+  .icon {
+    border: 1px solid $grey90;
+    color: blue;
+    padding: 1px 3px;
+  }
+  &:hover, &.active {
+    .icon {
+      border: 1px solid black;
+    }
+  }
+  &.over {
+    display: block;
+  }
   .commands {
-    display:none;
+    display: none;
+    position: absolute;
+    padding-left: 10px;
+    top: 17px;
+    right: 0;
+    width: 100px;
+    background: white;
+    @include rhythm-borders(1px, 0.25);
+  }
+  .command {
+    padding: 0.375em 0.75em;
+    cursor: pointer;
+    border: none;
+    &.active {
+      background: $hovering;
+    }
   }
 }
 
@@ -209,8 +258,11 @@ nav {
     }
   }
   .name .display{
-    @include adjust-font-size-to(16px, 1);
+    @include adjust-font-size-to(18px, 1);
     font-weight: bold;
+  }
+  >.dropdown {
+    top: 78px;
   }
 }
 
@@ -324,7 +376,7 @@ nav {
       color: $grey10;
       cursor: pointer;
       &.active {
-        background: #A6E8FF;
+        background: $hovering;
       }
     }
   }

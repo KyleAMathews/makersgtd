@@ -1,3 +1,0 @@
-<% for command of @commands: %>
-  <span class='command'><%- command %></span>
-<% end %>

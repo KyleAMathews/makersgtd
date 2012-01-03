@@ -2,6 +2,7 @@ actionTemplate = require('templates/action_full')
 editableView = require('views/editable_view').EditableView
 linkerView = require('views/linker_view').LinkerView
 MetaInfoView = require('views/meta_info').MetaInfoView
+DropdownMenuView = require('views/dropdown_menu_view').DropdownMenuView
 
 class exports.ActionFullView extends Backbone.View
 
@@ -51,6 +52,13 @@ class exports.ActionFullView extends Backbone.View
       intro: 'tagged with '
       prefix: '@'
       models: @model.get('tags')
+    ).render()
+    new DropdownMenuView(
+      el: @$('.dropdown')
+      model: @model
+      commands:
+        'Complete' : app.util.completeModel
+        'Delete' : app.util.deleteModel
     ).render()
     new MetaInfoView(
       el: @$('.meta-info')

@@ -1,0 +1,6 @@
+<span class="icon">&#9660;</span>
+<ul class='commands'>
+<% for command of @commands: %>
+  <li class='command'><%- command %></li>
+<% end %>
+</ul>

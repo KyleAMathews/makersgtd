@@ -30,7 +30,7 @@ class exports.ActionsView extends Backbone.View
 
   addAll: =>
     @addOne action for action in @collection.notDone()
-    @$('ul').sortable(
+    @$('ul#actions').sortable(
       start: (event, ui) ->
         $(event.target).parent().addClass('sorting')
       stop: (event, ui) ->
