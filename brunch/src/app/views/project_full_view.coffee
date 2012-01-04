@@ -81,7 +81,6 @@ class exports.ProjectFullView extends Backbone.View
     @renderActions()
     @
 
-  # TODO add completed actions
   renderActions: =>
     # Render the project's actions.
     subActions = new SubActions()

@@ -10,7 +10,7 @@ class exports.Actions extends Backbone.Collection
   initialize: ->
     @type = "actions"
 
-    # Tie collection our fuzzymatcher quicksearch.
+    # Tie collection to the fuzzymatcher quicksearch.
     @addToFuzzymatcher()
     @bind('reset', @addToFuzzymatcher)
     @bind('add', @addToFuzzymatcher)
