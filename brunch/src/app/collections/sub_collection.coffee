@@ -1,16 +1,26 @@
-Action = require('models/action_model').Action
+class exports.SubCollection extends Backbone.Collection
 
-class exports.SubActions extends Backbone.Collection
+  initialize: (models, options) ->
+    # Load models from passed in IDs
+    @options = options
+    ids = @options.linkedModel.get(@options.link_name)
+    models = []
+    if ids?
+      models = (app.util.getModel(@options.link_type, id.id) for id in ids)
 
-  model: Action
+    @reset(models)
 
   done: ->
-    items = @filter (action) ->
-      action.get 'done'
+    items = @filter (model) ->
+      model.get 'done'
     items = _.sortBy items, (item) -> return item.get('completed')
     return items
 
   notDone: ->
-    items = @filter (action) ->
-      not action.get 'done'
+    items = @filter (model) ->
+      not model.get 'done'
     return items
+
+  saveOrder: (orderedIds) ->
+    # Save the new order of the linked models to the parent model
+    @options.linkedModel.saveOrderLinkedModels(@options.link_name, orderedIds)

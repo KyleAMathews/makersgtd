@@ -1,5 +1,6 @@
 ActionView = require('views/action_view').ActionView
 actionsTemplate = require('templates/actions')
+Sortable = require('mixins/views/sortable').Sortable
 
 class exports.ActionsView extends Backbone.View
 
@@ -32,22 +33,12 @@ class exports.ActionsView extends Backbone.View
 
   addAll: =>
     @addOne action for action in @collection.notDone()
-    @$('ul#actions').sortable(
-      start: (event, ui) ->
-        $(event.target).parent().addClass('sorting')
-      stop: (event, ui) ->
-        $(event.target).parent().removeClass('sorting')
-    )
-    @$('ul').bind('sortupdate', @resetOrder)
-
-  resetOrder: =>
-    that = @
-    @$('li div.action').each (index) ->
-      id = $(@).data('id')
-      # Save new order to action models but only to those which were changed.
-      unless that.collection.get(id).get('order') is index
-        that.collection.get(id).save( order: index )
+    @makeSortable('ul#actions')
 
   focusInput: (event) =>
     $('#new-action').focus()
     $('#new-action').val ""
+
+# Add Mixins
+exports.ActionsView.prototype = _.extend exports.ActionsView.prototype,
+  Sortable

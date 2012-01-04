@@ -51,3 +51,10 @@ exports.ModelLinker =
     field = {}
     field[type + "_links"] = new_links
     if temp then @set field else @save field
+
+  saveOrderLinkedModels: (link_name, orderedIds) ->
+    links = @get(link_name)
+    links = _.sortBy links, (link) -> return _.indexOf(orderedIds, link.id)
+    field = {}
+    field[link_name] = links
+    @save field

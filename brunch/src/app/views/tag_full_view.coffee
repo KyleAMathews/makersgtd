@@ -1,7 +1,7 @@
 tagTemplate = require('templates/tag_full')
 EditableView = require('views/editable_view').EditableView
 ActionsView = require('views/actions_view').ActionsView
-SubActions = require('collections/sub_actions_collection').SubActions
+SubCollection = require('collections/sub_collection').SubCollection
 DoneActionsView = require('views/done_actions_view').DoneActionsView
 ProjectsView = require('views/projects_view').ProjectsView
 SubProjects = require('collections/sub_projects_collection').SubProjects
@@ -44,13 +44,10 @@ class exports.TagFullView extends Backbone.View
     ).render()
 
     # Render the tag's actions.
-    subActions = new SubActions()
-    ids = @model.get("action_links")
-    actions = []
-    if ids?
-      actions = (app.util.getModel('action', id.id) for id in ids)
-
-    subActions.reset(actions)
+    subActions = new SubCollection [],
+      linkedModel: @model
+      link_name: 'action_links'
+      link_type: 'action'
 
     new ActionsView(
       el: @$('#actions-view')
@@ -64,13 +61,10 @@ class exports.TagFullView extends Backbone.View
     ).render()
 
     # Render the tags's projects.
-    subProjects = new SubProjects()
-    ids = @model.get("project_links")
-    projects = []
-    if ids?
-      projects = (app.util.getModel('project', id.id) for id in ids)
-
-    subProjects.reset(projects)
+    subProjects = new SubCollection [],
+      linkedModel: @model
+      link_name: 'project_links'
+      link_type: 'project'
 
     new ProjectsView(
       el: @$('#projects-view')

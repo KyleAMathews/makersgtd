@@ -3,7 +3,7 @@ editableView = require('views/editable_view').EditableView
 linkerView = require('views/linker_view').LinkerView
 DoneActionsView = require('views/done_actions_view').DoneActionsView
 actionsView = require('views/actions_view').ActionsView
-SubActions = require('collections/sub_actions_collection').SubActions
+SubCollection = require('collections/sub_collection').SubCollection
 MetaInfoView = require('views/meta_info').MetaInfoView
 AddNewModelView = require('views/add_new_model_view').AddNewModelView
 DropdownMenuView = require('views/dropdown_menu_view').DropdownMenuView
@@ -83,13 +83,10 @@ class exports.ProjectFullView extends Backbone.View
 
   renderActions: =>
     # Render the project's actions.
-    subActions = new SubActions()
-    ids = @model.get("action_links")
-    actions = []
-    if ids?
-      actions = (app.util.getModel('action', id.id) for id in ids)
-
-    subActions.reset(actions)
+    subActions = new SubCollection [],
+      linkedModel: @model
+      link_name: 'action_links'
+      link_type: 'action'
 
     new actionsView(
       el: @$('#actions-view')
