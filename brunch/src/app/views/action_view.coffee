@@ -7,6 +7,8 @@ class exports.ActionView extends Backbone.View
   tagName:  "li"
 
   initialize: ->
+    # We use bindAll when we're using a mixin that's called by jquery.
+    _.bindAll(@)
     @model.bind('change', @render)
     @model.bind('destroy', @remove)
     @model.view = @
@@ -22,13 +24,6 @@ class exports.ActionView extends Backbone.View
 
   toggleDone: ->
     @model.toggle()
-
-  showDropdown: =>
-    @$('.dropdown').addClass('over')
-
-  hideDropdown: =>
-    @$('.dropdown').removeClass('over')
-    @dropdownMenu.hide()
 
 # Add Mixins DropdownRenderHelper
 exports.ActionView.prototype = _.extend exports.ActionView.prototype,

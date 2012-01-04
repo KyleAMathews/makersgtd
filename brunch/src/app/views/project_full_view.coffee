@@ -102,4 +102,3 @@ class exports.ProjectFullView extends Backbone.View
       label: 'Completed Actions'
     ).render()
     @
-

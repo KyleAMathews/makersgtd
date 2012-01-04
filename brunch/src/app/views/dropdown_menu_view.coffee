@@ -45,4 +45,3 @@ class exports.DropdownMenuView extends Backbone.View
   hide: =>
     @$('.commands').hide()
     $(@el).removeClass('active')
-

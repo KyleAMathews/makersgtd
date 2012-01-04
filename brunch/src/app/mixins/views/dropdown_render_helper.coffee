@@ -12,3 +12,10 @@ exports.DropdownRenderHelper =
       out: @hideDropdown
       timeout: 100
     $(@el).hoverIntent(config)
+
+  showDropdown: ->
+    @$('.dropdown').addClass('over')
+
+  hideDropdown: ->
+    @$('.dropdown').removeClass('over')
+    @dropdownMenu.hide()

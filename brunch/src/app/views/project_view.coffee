@@ -6,6 +6,8 @@ class exports.ProjectView extends Backbone.View
   tagName:  "li"
 
   initialize: ->
+    # We use bindAll when we're using a mixin that's called by jquery.
+    _.bindAll(@)
     @model.bind('change', @render)
     @model.view = @
 
@@ -15,13 +17,6 @@ class exports.ProjectView extends Backbone.View
     @$(@el).html(projectTemplate(project: json))
     @renderDropdown()
     @
-
-  showDropdown: =>
-    @$('.dropdown').addClass('over')
-
-  hideDropdown: =>
-    @$('.dropdown').removeClass('over')
-    @dropdownMenu.hide()
 
 # Add Mixins DropdownRenderHelper
 exports.ProjectView.prototype = _.extend exports.ProjectView.prototype,
