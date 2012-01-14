@@ -77,11 +77,11 @@ class exports.AddNewModelView extends Backbone.View
     unless @options.links? then return
     for link in @options.links
       if temp
-        linked_model = app.util.getModel(link.type, link.id)
+        linked_model = app.util.loadModel(link.type, link.id)
         # Create link with the model's temporary cid.
         linked_model.createLink(model.get('type'), model.cid, true)
       else
-        linked_model = app.util.getModel(link.type, link.id)
+        linked_model = app.util.loadModel(link.type, link.id)
         # Delete the temporary cid-based link.
         linked_model.deleteLink(model.get('type'), model.cid, true)
         # Create links on the linked model and the originating model.

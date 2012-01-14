@@ -8,7 +8,7 @@ exports.DeleteModel =
     for links in [@get('tag_links'), @get('action_links'), @get('project_links')]
       if links? and links.length > 0
         for link in links
-          model = app.util.getModel(link.type, link.id)
+          model = app.util.loadModel(link.type, link.id)
           model.deleteLink(@get('type'), @id)
 
   undelete: ->

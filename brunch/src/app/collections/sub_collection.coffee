@@ -6,7 +6,7 @@ class exports.SubCollection extends Backbone.Collection
     ids = @options.linkedModel.get(@options.link_name)
     models = []
     if ids?
-      models = (app.util.getModel(@options.link_type, id.id) for id in ids)
+      models = (app.util.loadModel(@options.link_type, id.id) for id in ids)
 
     @reset(models)
 

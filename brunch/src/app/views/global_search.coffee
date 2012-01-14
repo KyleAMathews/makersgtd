@@ -49,7 +49,7 @@ class exports. GlobalSearch extends Backbone.View
       matches = matches.slice(0,5)
       for match in matches
         unless match.id? then match.id = match._id
-        model = app.util.getModel(match.type, match.id)
+        model = app.util.loadModel(match.type, match.id)
         # Get tag and project names to add.
         tag_names = []
         project_names = []
@@ -59,10 +59,10 @@ class exports. GlobalSearch extends Backbone.View
           projects = model.get('project_links')
           if projects?
             for project in projects
-              project_names.push app.util.getModel('project', project.id).get('name')
+              project_names.push app.util.loadModel('project', project.id).get('name')
           if tags?
             for tag in tags
-              tag_names.push app.util.getModel('tag', tag.id).get('name')
+              tag_names.push app.util.loadModel('tag', tag.id).get('name')
 
         classes = ""
         if model.get('done') then classes += "done "

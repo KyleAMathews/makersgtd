@@ -74,7 +74,7 @@ class exports.MainRouter extends Backbone.Router
     $('#simple-gtd-app .content').append newTag.render().el
 
   actionView: (id) ->
-    action = app.util.getModel('action', id)
+    action = app.util.loadModel('action', id)
     $('#simple-gtd-app h1.title').html 'Action'
 
     $('nav li a.active').removeClass('active')
@@ -85,7 +85,7 @@ class exports.MainRouter extends Backbone.Router
       $('#simple-gtd-app .content').html actionFullView.render().el
 
   projectView: (id) ->
-    project = app.util.getModel('project', id)
+    project = app.util.loadModel('project', id)
 
     $('#simple-gtd-app h1.title').html 'Project'
 
@@ -97,7 +97,7 @@ class exports.MainRouter extends Backbone.Router
       $('#simple-gtd-app .content').html projectFullView.render().el
 
   tagView: (id) ->
-    tag = app.util.getModel('tag', id)
+    tag = app.util.loadModel('tag', id)
 
     $('#simple-gtd-app h1.title').html 'Tag'
 

@@ -35,7 +35,7 @@ class exports.LinkerView extends Backbone.View
     ids = @model.get(@options.linking_to + "_links")
     context.models = []
     if ids?
-      context.models = (app.util.getModel(context.linking_to, id.id) for id in ids)
+      context.models = (app.util.loadModel(context.linking_to, id.id) for id in ids)
 
     $(@el).html(linkerTemplate(context))
 
@@ -58,7 +58,7 @@ class exports.LinkerView extends Backbone.View
 
   addNewLink: (linked_id) =>
     @model.createLink(@options.linking_to, linked_id)
-    linkedToModel = app.util.getModel(@options.linking_to, linked_id)
+    linkedToModel = app.util.loadModel(@options.linking_to, linked_id)
     linkedToModel.createLink(@model.get('type'), @model.id)
 
     @stopEditing()
@@ -87,7 +87,7 @@ class exports.LinkerView extends Backbone.View
     id = @$(e.target).parent().data('id')
 
     @model.deleteLink(@options.linking_to, id)
-    linkedToModel = app.util.getModel(@options.linking_to, id)
+    linkedToModel = app.util.loadModel(@options.linking_to, id)
     linkedToModel.deleteLink(@model.get('type'), @model.id)
 
 # Add Mixins

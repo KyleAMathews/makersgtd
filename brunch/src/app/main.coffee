@@ -57,7 +57,7 @@ $(document).ready ->
 window.markdown = new Markdown.Converter()
 
 app.util = {}
-app.util.getModel = (type, id) ->
+app.util.loadModel = (type, id) ->
   unless id? and type? then return
   collection = type + "s"
   if app.collections[collection].get(id)?
