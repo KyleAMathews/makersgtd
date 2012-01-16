@@ -9,10 +9,16 @@ class exports.ExpandingAreaView extends Backbone.View
     $(@el).html(expandingArea( context ))
 
     # Wait for the HTML to be inserted first.
-    _.defer @makeAreaExpandable
+    _.defer @makeAreaExpandable, context.lines
 
-  makeAreaExpandable: =>
+  makeAreaExpandable: (lines) =>
     @$('textarea').expandingTextarea()
 
-    # Enable extra CSS
+    # Set minimum number of lines.
+    height = (lines * 1.5) + 20/13 # each line is 1.5em + 20/13 for the padding (20px / 13px base height).
+    height = height + "em"
+    @$('textarea').css({ 'min-height': height })
+    @$('.textareaClone').css({ 'min-height': height })
+
+    # Set widget to active.
     $(@el).addClass('active')

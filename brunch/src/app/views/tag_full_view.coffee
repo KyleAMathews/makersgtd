@@ -34,6 +34,7 @@ class exports.TagFullView extends Backbone.View
       field: 'description'
       el: @$('.editable-description')
       model: @model
+      lines: 3
       blank_slate_text: 'Add Description'
       label: 'Description'
       html: true

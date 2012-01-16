@@ -35,6 +35,7 @@ class exports.ProjectFullView extends Backbone.View
       field: 'outcome_vision'
       el: @$('.editable-outcome-vision')
       model: @model
+      lines: 3
       blank_slate_text: 'Add Outcome Vision'
       label: 'Outcome Vision'
       html: true
@@ -43,6 +44,7 @@ class exports.ProjectFullView extends Backbone.View
       field: 'description'
       el: @$('.editable-description')
       model: @model
+      lines: 3
       blank_slate_text: 'Add Description'
       label: 'Description'
       html: true

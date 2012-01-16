@@ -32,6 +32,7 @@ class exports.ActionFullView extends Backbone.View
       el: @$('.editable-description')
       model: @model
       blank_slate_text: 'Add Description'
+      lines: 3
       label: 'Description'
       html: true
     ).render()

@@ -14,6 +14,7 @@ class exports.EditableView extends Backbone.View
     'click .blank-slate' : 'edit'
 
   initialize: ->
+    if not @options.lines then @options.lines = 1
     @model.bind('change:' + @options.field, @render)
 
   render: =>
@@ -46,6 +47,7 @@ class exports.EditableView extends Backbone.View
       el: @$('.expanding-area')
       edit_text: @model.get(@options.field)
       placeholder: context.blank_slate_text
+      lines: context.lines
     ).render()
     @
 
