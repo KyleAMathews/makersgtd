@@ -389,62 +389,24 @@ input[type="submit"], input[type="button"], button, .button {
   @include my-button();
 }
 
-/* TODO this should just be .expanding-area */
-#simple-gtd-app .expanding-area {
-  @include trailer(0.25);
-  position: relative;
-  background: #fff;
-  textarea::-webkit-input-placeholder {
-    font-style: italic;
-  }
-  > textarea,
-  > pre {
+.expanding-area {
+  textarea {
+    padding: 10px;
     background: transparent;
-    /* Make the text soft-wrap */
-    @include force-wrap();
-    font: inherit;
-    line-height: inherit;
-    padding: 0.75em 0.5em;
-    margin: 0;
     border: 0;
-    outline: 0;
-  }
-  > textarea {
-    /* The border-box box model is used to allow
-     * padding whilst still keeping the overall width
-     * at exactly that of the containing element.
-     */
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    box-sizing: border-box;
-    width: 100%;
-    /* This height is used when JS is disabled */
-    height: 100px;
-  }
-  &.active > textarea {
-    /* Hide any scrollbars */
-    overflow: hidden;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    /* Remove WebKit user-resize widget */
-    resize: none;
-  }
-  > pre {
-    display: none;
-  }
-  &.active > pre {
-    display: block;
-    /* Hide the text; just using it for sizing */
-    visibility: hidden;
-  }
-  > textarea {
-    @include padding-leader(0.5);
-    @include padding-trailer(0.5);
-    margin: 0;
     outline: none;
+    margin: 0;
+    overflow: hidden;
+    font: inherit;
+    /* Make the text soft-wrap */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+            box-sizing: border-box;
+    width: 100%;
+    @include trailer(0.25);
     @include single-box-shadow($inset: true);
   }
 }

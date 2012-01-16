@@ -7,3 +7,4 @@ dependencies:
   - Markdown.Converter.js
   - fuzzymatcher.js
   - jquery.hoverIntent.js
+  - expanding.js

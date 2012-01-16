@@ -12,12 +12,7 @@ class exports.ExpandingAreaView extends Backbone.View
     _.defer @makeAreaExpandable
 
   makeAreaExpandable: =>
-    container = $(@el)
-    area = container.find('textarea')
-    span = container.find('span')
-    area.on 'input', ->
-      span.text(area.val())
-    span.text(area.val())
+    @$('textarea').expandingTextarea()
 
     # Enable extra CSS
-    container.addClass('active')
+    $(@el).addClass('active')
