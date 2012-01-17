@@ -57,9 +57,12 @@ class exports.AddNewModelView extends Backbone.View
     newOrder = _.max(app.collections.actions.pluck('order')) + 1
     newModel.set( 'order': newOrder )
 
+    # Add model to the collection immediately so it'll show up in lists right away.
     app.collections[collection].add newModel
     @addAutoLinks(newModel, true)
     newModel.save({}, { success: (model, response) =>
+      # Reset fuzzymatcher list now that our model has an id.
+      model.collection.addToFuzzymatcher()
       @addAutoLinks(model, false)
     })
 
