@@ -4,7 +4,7 @@ exports.Sortable =
       start: (event, ui) ->
         $(event.target).parent().addClass('sorting')
       stop: (event, ui) ->
-        $(event.target).parent().removeClass('sorting')
+        $(event.target).parent().parent().children().removeClass('sorting')
     )
     @$('ul').bind('sortupdate', @resetOrder)
 
