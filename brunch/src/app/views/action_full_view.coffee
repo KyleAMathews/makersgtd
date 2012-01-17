@@ -18,7 +18,7 @@ class exports.ActionFullView extends Backbone.View
     @$(@el).html(actionTemplate(
       action: json
     ))
-    editableName = new editableView(
+    @logChildView editableName = new editableView(
       field: 'name'
       el: @$('.editable-name')
       model: @model
@@ -27,7 +27,7 @@ class exports.ActionFullView extends Backbone.View
     )
     if @model.get('done') then editableName.options.options.push 'done'
     editableName.render()
-    new editableView(
+    @logChildView new editableView(
       field: 'description'
       el: @$('.editable-description')
       model: @model
@@ -36,7 +36,7 @@ class exports.ActionFullView extends Backbone.View
       label: 'Description'
       html: true
     ).render()
-    new linkerView(
+    @logChildView new linkerView(
       el: @$('.linker-project')
       model: @model
       blank_slate: 'Add to project'
@@ -45,7 +45,7 @@ class exports.ActionFullView extends Backbone.View
       prefix: '#'
       models: @model.get('projects')
     ).render()
-    new linkerView(
+    @logChildView new linkerView(
       el: @$('.linker-tag')
       model: @model
       blank_slate: 'Add a tag'
@@ -54,11 +54,11 @@ class exports.ActionFullView extends Backbone.View
       prefix: '@'
       models: @model.get('tags')
     ).render()
-    new DropdownMenuView(
+    @logChildView new DropdownMenuView(
       el: @$('.dropdown')
       model: @model
     ).render()
-    new MetaInfoView(
+    @logChildView new MetaInfoView(
       el: @$('.meta-info')
       model: @model
     ).render()

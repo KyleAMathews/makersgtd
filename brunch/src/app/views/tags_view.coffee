@@ -1,5 +1,6 @@
 TagView = require('views/tag_view').TagView
 tagsTemplate = require('templates/tags')
+AddNewModelView = require('views/add_new_model_view').AddNewModelView
 
 class exports.TagsView extends Backbone.View
 
@@ -7,16 +8,20 @@ class exports.TagsView extends Backbone.View
   id: 'tags-view'
 
   initialize: ->
-    app.collections.tags.bind 'add', @addOne
-    app.collections.tags.bind 'reset', @addAll
+    @bindTo(@collection, 'add', @addOne)
+    @bindTo(@collection, 'reset', @addAll)
 
   render: ->
     $(@el).html tagsTemplate()
     @addAll()
+    @logChildView new AddNewModelView(
+      el: @$('.add-new-tag')
+      type: 'tag'
+    ).render()
     @
 
   addOne: (tag) =>
-    view = new TagView model: tag
+    @logChildView view = new TagView model: tag
     $("#tags", @el).append view.render().el
 
   addAll: =>

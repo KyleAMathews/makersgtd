@@ -1,5 +1,6 @@
 ProjectView = require('views/project_view').ProjectView
 projectsTemplate = require('templates/projects')
+AddNewModelView = require('views/add_new_model_view').AddNewModelView
 
 class exports.ProjectsView extends Backbone.View
 
@@ -19,11 +20,14 @@ class exports.ProjectsView extends Backbone.View
       $(@el).prepend('<h4>' + @options.label + '</h4>')
     # Remove the last border.
     @$('li:last').css('border-color', 'rgba(0,0,0,0)')
-    # TODO add completed projects
+    @logChildView new AddNewModelView(
+      el: @$('.add-new-project')
+      type: 'project'
+    ).render()
     @
 
   addOne: (project) =>
-    view = new ProjectView model: project
+    @logChildView view = new ProjectView model: project
     $("#projects", @el).append view.render().el
 
   addAll: =>

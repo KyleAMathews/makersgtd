@@ -19,6 +19,9 @@ Tag = require('models/tag_model').Tag
 # Views
 GlobalSearch = require('views/global_search').GlobalSearch
 
+# Pane
+Pane = require('mixins/pane').Pane
+
 MainRouter = require('routers/main_router').MainRouter
 
 # App bootstrapping on document ready
@@ -27,6 +30,8 @@ $(document).ready ->
     app.collections.actions = new Actions()
     app.collections.projects = new Projects()
     app.collections.tags = new Tags()
+
+    app.pane0 = new Pane( el: '#simple-gtd-app .content' )
 
     app.routers.main = new MainRouter()
 
@@ -191,3 +196,25 @@ BindTo =
 
     this.bindings = []
 
+_.extend(Backbone.Model.prototype, BindTo)
+_.extend(Backbone.View.prototype, BindTo)
+_.extend(Backbone.Collection.prototype, BindTo)
+
+# Add close method to views that unbinds all views, removes it from the DOM
+# and closes each of its children views.
+Backbone.View.prototype.close = ->
+  @unbind()
+  @unbindAll()
+  @remove()
+
+  if @children
+    _.each @children, (childView) ->
+      childView.close()
+
+  if @onClose then @onClose()
+
+# Add logChildView method so we can keep track of children views so when closing the
+# parent view, it's easy to close each child view.
+Backbone.View.prototype.logChildView = (childView) ->
+  if !@children then @children = []
+  @children.push childView

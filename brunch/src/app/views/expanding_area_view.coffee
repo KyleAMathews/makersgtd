@@ -10,6 +10,7 @@ class exports.ExpandingAreaView extends Backbone.View
 
     # Wait for the HTML to be inserted first.
     _.defer @makeAreaExpandable, context.lines
+    @
 
   makeAreaExpandable: (lines) =>
     @$('textarea').expandingTextarea()

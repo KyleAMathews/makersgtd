@@ -31,7 +31,8 @@ class exports.ProjectFullView extends Backbone.View
     )
     if @model.get('done') then editableName.options.options.push 'done'
     editableName.render()
-    new editableView(
+    @logChildView editableName
+    @logChildView new editableView(
       field: 'outcome_vision'
       el: @$('.editable-outcome-vision')
       model: @model
@@ -40,7 +41,7 @@ class exports.ProjectFullView extends Backbone.View
       label: 'Outcome Vision'
       html: true
     ).render()
-    new editableView(
+    @logChildView new editableView(
       field: 'description'
       el: @$('.editable-description')
       model: @model
@@ -49,7 +50,7 @@ class exports.ProjectFullView extends Backbone.View
       label: 'Description'
       html: true
     ).render()
-    new linkerView(
+    @logChildView new linkerView(
       el: @$('.linker-tag')
       model: @model
       blank_slate: 'Add a tag'
@@ -58,7 +59,7 @@ class exports.ProjectFullView extends Backbone.View
       prefix: '@'
       models: @model.get('tags')
     ).render()
-    new DropdownMenuView(
+    @logChildView new DropdownMenuView(
       el: @$('.dropdown')
       model: @model
     ).render()
@@ -76,7 +77,8 @@ class exports.ProjectFullView extends Backbone.View
     for tag in @model.get('tag_links')
       newAction.options.links.push tag
     newAction.render()
-    new MetaInfoView(
+    @logChildView newAction
+    @logChildView new MetaInfoView(
       el: @$('.meta-info')
       model: @model
     ).render()
@@ -90,12 +92,12 @@ class exports.ProjectFullView extends Backbone.View
       link_name: 'action_links'
       link_type: 'action'
 
-    new actionsView(
+    @logChildView new actionsView(
       el: @$('#actions-view')
       collection: subActions
       label: 'Actions'
     ).render()
-    new DoneActionsView(
+    @logChildView new DoneActionsView(
       el: @$('#done-actions-view')
       collection: subActions
       label: 'Completed Actions'

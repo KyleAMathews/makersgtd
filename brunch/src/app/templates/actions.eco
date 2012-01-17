@@ -2,3 +2,4 @@
   <h6><%- @options.label %></h6>
 <% end %>
 <ul id="actions"></ul>
+<div class='add-new-action'></div>

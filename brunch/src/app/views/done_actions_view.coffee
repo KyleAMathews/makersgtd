@@ -21,7 +21,7 @@ class exports.DoneActionsView extends Backbone.View
     @
 
   addOne: (action) =>
-    view = new ActionView model: action
+    @logChildView view = new ActionView model: action
     $(@el).find("#actions").append view.render().el
 
   addAll: =>

@@ -1,7 +1,7 @@
 DropdownMenuView = require('views/dropdown_menu_view').DropdownMenuView
 exports.DropdownRenderHelper =
   renderDropdown: ->
-    @dropdownMenu = new DropdownMenuView(
+    @logChildView @dropdownMenu = new DropdownMenuView(
       el: @$('.dropdown')
       model: @model
     ).render()

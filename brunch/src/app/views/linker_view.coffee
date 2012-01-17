@@ -38,6 +38,7 @@ class exports.LinkerView extends Backbone.View
       context.models = (app.util.loadModel(context.linking_to, id.id) for id in ids)
 
     $(@el).html(linkerTemplate(context))
+    @
 
   edit: =>
     @$(@el).addClass "editing"

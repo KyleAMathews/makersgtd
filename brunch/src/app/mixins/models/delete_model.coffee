@@ -2,7 +2,7 @@ exports.DeleteModel =
   # Don't actually delete. Just flag as deleted.
   delete: ->
     @save deleted: true
-    @view.remove()
+    @view.close()
 
     # Delete any inbound links to this model.
     for links in [@get('tag_links'), @get('action_links'), @get('project_links')]

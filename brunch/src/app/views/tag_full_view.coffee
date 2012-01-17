@@ -22,7 +22,7 @@ class exports.TagFullView extends Backbone.View
     json = @model.toJSON()
     @$(@el).html(tagTemplate(tag: json))
 
-    new EditableView(
+    @logChildView new EditableView(
       field: 'name'
       el: @$('.editable-name')
       model: @model
@@ -30,7 +30,7 @@ class exports.TagFullView extends Backbone.View
       options: ['save-on-enter']
       blank_slate_text: 'Add Name'
     ).render()
-    new EditableView(
+    @logChildView new EditableView(
       field: 'description'
       el: @$('.editable-description')
       model: @model
@@ -39,7 +39,7 @@ class exports.TagFullView extends Backbone.View
       label: 'Description'
       html: true
     ).render()
-    new DropdownMenuView(
+    @logChildView new DropdownMenuView(
       el: @$('.dropdown')
       model: @model
     ).render()
@@ -50,12 +50,12 @@ class exports.TagFullView extends Backbone.View
       link_name: 'action_links'
       link_type: 'action'
 
-    new ActionsView(
+    @logChildView new ActionsView(
       el: @$('#actions-view')
       collection: subActions
       label: 'Next Actions'
     ).render()
-    new DoneActionsView(
+    @logChildView new DoneActionsView(
       el: @$('#done-actions-view')
       collection: subActions
       label: 'Completed Actions'
@@ -67,17 +67,17 @@ class exports.TagFullView extends Backbone.View
       link_name: 'project_links'
       link_type: 'project'
 
-    new ProjectsView(
+    @logChildView new ProjectsView(
       el: @$('#projects-view')
       collection: subProjects
       label: 'Projects'
     ).render()
-    new DoneProjectsView(
+    @logChildView new DoneProjectsView(
       el: @$('#done-projects-view')
       collection: subProjects
       label: 'Completed Projects'
     ).render()
-    new MetaInfoView(
+    @logChildView new MetaInfoView(
       el: @$('.meta-info')
       model: @model
     ).render()

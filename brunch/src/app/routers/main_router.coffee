@@ -36,9 +36,7 @@ class exports.MainRouter extends Backbone.Router
     $('nav li a.next-actions').addClass('active')
 
     $('#simple-gtd-app h1.title').html 'Next Actions'
-    $('#simple-gtd-app .content').append actions.render().el
-    $('#simple-gtd-app .content').append newAction.render().el
-    $('#simple-gtd-app .content').append doneActions.render().el
+    app.pane0.show(actions)
 
   projects: ->
     projects = new ProjectsView( collection: app.collections.projects )
@@ -55,34 +53,32 @@ class exports.MainRouter extends Backbone.Router
     $('nav li a.projects').addClass('active')
 
     $('#simple-gtd-app h1.title').html 'Projects'
-    $('#simple-gtd-app .content').append projects.render().el
-    $('#simple-gtd-app .content').append newProject.render().el
-    $('#simple-gtd-app .content').append doneProjects.render().el
+    app.pane0.show(projects)
 
   tags: ->
     tags = new TagsView()
     newTag = new AddNewModelView(
       type: 'tag'
     )
-    $('#simple-gtd-app .content').empty()
 
     $('nav li a.active').removeClass('active')
     $('nav li a.tags').addClass('active')
 
     $('#simple-gtd-app h1.title').html 'Filters'
-    $('#simple-gtd-app .content').append tags.render().el
-    $('#simple-gtd-app .content').append newTag.render().el
+    app.pane0.show(tags)
 
   actionView: (id) ->
     action = app.util.loadModel('action', id)
     $('#simple-gtd-app h1.title').html 'Action'
 
+    # TODO this stuff should be in a view and it be listening to something...
+    # but not too important as it'll all disappear at some point.
     $('nav li a.active').removeClass('active')
     $('nav li a.next-actions').addClass('active')
 
     if action?
       actionFullView = new ActionFullView model: action
-      $('#simple-gtd-app .content').html actionFullView.render().el
+      app.pane0.show(actionFullView)
 
   projectView: (id) ->
     project = app.util.loadModel('project', id)
@@ -94,7 +90,7 @@ class exports.MainRouter extends Backbone.Router
 
     if project?
       projectFullView = new ProjectFullView model: project
-      $('#simple-gtd-app .content').html projectFullView.render().el
+      app.pane0.show(projectFullView)
 
   tagView: (id) ->
     tag = app.util.loadModel('tag', id)
@@ -106,4 +102,4 @@ class exports.MainRouter extends Backbone.Router
 
     if tag?
       tagView = new TagFullView model: tag
-      $('#simple-gtd-app .content').html tagView.render().el
+      app.pane0.show(tagView)

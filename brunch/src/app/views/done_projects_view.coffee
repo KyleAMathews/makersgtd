@@ -21,7 +21,7 @@ class exports.DoneProjectsView extends Backbone.View
     @
 
   addOne: (project) =>
-    view = new ProjectView model: project
+    @logChildView view = new ProjectView model: project
     $(@el).find("#projects").append view.render().el
 
   addAll: =>

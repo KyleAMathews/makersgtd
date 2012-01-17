@@ -18,7 +18,7 @@ class exports.AddNewModelView extends Backbone.View
       context[k] = v
 
     $(@el).html(addNewModelTemplate(context))
-    new ExpandingAreaView(
+    @logChildView new ExpandingAreaView(
       el: @$('.expanding-area')
       placeholder: "Add new " + context.type
     ).render()
