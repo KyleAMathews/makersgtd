@@ -16,6 +16,7 @@ class exports.ExpandingAreaView extends Backbone.View
     @$('textarea').expandingTextarea()
 
     # Set minimum number of lines.
+    if not lines? then lines = 1
     height = (lines * 1.5) + 20/13 # each line is 1.5em + 20/13 for the padding (20px / 13px base height).
     height = height + "em"
     @$('textarea').css({ 'min-height': height })
