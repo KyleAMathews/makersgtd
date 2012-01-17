@@ -56,7 +56,9 @@ class exports.MainRouter extends Backbone.Router
     app.pane0.show(projects)
 
   tags: ->
-    tags = new TagsView()
+    tags = new TagsView(
+      collection: app.collections.tags
+    )
     newTag = new AddNewModelView(
       type: 'tag'
     )
