@@ -24,10 +24,9 @@ class exports.MainRouter extends Backbone.Router
     "tags/:id": "tagView"
 
   nextActions: ->
-    actions = new ActionsView( collection: app.collections.actions )
-    doneActions = new DoneActionsView( collection: app.collections.actions )
-    newAction = new AddNewModelView(
-      type: 'action'
+    actions = new ActionsView(
+      collection: app.collections.actions
+      addNewForm: 1
     )
 
     $('#simple-gtd-app .content').empty()
