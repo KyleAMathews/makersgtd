@@ -17,7 +17,7 @@ class exports.LinkerView extends Backbone.View
     'click .name .delete' : 'delete'
 
   initialize: ->
-    @model.bind('change:' + @options.linking_to + "_links", @render)
+    @bindTo(@model, 'change:' + @options.linking_to + "_links", @render)
 
     # TODO don't remove existing items to show text input
     # TODO for items with no limit, open up new text area to keep adding if desired

@@ -3,7 +3,7 @@ DropdownMenuTemplate = require('templates/dropdown_menu')
 class exports.DropdownMenuView extends Backbone.View
 
   initialize: ->
-    @model.bind('change', @render)
+    @bindTo(@model, 'change', @render)
 
   events:
     'click .command' : 'executeCommand'

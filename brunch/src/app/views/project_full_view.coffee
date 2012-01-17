@@ -15,13 +15,13 @@ class exports.ProjectFullView extends Backbone.View
 
   initialize: ->
     @model.view = @
-    @model.bind('change:done', @render)
-    @model.bind("change:action_links", @renderActions)
+    @bindTo(@model, 'change:done', @render)
+    @bindTo(@model, "change:action_links", @renderActions)
 
   render: =>
     json = @model.toJSON()
     @$(@el).html(projectTemplate(project: json))
-    editableName = new editableView(
+    @logChildView editableName = new editableView(
       field: 'name'
       el: @$('.editable-name')
       prefix: '#'

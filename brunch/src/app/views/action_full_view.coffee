@@ -10,7 +10,7 @@ class exports.ActionFullView extends Backbone.View
   className: 'full-view'
 
   initialize: ->
-    @model.bind('change:done', @render)
+    @bindTo(@model, 'change:done', @render)
     @model.view = @
 
   render: =>

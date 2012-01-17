@@ -9,8 +9,8 @@ class exports.ActionView extends Backbone.View
   initialize: ->
     # We use bindAll when we're using a mixin that's called by jquery.
     _.bindAll(@)
-    @model.bind('change', @render)
-    @model.bind('destroy', @remove)
+    @bindTo(@model, 'change', @render)
+    @bindTo(@model, 'destroy', @remove)
     @model.view = @
 
   render: =>

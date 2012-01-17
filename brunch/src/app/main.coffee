@@ -159,3 +159,35 @@ $(document).keypress (e) ->
         app.routers.main.navigate '#tags', true
         keyNav = []
       else keyNav = []
+
+# BindTo facilitates the binding and unbinding of events
+# from objects that extend `Backbone.Events`. It makes
+# unbinding events, even with anonymous callback functions,
+# easy.
+# 
+# Thanks to Johnny Oshika for this code.
+# http://stackoverflow.com/questions/7567404/backbone-js-repopulate-or-recreate-the-view/7607853#7607853
+BindTo =
+  # Store the event binding in array so it can be unbound
+  # easily, at a later point in time.
+  bindTo: (obj, eventName, callback, context) ->
+    context = context || @
+    obj.bind(eventName, callback, context)
+
+    if !@bindings then @bindings = []
+
+    @bindings.push({
+      obj: obj,
+      eventName: eventName,
+      callback: callback,
+      context: context
+    })
+
+  # Unbind all of the events that we have stored.
+  unbindAll: ->
+    _.each(@bindings, (binding) ->
+      binding.obj.unbind(binding.eventName, binding.callback)
+    )
+
+    this.bindings = []
+

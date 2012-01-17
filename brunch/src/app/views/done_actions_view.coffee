@@ -7,8 +7,8 @@ class exports.DoneActionsView extends Backbone.View
   id: 'done-actions-view'
 
   initialize: ->
-    @collection.bind 'reset', @render
-    @collection.bind 'change:done', @render
+    @bindTo @collection, 'reset', @render
+    @bindTo @collection, 'change:done', @render
 
   render: =>
     $(@el).html actionsTemplate(

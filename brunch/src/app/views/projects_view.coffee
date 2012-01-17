@@ -7,8 +7,8 @@ class exports.ProjectsView extends Backbone.View
   id: 'projects-view'
 
   initialize: ->
-    @collection.bind 'add', @addOne
-    @collection.bind 'reset', @addAll
+    @bindTo @collection, 'add', @addOne
+    @bindTo @collection, 'reset', @addAll
 
   render: ->
     $(@el).html projectsTemplate()

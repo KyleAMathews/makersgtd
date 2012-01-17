@@ -15,7 +15,7 @@ class exports.EditableView extends Backbone.View
 
   initialize: ->
     if not @options.lines then @options.lines = 1
-    @model.bind('change:' + @options.field, @render)
+    @bindTo(@model, 'change:' + @options.field, @render)
 
   render: =>
     context = {}
