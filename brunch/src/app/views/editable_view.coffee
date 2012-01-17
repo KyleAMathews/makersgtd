@@ -65,7 +65,8 @@ class exports.EditableView extends Backbone.View
 
   update: =>
     field = {}
-    field[@options.field] = @$('.input').val()
+    # Fetch the text and trim any whitespace.
+    field[@options.field] = $.trim @$('.input').val()
 
     @model.save(
       field
