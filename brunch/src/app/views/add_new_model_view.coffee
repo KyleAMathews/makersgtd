@@ -72,7 +72,7 @@ class exports.AddNewModelView extends Backbone.View
     self = @
     _.defer ->
       self.$('.expanding-area textarea').val('')
-      self.$('.expanding-area span').empty()
+      self.$('.expanding-area .textareaClone div').empty()
     return attributes
 
   addAutoLinks: (model, temp) ->
