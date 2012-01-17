@@ -26,7 +26,7 @@ class exports.MainRouter extends Backbone.Router
   nextActions: ->
     actions = new ActionsView(
       collection: app.collections.actions
-      addNewForm: 1
+      addNewModelForm: 1
     )
 
     $('#simple-gtd-app .content').empty()
@@ -38,13 +38,9 @@ class exports.MainRouter extends Backbone.Router
     app.pane0.show(actions)
 
   projects: ->
-    projects = new ProjectsView( collection: app.collections.projects )
-    doneProjects = new DoneProjectsView(
+    projects = new ProjectsView(
       collection: app.collections.projects
-      label: 'Completed projects'
-    )
-    newProject = new AddNewModelView(
-      type: 'project'
+      addNewModelForm: 1
     )
     $('#simple-gtd-app .content').empty()
 
@@ -57,9 +53,6 @@ class exports.MainRouter extends Backbone.Router
   tags: ->
     tags = new TagsView(
       collection: app.collections.tags
-    )
-    newTag = new AddNewModelView(
-      type: 'tag'
     )
 
     $('nav li a.active').removeClass('active')

@@ -26,7 +26,7 @@ class exports.ActionsView extends Backbone.View
       $(@el).prepend('<h4>' + @options.label + '</h4>')
     # Remove the last border.
     @$('li:last').css('border-color', 'rgba(0,0,0,0)')
-    if @options.addNewForm?
+    if @options.addNewModelForm?
       @logChildView new AddNewModelView(
         el: @$('.add-new-action')
         type: 'action'

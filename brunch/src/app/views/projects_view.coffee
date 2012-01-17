@@ -20,10 +20,11 @@ class exports.ProjectsView extends Backbone.View
       $(@el).prepend('<h4>' + @options.label + '</h4>')
     # Remove the last border.
     @$('li:last').css('border-color', 'rgba(0,0,0,0)')
-    @logChildView new AddNewModelView(
-      el: @$('.add-new-project')
-      type: 'project'
-    ).render()
+    if @options.addNewModelForm?
+      @logChildView new AddNewModelView(
+        el: @$('.add-new-project')
+        type: 'project'
+      ).render()
     @
 
   addOne: (project) =>
