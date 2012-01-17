@@ -61,6 +61,7 @@ class exports.EditableView extends Backbone.View
 
   stopEditing: =>
     @$(@el).removeClass "editing"
+    @render()
 
   update: =>
     field = {}
