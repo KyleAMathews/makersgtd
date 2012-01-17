@@ -79,6 +79,8 @@ app.util.loadModel = (type, id) ->
     return newModel
 
 app.util.modelFactory = (type) ->
+  # TODO Figure out why after loading a model with project/tag links, each
+  # model created there after has those same project/tag links??? Really strange.
   switch type
     when 'action' then return new Action()
     when 'project' then return new Project()
@@ -169,7 +171,7 @@ $(document).keypress (e) ->
 # from objects that extend `Backbone.Events`. It makes
 # unbinding events, even with anonymous callback functions,
 # easy.
-# 
+#
 # Thanks to Johnny Oshika for this code.
 # http://stackoverflow.com/questions/7567404/backbone-js-repopulate-or-recreate-the-view/7607853#7607853
 BindTo =
