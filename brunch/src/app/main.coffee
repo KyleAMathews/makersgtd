@@ -91,10 +91,11 @@ app.util.loadModel = (type, id, callback) ->
       callback: callback
       type: type
     @items.push item
-    _.delay(app.util.flushProxy, 50, @items)
+    app.util.flushProxy()
 
-app.util.flushProxy = (items) =>
-  types = _.groupBy items, (item) -> return item.type
+proxy = ->
+  types = _.groupBy app.util.items, (item) -> return item.type
+  app.util.items = []
   for type, items of types
     ids = []
     callbacks = {}
@@ -102,6 +103,8 @@ app.util.flushProxy = (items) =>
       ids.push item.id
       callbacks[item.id] = item.callback
     app.util.loadMultipleModels(type, ids, callbacks)
+
+app.util.flushProxy = _.throttle(proxy, 50)
 
 app.util.loadMultipleModels = (type, ids, callbacks) ->
   return if ids.length is 0
