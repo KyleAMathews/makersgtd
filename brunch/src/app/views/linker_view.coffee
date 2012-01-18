@@ -65,10 +65,10 @@ class exports.LinkerView extends Backbone.View
 
   addNewLink: (linked_id) =>
     @model.createLink(@options.linking_to, linked_id)
-    linkedToModel = app.util.loadModel(@options.linking_to, linked_id)
-    linkedToModel.createLink(@model.get('type'), @model.id)
+    app.util.loadModel @options.linking_to, linked_id, (linkedToModel) ->
+      linkedToModel.createLink(@model.get('type'), @model.id)
 
-    @stopEditing()
+      @stopEditing()
 
   updateOnEnter: (e) ->
     @addFromAutoComplete() if e.keyCode is $.ui.keyCode.ENTER
@@ -94,8 +94,8 @@ class exports.LinkerView extends Backbone.View
     id = @$(e.target).parent().data('id')
 
     @model.deleteLink(@options.linking_to, id)
-    linkedToModel = app.util.loadModel(@options.linking_to, id)
-    linkedToModel.deleteLink(@model.get('type'), @model.id)
+    app.util.loadModel @options.linking_to, id, (linkedToModel) ->
+      linkedToModel.deleteLink(@model.get('type'), @model.id)
 
 # Add Mixins
 exports.LinkerView.prototype = _.extend exports.LinkerView.prototype,
