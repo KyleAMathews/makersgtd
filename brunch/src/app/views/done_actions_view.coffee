@@ -25,7 +25,6 @@ class exports.DoneActionsView extends Backbone.View
     $(@el).find("#actions").append view.render().el
 
   addAll: =>
-    @$('#actions').empty()
     actions = @collection.done()
     actions = _.sortBy actions, (action) -> action.get('completed')
     actions.reverse()

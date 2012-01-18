@@ -58,24 +58,42 @@ mongoose.model 'action', actionSchema
 mongoose.model 'project', projectSchema
 mongoose.model 'tag', tagSchema
 
+queryMultiple = (type, ids, callback) ->
+  ModelObj = mongoose.model type
+  query = ModelObj.find()
+  query
+    .where('_id').in(ids)
+    .notEqualTo('deleted', true)
+    .run (err, models) ->
+      unless err or not models?
+        newModels = []
+        for model in models
+          model.setValue('id', model.getValue('_id'))
+        callback(models)
+
 
 # REST endpoint for Actions
 app.get '/actions', (req, res) ->
   console.log 'getting actions'
-  Action = mongoose.model 'action'
-  date = moment().subtract('hours', 12)
-  query = Action.find()
-  query
-    # Only get completed actions from past 12 hours.
-    .or([{ 'done': false }, {'completed': { $gte : date.native()}}])
-    .notEqualTo('deleted', true)
-    .run (err, actions) ->
-      unless err or not actions?
-        newModels = []
-        for action in actions
-          action.setValue('id', action.getValue('_id'))
+  if req.query.ids?
+    queryMultiple 'action', req.query.ids, (models) ->
+      res.json models
 
-        res.json actions
+  else
+    Action = mongoose.model 'action'
+    date = moment().subtract('hours', 12)
+    query = Action.find()
+    query
+      # Only get completed actions from past 12 hours.
+      .or([{ 'done': false }, {'completed': { $gte : date.native()}}])
+      .notEqualTo('deleted', true)
+      .run (err, actions) ->
+        unless err or not actions?
+          newModels = []
+          for action in actions
+            action.setValue('id', action.getValue('_id'))
+
+          res.json actions
 
 app.get '/actions/:id', (req, res) ->
   Action = mongoose.model 'action'
@@ -124,19 +142,24 @@ app.del '/actions/:id', (req, res) ->
 # REST endpoint for Projects
 app.get '/projects', (req, res) ->
   console.log 'getting projects'
-  Project = mongoose.model 'project'
-  date = moment().subtract('hours', 12)
-  query = Project.find()
-  query
-    # Only get completed actions from past 12 hours.
-    .or([{ 'done': false }, {'completed': { $gte : date.native()}}])
-    .notEqualTo('deleted', true)
-    .run (err, projects) ->
-      unless err or not projects?
-        for project in projects
-          project.setValue('id', project.getValue('_id'))
+  if req.query.ids?
+    queryMultiple 'project', req.query.ids, (models) ->
+      res.json models
 
-        res.json projects
+  else
+    Project = mongoose.model 'project'
+    date = moment().subtract('hours', 12)
+    query = Project.find()
+    query
+      # Only get completed actions from past 12 hours.
+      .or([{ 'done': false }, {'completed': { $gte : date.native()}}])
+      .notEqualTo('deleted', true)
+      .run (err, projects) ->
+        unless err or not projects?
+          for project in projects
+            project.setValue('id', project.getValue('_id'))
+
+          res.json projects
 
 app.get '/projects/:id', (req, res) ->
   Project = mongoose.model 'project'

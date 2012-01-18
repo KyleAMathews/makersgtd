@@ -13,7 +13,7 @@ class exports.TagView extends Backbone.View
 
   render: =>
     json = @model.toJSON()
-    json.url = '#' + @model.url().substr(1)
+    json.url = @model.iurl()
     @$(@el).html(tagTemplate(tag: json))
     @renderDropdown()
     @

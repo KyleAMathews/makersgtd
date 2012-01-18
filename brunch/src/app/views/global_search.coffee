@@ -47,40 +47,43 @@ class exports. GlobalSearch extends Backbone.View
       @$('ul.autocomplete').append('<h4>' + _.capitalize(type) + '</h4>')
       matches = _.sortBy(matches, (match) -> return match.match_score)
       matches = matches.slice(0,5)
-      for match in matches
-        unless match.id? then match.id = match._id
-        model = app.util.loadModel(match.type, match.id)
-        # Get tag and project names to add.
-        tag_names = []
-        project_names = []
-        unless model? then continue
-        unless model.get('type') is 'tag'
-          tags = model.get('tag_links')
-          projects = model.get('project_links')
-          if projects?
-            for project in projects
-              project_names.push app.util.loadModel('project', project.id).get('name')
-          if tags?
-            for tag in tags
-              tag_names.push app.util.loadModel('tag', tag.id).get('name')
+      ids = (match.id for match in matches)
+      app.util.loadMultipleModels matches[0].type, ids, (models) ->
+        for match in matches
+          unless match.id? then match.id = match._id
+          model = _.filter models, (model) -> return model.id is match.id
+          model = model[0]
+          # Get tag and project names to add.
+          tag_names = []
+          project_names = []
+          unless model? then continue
+          unless model.get('type') is 'tag'
+            tags = model.get('tag_links')
+            projects = model.get('project_links')
+            if projects?
+              for project in projects
+                project_names.push app.util.loadModelSynchronous('project', project.id).get('name')
+            if tags?
+              for tag in tags
+                tag_names.push app.util.loadModelSynchronous('tag', tag.id).get('name')
 
-        classes = ""
-        if model.get('done') then classes += "done "
-        prefix = ""
-        switch model.get('type')
-          when 'tag' then prefix = "@"
-          when 'project' then prefix = "#"
-        @$('ul.autocomplete').append(globalSearchTemplate(
-          model: model
-          match: match
-          tag_names: tag_names
-          project_names: project_names
-          classes: classes
-          prefix: prefix
-        ))
+          classes = ""
+          if model.get('done') then classes += "done "
+          prefix = ""
+          switch model.get('type')
+            when 'tag' then prefix = "@"
+            when 'project' then prefix = "#"
+          @$('ul.autocomplete').append(globalSearchTemplate(
+            model: model
+            match: match
+            tag_names: tag_names
+            project_names: project_names
+            classes: classes
+            prefix: prefix
+          ))
 
-    @$('ul.autocomplete li').first().addClass('active')
-    if @matches.length > 0 then @$('ul.autocomplete').show()
+      @$('ul.autocomplete li').first().addClass('active')
+      if @matches.length > 0 then @$('ul.autocomplete').show()
 
   stopEditing: =>
     $('#global-search input').blur().val('')

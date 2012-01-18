@@ -62,38 +62,36 @@ class exports.MainRouter extends Backbone.Router
     app.pane0.show(tags)
 
   actionView: (id) ->
-    action = app.util.loadModel('action', id)
-    $('#simple-gtd-app h1.title').html 'Action'
+    app.util.loadModel 'action', id, (action) ->
+      $('#simple-gtd-app h1.title').html 'Action'
 
-    # TODO this stuff should be in a view and it be listening to something...
-    # but not too important as it'll all disappear at some point.
-    $('nav li a.active').removeClass('active')
-    $('nav li a.next-actions').addClass('active')
+      # TODO this stuff should be in a view and it be listening to something...
+      # but not too important as it'll all disappear at some point.
+      $('nav li a.active').removeClass('active')
+      $('nav li a.next-actions').addClass('active')
 
-    if action?
-      actionFullView = new ActionFullView model: action
-      app.pane0.show(actionFullView)
+      if action?
+        actionFullView = new ActionFullView model: action
+        app.pane0.show(actionFullView)
 
   projectView: (id) ->
-    project = app.util.loadModel('project', id)
+    app.util.loadModel 'project', id, (project) ->
+      $('#simple-gtd-app h1.title').html 'Project'
 
-    $('#simple-gtd-app h1.title').html 'Project'
+      $('nav li a.active').removeClass('active')
+      $('nav li a.projects').addClass('active')
 
-    $('nav li a.active').removeClass('active')
-    $('nav li a.projects').addClass('active')
-
-    if project?
-      projectFullView = new ProjectFullView model: project
-      app.pane0.show(projectFullView)
+      if project?
+        projectFullView = new ProjectFullView model: project
+        app.pane0.show(projectFullView)
 
   tagView: (id) ->
-    tag = app.util.loadModel('tag', id)
+    app.util.loadModel 'tag', id, (tag) ->
+      $('#simple-gtd-app h1.title').html 'Tag'
 
-    $('#simple-gtd-app h1.title').html 'Tag'
+      $('nav li a.active').removeClass('active')
+      $('nav li a.tags').addClass('active')
 
-    $('nav li a.active').removeClass('active')
-    $('nav li a.tags').addClass('active')
-
-    if tag?
-      tagView = new TagFullView model: tag
-      app.pane0.show(tagView)
+      if tag?
+        tagView = new TagFullView model: tag
+        app.pane0.show(tagView)

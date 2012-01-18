@@ -3,12 +3,12 @@ class exports.SubCollection extends Backbone.Collection
   initialize: (models, options) ->
     # Load models from passed in IDs
     @options = options
-    ids = @options.linkedModel.get(@options.link_name)
+    links = @options.linkedModel.get(@options.link_name)
     models = []
-    if ids?
-      models = (app.util.loadModel(@options.link_type, id.id) for id in ids)
-
-    @reset(models)
+    if links.length > 0
+      ids = (link.id for link in links)
+      app.util.loadMultipleModels @options.link_type, ids, (models) =>
+        @reset(models)
 
   done: ->
     items = @filter (model) ->

@@ -62,21 +62,75 @@ $(document).ready ->
 window.markdown = new Markdown.Converter()
 
 app.util = {}
-app.util.loadModel = (type, id) ->
+app.util.loadModelSynchronous = (type, id) ->
   unless id? and type? then return
   collection = type + "s"
   if app.collections[collection].get(id)?
     return app.collections[collection].get(id)
+  else
+    return false
+
+app.util.loadModel = (type, id, callback) ->
+  unless id? and type? and _.isFunction(callback) then return
+  collection = type + "s"
+  if app.collections[collection].get(id)?
+    callbacks = {}
+    callbacks[id] = callback
+    app.util.loadMultipleModels(type, [id], callbacks)
   else if id.substr(0,1) is "c" and app.collections[collection].getByCid(id)?
-    return app.collections[collection].getByCid(id)
+    callback app.collections[collection].getByCid(id)
   # If the model isn't in the collection, create it and populate it from
   # the server. We trust that someone isn't trying to get a non-existant model.
   else
-    newModel = app.util.modelFactory(type)
-    newModel.id = id
-    app.collections[collection].add(newModel, { silent: true })
-    newModel.fetch()
-    return newModel
+    # Proxy
+    # At end of proxy, fetch each array of ids
+    # when returned, loop through items and call callback with new model for each
+    if not @items? then @items = []
+    item =
+      id: id
+      callback: callback
+      type: type
+    @items.push item
+    _.delay(app.util.flushProxy, 50, @items)
+
+app.util.flushProxy = (items) =>
+  types = _.groupBy items, (item) -> return item.type
+  for type, items of types
+    ids = []
+    callbacks = {}
+    for item in items
+      ids.push item.id
+      callbacks[item.id] = item.callback
+    app.util.loadMultipleModels(type, ids, callbacks)
+
+app.util.loadMultipleModels = (type, ids, callbacks) ->
+  return if ids.length is 0
+  models = []
+  idsToFetch = []
+  for id in ids
+    if app.collections[type + 's'].get(id)?
+      models.push app.collections[type + 's'].get(id)
+    else
+      idsToFetch.push id
+  if idsToFetch.length is 0
+    if _.isFunction(callbacks)
+      callbacks(models)
+    else
+      for id, callback of callbacks
+        callback app.collections[type + 's'].get(id)
+  else
+    app.collections[type + 's'].fetch
+      add: true
+      data:
+        ids: idsToFetch
+      success: (collection, response) =>
+        if _.isFunction(callbacks)
+          models = []
+          for id in ids
+            models.push collection.get(id)
+          callbacks(models)
+        for id, callback of callbacks
+          callback collection.get(id)
 
 app.util.modelFactory = (type) ->
   # TODO Figure out why after loading a model with project/tag links, each

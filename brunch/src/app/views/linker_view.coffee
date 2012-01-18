@@ -32,13 +32,19 @@ class exports.LinkerView extends Backbone.View
       context[k] = v
 
     # Add models from ids.
-    ids = @model.get(@options.linking_to + "_links")
+    links = @model.get(@options.linking_to + "_links")
     context.models = []
-    if ids?
-      context.models = (app.util.loadModel(context.linking_to, id.id) for id in ids)
+    if links.length > 0
+      ids = (link.id for link in links)
+      app.util.loadMultipleModels context.linking_to, ids, (models) =>
+        context.models = models
 
-    $(@el).html(linkerTemplate(context))
-    @
+        $(@el).html(linkerTemplate(context))
+        @
+
+    else
+      $(@el).html(linkerTemplate(context))
+      @
 
   edit: =>
     @$(@el).addClass "editing"
