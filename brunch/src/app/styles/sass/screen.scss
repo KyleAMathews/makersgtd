@@ -8,9 +8,22 @@
 @import "typography";
 @import "compass/css3";
 @import "fancy-buttons";
+@import "colors";
 
 @import "ie";
 @import "ie6";
+
+// A few resets.
+ul, ol {
+  padding: 0;
+  margin: 0;
+}
+
+// Everything should have 16px of horizontal padding.
+.model-list-item, .label, .editable, .linker, .meta-info, .add-new-model {
+  padding: 0 16px;
+}
+
 
 @media (max-width:500px) {
   body {
@@ -27,12 +40,15 @@
 
 #simple-gtd-app {
   background: white;
-  width: 279px;
+  width: 313px;
   @include padding-leader(0.5);
   @include apply-side-rhythm-border('left', 2px);
   @include apply-side-rhythm-border('right', 2px);
   @include h-borders(2px);
   @include single-box-shadow();
+  // Reset left/right padding as panes should be a blank container.
+  padding-left: 0;
+  padding-right: 0;
   position: relative;
   z-index: 3;
   @media (min-width:500px) {
@@ -68,11 +84,12 @@
   li {
     @include padding-leader(0.25);
     @include padding-trailer(0.25);
-    @include trailing-border($lines: 0.5);
-    border-color: $grey93;
     position: relative;
     cursor: default;
     @include pie-clearfix();
+    &:nth-child(2n) {
+      background: $grey93;
+    }
   }
   li.editing {
     padding: 0;
@@ -104,8 +121,6 @@
 }
 
 #actions, #projects, #tags {
-  padding: 0;
-  margin: 0;
   .check {
     position: relative;
     top: 3px;
@@ -195,8 +210,6 @@ nav {
 
 .model-list-item {
   position: relative;
-  margin-right: -10px;
-  padding-right: 15px;
   a.model-link {
     @include unstyled-link();
     cursor: pointer;
@@ -258,7 +271,6 @@ nav {
     }
   }
   .name {
-    padding-right: 10px;
     .display{
       @include adjust-font-size-to(18px, 1);
       font-weight: bold;
@@ -300,6 +312,7 @@ nav {
   .label {
     @include leader(0);
     @include trailer(0);
+    padding: 0;
     color: $grey30;
   }
   &.done {
@@ -313,8 +326,6 @@ nav {
   @include leader(0.25);
   @include pie-clearfix();
   color: $grey60;
-  /* Add some extra space to activate the edit icon */
-  margin-right: -10px;
   padding-right: 10px;
   &:hover {
     .edit-icon {
@@ -356,7 +367,7 @@ nav {
     width: 15px;
     height: 21px;
     position: absolute;
-    right: 0;
+    right: 5px;
     top: 0;
     cursor: pointer;
     display: none;
