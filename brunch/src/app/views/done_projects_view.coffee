@@ -7,7 +7,7 @@ class exports.DoneProjectsView extends Backbone.View
   id: 'done-projects-view'
 
   initialize: ->
-    @bindTo(@collection, 'reset', @addAll)
+    @bindTo(@collection, 'reset', @render)
     @bindTo(@collection, 'change:done', @changeDoneState)
 
   render: ->
