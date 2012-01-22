@@ -4,12 +4,10 @@ TagFullView = require('views/tag_full_view').TagFullView
 AddNewModelView = require('views/add_new_model_view').AddNewModelView
 
 # Actions
-ActionsView = require('views/actions_view').ActionsView
-DoneActionsView = require('views/done_actions_view').DoneActionsView
+NextActionsPaneView = require('views/next_actions_pane_view').NextActionsPaneView
 
 # Projects
-ProjectsView = require('views/projects_view').ProjectsView
-DoneProjectsView = require('views/done_projects_view').DoneProjectsView
+ProjectsPaneView = require('views/projects_pane_view').ProjectsPaneView
 
 # Tags
 TagsView = require('views/tags_view').TagsView
@@ -24,7 +22,7 @@ class exports.MainRouter extends Backbone.Router
     "tags/:id": "tagView"
 
   nextActions: ->
-    actions = new ActionsView(
+    actions = new NextActionsPaneView(
       collection: app.collections.actions
       addNewModelForm: 1
     )
@@ -38,10 +36,7 @@ class exports.MainRouter extends Backbone.Router
     app.pane0.show(actions)
 
   projects: ->
-    projects = new ProjectsView(
-      collection: app.collections.projects
-      addNewModelForm: 1
-    )
+    projects = new ProjectsPaneView()
     $('#simple-gtd-app .content').empty()
 
     $('nav li a.active').removeClass('active')

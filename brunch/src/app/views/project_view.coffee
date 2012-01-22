@@ -1,9 +1,10 @@
+SubCollection = require('collections/sub_collection').SubCollection
 projectTemplate = require('templates/project')
-DropdownRenderHelper = require('mixins/views/dropdown_render_helper').DropdownRenderHelper
+ActionsView = require('views/actions_view').ActionsView
 
 class exports.ProjectView extends Backbone.View
 
-  tagName:  "li"
+  className: 'project-list-item'
 
   initialize: ->
     # We use bindAll when we're using a mixin that's called by jquery.
@@ -15,9 +16,15 @@ class exports.ProjectView extends Backbone.View
     json = @model.toJSON()
     json.url = @model.iurl()
     @$(@el).html(projectTemplate(project: json))
-    @renderDropdown()
-    @
+    # Render the project's actions.
+    if @options.actions
+      subActions = new SubCollection [],
+        linkedModel: @model
+        link_name: 'action_links'
+        link_type: 'action'
 
-# Add Mixins DropdownRenderHelper
-exports.ProjectView.prototype = _.extend exports.ProjectView.prototype,
-  DropdownRenderHelper
+      @logChildView new ActionsView(
+        el: @$('.actions-view')
+        collection: subActions
+      ).render()
+    @

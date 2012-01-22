@@ -71,6 +71,7 @@ class exports.TagFullView extends Backbone.View
       el: @$('#projects-view')
       collection: subProjects
       label: 'Projects'
+      tag: @model.id
     ).render()
     @logChildView new DoneProjectsView(
       el: @$('#done-projects-view')

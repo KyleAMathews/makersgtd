@@ -1,8 +1,6 @@
 <div class="tag model-list-item <% if @tag.done: %>done<% end %>" data-id="<%- @tag.id %>">
-  <div class="tag-name">
-    <a class="model-link" href="<%- @tag.url %>">
-      @<%= @tag.name %>
-    </a>
-  </div>
-  <span class='dropdown'></span>
+  <a class="model-link" href="<%- @tag.url %>">
+    @<%= @tag.name %>
+  </a>
 </div>
+<div class="projects"></div>

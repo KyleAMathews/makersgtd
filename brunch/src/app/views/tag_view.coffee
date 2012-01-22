@@ -1,9 +1,9 @@
 tagTemplate = require('templates/tag')
-DropdownRenderHelper = require('mixins/views/dropdown_render_helper').DropdownRenderHelper
+ProjectView = require('views/project_view').ProjectView
 
 class exports.TagView extends Backbone.View
 
-  tagName:  "li"
+  className: 'tag-list-item'
 
   initialize: ->
     # We use bindAll when we're using a mixin that's called by jquery.
@@ -15,9 +15,17 @@ class exports.TagView extends Backbone.View
     json = @model.toJSON()
     json.url = @model.iurl()
     @$(@el).html(tagTemplate(tag: json))
-    @renderDropdown()
+    # TODO change this to notDoneProjects.
+    if @options.projects and @model.get('project_links').length > 0
+      links = @model.get('project_links')
+      for link in links
+        project = app.util.loadModelSynchronous('project', link.id)
+        if not project then continue
+        # If actions are to be displayed, ensure the tag has some.
+        # TODO keep track of which actions aren't part of a project and add them afterwards.
+        if @options.actions and project.notDoneActions().length is 0 then continue
+        @logChildView projectView = new ProjectView
+          model: project
+          actions: @options.actions
+        @$('.projects').append projectView.render().el
     @
-
-# Add Mixins DropdownRenderHelper
-exports.TagView.prototype = _.extend exports.TagView.prototype,
-  DropdownRenderHelper

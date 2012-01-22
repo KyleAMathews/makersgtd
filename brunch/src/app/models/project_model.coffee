@@ -15,6 +15,15 @@ class exports.Project extends Backbone.Model
     action_links: []
     tag_links: []
 
+  notDoneActions: ->
+    actions = []
+    for link in @get('action_links')
+      action = app.util.loadModelSynchronous('action', link.id)
+      if action and not action.get('done')
+        actions.push action
+
+    return actions
+
 # Add Mixins
 exports.Project.prototype = _.extend exports.Project.prototype,
   ModelLinker, ToggleDoneness, GetHtml, DeleteModel, ClearModel

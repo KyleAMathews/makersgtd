@@ -20,7 +20,7 @@ ul, ol {
 }
 
 // Everything should have 16px of horizontal padding.
-.model-list-item, .label, .editable, .linker, .meta-info, .add-new-model {
+.model-link, .label, .editable, .linker, .meta-info, .add-new-model {
   padding: 0 16px;
 }
 
@@ -88,7 +88,7 @@ ul, ol {
     cursor: default;
     @include pie-clearfix();
     &:nth-child(2n) {
-      background: $grey93;
+      background: #F5F5F5;
     }
   }
   li.editing {
@@ -103,6 +103,15 @@ ul, ol {
       position: absolute;
       left: -10px;
       top: 13px;
+    }
+  }
+}
+
+#projects-pane-view, #next-actions-pane-view {
+  .tag {
+    a.model-link {
+      font-weight: bolder;
+      @include adjust-font-size-to(16px);
     }
   }
 }
@@ -214,10 +223,25 @@ nav {
     @include unstyled-link();
     cursor: pointer;
     font-weight: normal;
+    display: inline-block;
   }
   .dropdown {
     display: none;
     top: 2px;
+  }
+}
+
+.tag-list-item {
+  @include trailer(0.5);
+}
+#next-actions-pane-view {
+  .project-list-item {
+    .project {
+      background: $grey90;
+      color: $grey20;
+      @include padding-leader(0.5);
+      @include padding-trailer(0.5);
+    }
   }
 }
 
@@ -476,24 +500,23 @@ code {
       }
     }
   }
-}
-
-.project-link {
-  background: lightgreen;
-  @include border-radius(5px);
-  padding: 1px 5px;
-  a {
-    @include unstyled-link();
-    cursor: pointer;
+  .project-link {
+    background: lightgreen;
+    @include border-radius(5px);
+    padding: 1px 5px;
+    a {
+      @include unstyled-link();
+      cursor: pointer;
+    }
   }
-}
-.tag-link {
-  background: palegoldenrod;
-  @include border-radius(5px);
-  padding: 1px 5px;
-  a {
-    @include unstyled-link();
-    cursor: pointer;
+  .tag-link {
+    background: palegoldenrod;
+    @include border-radius(5px);
+    padding: 1px 5px;
+    a {
+      @include unstyled-link();
+      cursor: pointer;
+    }
   }
 }
 

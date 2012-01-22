@@ -1,5 +1,5 @@
 <% if @options?.label? and @length > 0: %>
-  <h6><%- @options.label %></h6>
+  <h6 class='label'><%- @options.label %></h6>
 <% end %>
 <ul id="actions"></ul>
 <div class='add-new-action'></div>

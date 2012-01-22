@@ -23,7 +23,7 @@ class exports.ActionsView extends Backbone.View
     @addAll()
     # Add label if one is specified.
     if @options.label?
-      $(@el).prepend('<h4>' + @options.label + '</h4>')
+      $(@el).prepend('<h4 class="label">' + @options.label + '</h4>')
     # Remove the last border.
     @$('li:last').css('border-color', 'rgba(0,0,0,0)')
     if @options.addNewModelForm?
@@ -31,6 +31,7 @@ class exports.ActionsView extends Backbone.View
         el: @$('.add-new-action')
         type: 'action'
       ).render()
+
     @
 
   addOne: (action) =>
