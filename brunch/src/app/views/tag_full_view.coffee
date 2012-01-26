@@ -45,21 +45,21 @@ class exports.TagFullView extends Backbone.View
     ).render()
 
     # Render the tag's actions.
-    subActions = new SubCollection [],
-      linkedModel: @model
-      link_name: 'action_links'
-      link_type: 'action'
+    #subActions = new SubCollection [],
+      #linkedModel: @model
+      #link_name: 'action_links'
+      #link_type: 'action'
 
-    @logChildView new ActionsView(
-      el: @$('#actions-view')
-      collection: subActions
-      label: 'Next Actions'
-    ).render()
-    @logChildView new DoneActionsView(
-      el: @$('#done-actions-view')
-      collection: subActions
-      label: 'Completed Actions'
-    ).render()
+    #@logChildView new ActionsView(
+      #el: @$('#actions-view')
+      #collection: subActions
+      #label: 'Next Actions'
+    #).render()
+    #@logChildView new DoneActionsView(
+      #el: @$('#done-actions-view')
+      #collection: subActions
+      #label: 'Completed Actions'
+    #).render()
 
     # Render the tags's projects.
     subProjects = new SubCollection [],
@@ -71,6 +71,7 @@ class exports.TagFullView extends Backbone.View
       el: @$('#projects-view')
       collection: subProjects
       label: 'Projects'
+      actions: true
       tag: @model.id
     ).render()
     @logChildView new DoneProjectsView(
