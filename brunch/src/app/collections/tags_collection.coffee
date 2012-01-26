@@ -17,7 +17,7 @@ class exports.Tags extends Backbone.Collection
     @bindTo(@, 'change:name', @addToFuzzymatcher)
 
   comparator: (tag) ->
-    tag.get 'name'
+    tag.get('name').toLowerCase()
 
   nextOrder: ->
     return 1 unless @length
