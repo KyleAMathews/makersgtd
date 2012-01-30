@@ -83,6 +83,26 @@ class exports.TagFullView extends Backbone.View
       collection: subProjects
       label: 'Completed Projects'
     ).render()
+    @logChildView new AddNewModelView(
+      el: @$('.tag-add-new-action')
+      type: 'action'
+      links: [
+        {
+          type: 'tag'
+          id: @model.id
+        }
+      ]
+    ).render()
+    @logChildView new AddNewModelView(
+      el: @$('.tag-add-new-project')
+      type: 'project'
+      links: [
+        {
+          type: 'tag'
+          id: @model.id
+        }
+      ]
+    ).render()
     @logChildView new MetaInfoView(
       el: @$('.meta-info')
       model: @model
