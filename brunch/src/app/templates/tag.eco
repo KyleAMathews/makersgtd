@@ -3,4 +3,5 @@
     @<%= @tag.name %>
   </a>
 </div>
+<div class="inbox"></div>
 <div class="projects"></div>

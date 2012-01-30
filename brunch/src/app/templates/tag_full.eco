@@ -1,8 +1,9 @@
 <div class='dropdown'></div>
 <div class="editable-name"></div>
 <div class="editable-description"></div>
-<div id="actions-view" class="collection-view"></div>
-<div id="done-actions-view" class="collection-view"></div>
+<div id="inbox" class="collection-view"></div>
 <div id="projects-view" class="collection-view"></div>
 <div id="done-projects-view" class="collection-view"></div>
+<div class='tag-add-new-action'></div>
+<div class='tag-add-new-project'></div>
 <div class="meta-info"></div>

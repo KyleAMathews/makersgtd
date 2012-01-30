@@ -8,10 +8,6 @@ class exports.ProjectsPaneView extends Backbone.View
   id: 'projects-pane-view'
 
   render: ->
-    # TODO this can either render multiple tags (projects page)
-    # or be for just one (tag page)
-    # but in either case, it loads projects by tag
-    # and then renders those projects.
     for tag in app.collections.tags.models
       if tag.get('project_links').length > 0
         @logChildView tagView = new TagView

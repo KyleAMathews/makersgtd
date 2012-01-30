@@ -5,11 +5,14 @@ ActionsView = require('views/actions_view').ActionsView
 class exports.ProjectView extends Backbone.View
 
   className: 'project-list-item'
+  tagName: 'li'
 
   initialize: ->
     # We use bindAll when we're using a mixin that's called by jquery.
     _.bindAll(@)
     @bindTo(@model, 'change', @render)
+    @bindTo(@model, 'destroy', @remove)
+    @bindTo(@model, 'remove', @remove)
     @model.view = @
 
   render: =>

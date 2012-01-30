@@ -1,6 +1,7 @@
 tagTemplate = require('templates/tag')
 SubCollection = require('collections/sub_collection').SubCollection
 pv = require('views/projects_view')
+ActionsView = require('views/actions_view').ActionsView
 
 class exports.TagView extends Backbone.View
 
@@ -16,7 +17,27 @@ class exports.TagView extends Backbone.View
     json = @model.toJSON()
     json.url = @model.iurl()
     @$(@el).html(tagTemplate(tag: json))
-    # TODO change this to notDoneProjects.
+
+    if @options.actions
+      # Render the tag's loose actions, i.e. those without a project.
+      # This is labeled in the UI, "Inbox"
+      doneFilter = (action) ->
+        if action.get('project_links').length > 0
+          return false
+        else
+          return true
+
+      inboxActions = new SubCollection [],
+        linkedModel: @model
+        link_name: 'action_links'
+        link_type: 'action'
+        filters: [doneFilter]
+
+      @logChildView new ActionsView(
+        el: @$('.inbox')
+        collection: inboxActions
+      ).render()
+
     if @options.projects and @model.get('project_links').length > 0
       subProjects = new SubCollection [],
         linkedModel: @model

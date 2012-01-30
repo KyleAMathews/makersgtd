@@ -6,6 +6,7 @@ DoneActionsView = require('views/done_actions_view').DoneActionsView
 ProjectsView = require('views/projects_view').ProjectsView
 SubProjects = require('collections/sub_projects_collection').SubProjects
 DoneProjectsView = require('views/done_projects_view').DoneProjectsView
+AddNewModelView = require('views/add_new_model_view').AddNewModelView
 MetaInfoView = require('views/meta_info').MetaInfoView
 DropdownMenuView = require('views/dropdown_menu_view').DropdownMenuView
 
@@ -44,22 +45,25 @@ class exports.TagFullView extends Backbone.View
       model: @model
     ).render()
 
-    # Render the tag's actions.
-    #subActions = new SubCollection [],
-      #linkedModel: @model
-      #link_name: 'action_links'
-      #link_type: 'action'
+    # Render the tag's loose actions, i.e. those without a project.
+    # This is labeled in the UI, "Inbox"
+    doneFilter = (action) ->
+      if action.get('project_links').length > 0
+        return false
+      else
+        return true
 
-    #@logChildView new ActionsView(
-      #el: @$('#actions-view')
-      #collection: subActions
-      #label: 'Next Actions'
-    #).render()
-    #@logChildView new DoneActionsView(
-      #el: @$('#done-actions-view')
-      #collection: subActions
-      #label: 'Completed Actions'
-    #).render()
+    inboxActions = new SubCollection [],
+      linkedModel: @model
+      link_name: 'action_links'
+      link_type: 'action'
+      filters: [doneFilter]
+
+    @logChildView new ActionsView(
+      el: @$('#inbox')
+      collection: inboxActions
+      label: 'Inbox'
+    ).render()
 
     # Render the tags's projects.
     subProjects = new SubCollection [],
