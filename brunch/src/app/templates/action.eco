@@ -1,7 +1,7 @@
 <div class="action model-list-item <% if @action.done: %>done<% end %>" data-id="<%- @action.id %>">
   <div class="name">
     <a class="model-link" href="<%- @action.url %>">
-      —<%= @action.name %>
+      <%= @action.name %>
     </a>
   </div>
   <span class='dropdown'></span>
