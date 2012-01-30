@@ -64,21 +64,21 @@ window.markdown = new Markdown.Converter()
 app.util = {}
 app.util.loadModelSynchronous = (type, id) ->
   unless id? and type? then return
-  collection = type + "s"
-  if app.collections[collection].get(id)?
-    return app.collections[collection].get(id)
+  collection_name = type + "s"
+  if app.collections[collection_name].get(id)?
+    return app.collections[collection_name].get(id)
+  else if app.collections[collection_name].getByCid(id)?
+    return app.collections[collection_name].getByCid(id)
   else
     return false
 
 app.util.loadModel = (type, id, callback) ->
   unless id? and type? and _.isFunction(callback) then return
-  collection = type + "s"
-  if app.collections[collection].get(id)?
-    callbacks = {}
-    callbacks[id] = callback
-    app.util.loadMultipleModels(type, [id], callbacks)
-  else if id.substr(0,1) is "c" and app.collections[collection].getByCid(id)?
-    callback app.collections[collection].getByCid(id)
+  collection_name = type + "s"
+  if app.collections[collection_name].get(id)?
+    callback app.collections[collection_name].get(id)
+  else if id.substr(0,1) is "c" and app.collections[collection_name].getByCid(id)?
+    callback app.collections[collection_name].getByCid(id)
   # If the model isn't in the collection, create it and populate it from
   # the server. We trust that someone isn't trying to get a non-existant model.
   else
@@ -110,9 +110,12 @@ app.util.loadMultipleModels = (type, ids, callbacks) ->
   return if ids.length is 0
   models = []
   idsToFetch = []
+  collection_name = type + 's'
   for id in ids
-    if app.collections[type + 's'].get(id)?
-      models.push app.collections[type + 's'].get(id)
+    if app.collections[collection_name].get(id)?
+      models.push app.collections[collection_name].get(id)
+    else if app.collections[collection_name].getByCid(id)?
+      models.push app.collections[collection_name].getByCid(id)
     else
       idsToFetch.push id
   if idsToFetch.length is 0
@@ -120,9 +123,9 @@ app.util.loadMultipleModels = (type, ids, callbacks) ->
       callbacks(models)
     else
       for id, callback of callbacks
-        callback app.collections[type + 's'].get(id)
+        callback app.collections[collection_name].get(id)
   else
-    app.collections[type + 's'].fetch
+    app.collections[collection_name].fetch
       add: true
       data:
         ids: idsToFetch
