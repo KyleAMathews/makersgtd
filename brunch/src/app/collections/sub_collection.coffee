@@ -13,6 +13,10 @@ class exports.SubCollection extends Backbone.Collection
     if links.length > 0
       ids = (link.id for link in links)
       app.util.loadMultipleModels @options.link_type, ids, (models) =>
+        # Apply filters if any.
+        if @options.filters?.length > 0
+          for filter in @options.filters
+            models = models.filter(filter)
         @reset(models)
 
   done: ->
