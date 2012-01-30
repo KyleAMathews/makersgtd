@@ -106,6 +106,11 @@ proxy = ->
 
 app.util.flushProxy = _.throttle(proxy, 50)
 
+# Function can either be called by the proxy which if is the case,
+# callbacks will be an array of callbacks and ids.
+#
+# The function also is called singly in which case "callbacks" is just one
+# function.
 app.util.loadMultipleModels = (type, ids, callbacks) ->
   return if ids.length is 0
   models = []
