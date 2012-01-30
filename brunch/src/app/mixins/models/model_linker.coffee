@@ -24,8 +24,9 @@ exports.ModelLinker =
     # If the links array is over the limit, remove the oldest.
     if links.length > limit and limit isnt 0
       old_link = links.shift()
-      old_linked_model = app.util.loadModelSynchronous(old_link.type, old_link.id)
-      old_linked_model.deleteLink(@get('type'), @id)
+      old_linked_model = app.util.loadModel(old_link.type, old_link.id, (model) =>
+        old_linked_model.deleteLink(@get('type'), @id)
+      )
 
 
     field = {}
@@ -37,6 +38,9 @@ exports.ModelLinker =
     # trigger them manually.
     @trigger('change')
     @trigger('change:' + type + "_links")
+    app.util.loadModel(type, id, (model) =>
+      @trigger('add:' + type + "_link", model)
+    )
 
   deleteLink: (type, id, temp) ->
     # Default to false.
@@ -51,6 +55,10 @@ exports.ModelLinker =
     field = {}
     field[type + "_links"] = new_links
     if temp then @set field else @save field
+
+    app.util.loadModel(type, id, (model) =>
+      @trigger('delete:' + type + "_link", model)
+    )
 
   saveOrderLinkedModels: (link_name, orderedIds) ->
     links = @get(link_name)

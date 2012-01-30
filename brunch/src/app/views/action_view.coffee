@@ -11,6 +11,7 @@ class exports.ActionView extends Backbone.View
     _.bindAll(@)
     @bindTo(@model, 'change', @render)
     @bindTo(@model, 'destroy', @remove)
+    @bindTo(@model, 'remove', @remove)
     @model.view = @
 
   render: =>
