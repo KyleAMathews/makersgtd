@@ -17,12 +17,12 @@ class exports.AddNewModelView extends Backbone.View
     for k,v of @options
       context[k] = v
 
-    $(@el).html(addNewModelTemplate(context))
+    @$el.html(addNewModelTemplate(context))
     @logChildView new ExpandingAreaView(
       el: @$('.expanding-area')
       placeholder: "Add new " + context.type
     ).render()
-    $(@el).addClass('add-new-model')
+    @$el.addClass('add-new-model')
     @
 
   saveOnEnter: (e) =>

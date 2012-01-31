@@ -14,4 +14,5 @@ class exports.ProjectsPaneView extends Backbone.View
           model: tag
           projects: true
           actions: false
-        $(@el).append tagView.render().el
+        @$el.append tagView.render().el
+    @

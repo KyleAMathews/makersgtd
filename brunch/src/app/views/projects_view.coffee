@@ -13,12 +13,12 @@ class exports.ProjectsView extends Backbone.View
     @bindTo @collection, 'reset', @render
 
   render: ->
-    $(@el).html projectsTemplate(
+    @$el.html projectsTemplate(
       options: @options
     )
 
     if @options.label?
-      $(@el).prepend('<h4 class="label">' + @options.label + '</h4>')
+      @$el.prepend('<h4 class="label">' + @options.label + '</h4>')
     @addAll()
 
     if @options.addNewModelForm?
@@ -32,7 +32,7 @@ class exports.ProjectsView extends Backbone.View
     @logChildView view = new ProjectView
       model: project
       actions: @options.actions
-    @$("ul#projects").append view.render().el
+    @$el.find("ul#projects").append view.render().el
 
   addAll: =>
     @$('ul#projects').empty()

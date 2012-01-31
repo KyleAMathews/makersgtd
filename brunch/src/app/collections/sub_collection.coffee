@@ -32,6 +32,8 @@ class exports.SubCollection extends Backbone.Collection
 
   saveOrder: (orderedIds) ->
     # Save the new order of the linked models to the parent model
+    # TODO this reordering should be an event and the model listen to events
+    # and respond there.
     @options.linkedModel.saveOrderLinkedModels(@options.link_name, orderedIds)
 
   addModel: (model) ->

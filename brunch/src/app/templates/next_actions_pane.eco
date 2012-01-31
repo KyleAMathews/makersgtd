@@ -1,6 +1,6 @@
 <div id="inbox" class="collection-view">
   <h4 class="label">Inbox</h4>
-  <ul>
+  <ul class="inbox-actions">
   <p>Your inbox is empty!</p>
   </ul>
 </div>

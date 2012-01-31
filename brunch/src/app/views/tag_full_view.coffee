@@ -21,7 +21,7 @@ class exports.TagFullView extends Backbone.View
 
   render: =>
     json = @model.toJSON()
-    @$(@el).html(tagTemplate(tag: json))
+    @$el.html(tagTemplate(tag: json))
 
     @logChildView new EditableView(
       field: 'name'
@@ -53,7 +53,7 @@ class exports.TagFullView extends Backbone.View
       else
         return true
 
-    inboxActions = new SubCollection [],
+    inboxActions = new SubCollection null,
       linkedModel: @model
       link_name: 'action_links'
       link_type: 'action'
@@ -66,7 +66,7 @@ class exports.TagFullView extends Backbone.View
     ).render()
 
     # Render the tags's projects.
-    subProjects = new SubCollection [],
+    subProjects = new SubCollection null,
       linkedModel: @model
       link_name: 'project_links'
       link_type: 'project'
@@ -78,11 +78,11 @@ class exports.TagFullView extends Backbone.View
       actions: true
       tag: @model.id
     ).render()
-    @logChildView new DoneProjectsView(
-      el: @$('#done-projects-view')
-      collection: subProjects
-      label: 'Completed Projects'
-    ).render()
+    #@logChildView new DoneProjectsView(
+      #el: @$('#done-projects-view')
+      #collection: subProjects
+      #label: 'Completed Projects'
+    #).render()
     @logChildView new AddNewModelView(
       el: @$('.tag-add-new-action')
       type: 'action'

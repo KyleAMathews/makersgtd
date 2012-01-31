@@ -19,7 +19,7 @@ class exports.ProjectFullView extends Backbone.View
 
   render: =>
     json = @model.toJSON()
-    @$(@el).html(projectTemplate(project: json))
+    @$el.html(projectTemplate(project: json))
     @logChildView editableName = new editableView(
       field: 'name'
       el: @$('.editable-name')
@@ -86,7 +86,7 @@ class exports.ProjectFullView extends Backbone.View
 
   renderActions: =>
     # Render the project's actions.
-    subActions = new SubCollection [],
+    subActions = new SubCollection null,
       linkedModel: @model
       link_name: 'action_links'
       link_type: 'action'

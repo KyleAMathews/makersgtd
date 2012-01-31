@@ -17,7 +17,7 @@ class exports.ActionView extends Backbone.View
   render: =>
     json = @model.toJSON()
     json.url = @model.iurl()
-    @$(@el).html(actionTemplate(
+    @$el.html(actionTemplate(
       action: json
     ))
     @renderDropdown()

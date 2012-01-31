@@ -9,7 +9,7 @@ class exports.NextActionsPaneView extends Backbone.View
   id: 'next-actions-pane-view'
 
   render: ->
-    @$(@el).html(nextActionsPaneTemplate())
+    @$el.html(nextActionsPaneTemplate())
     inboxActions = app.collections.actions.filter( (action) ->
       if action.get('tag_links').length is 0 and action.get('project_links').length is 0
         return true
@@ -17,10 +17,10 @@ class exports.NextActionsPaneView extends Backbone.View
         return false
     )
     if inboxActions.length > 0
-      @$('#inbox ul').empty()
+      @$el.find('#inbox ul.inbox-actions').empty()
     for action in inboxActions
       @logChildView view = new ActionView model: action
-      $("#inbox ul", @el).append view.render().el
+      @$el.find("#inbox ul.inbox-actions").append view.render().el
 
     for tag in app.collections.tags.models
       if tag.notDoneActions().length > 0
@@ -28,4 +28,13 @@ class exports.NextActionsPaneView extends Backbone.View
           model: tag
           projects: true
           actions: true
-        $(@el).append tagView.render().el
+        @$el.append tagView.render().el
+
+    _.defer ->
+      $('.tag-list-item .tag').each( (index) ->
+        colorScheme = app.colorCombos[index]
+        for background,color of colorScheme
+          $(@).css( background: background )
+          $(@).css( color: color )
+      )
+    @

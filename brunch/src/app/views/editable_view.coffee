@@ -37,7 +37,7 @@ class exports.EditableView extends Backbone.View
 
     context.edit_text = @model.get(@options.field)
 
-    $(@el).html(editableTemplate(context))
+    @$el.html(editableTemplate(context))
 
     # Post processing on html
     app.util.makeExternalLinksOpenNewTab(@$('.display'))
@@ -56,11 +56,11 @@ class exports.EditableView extends Backbone.View
     # If the person clicked on a link, they probably don't want to start editing.
     if e.target.nodeName is 'A' then return
 
-    @$(@el).addClass "editing"
+    @$el.addClass "editing"
     @$('.input').focus()
 
   stopEditing: =>
-    @$(@el).removeClass "editing"
+    @$el.removeClass "editing"
     @render()
 
   update: =>

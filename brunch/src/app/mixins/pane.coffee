@@ -5,7 +5,7 @@ class exports.Pane
     @options = options || (options = {})
     if !@options.el
       throw new Error("An 'el' must be specified")
-    @el = $(@options.el)
+    @$el = $(@options.el)
 
   # Displays a backbone view instance inside of the region.
   # Handles calling the `render` method for you. Reads content
@@ -24,7 +24,6 @@ class exports.Pane
       view.close()
 
   _openView: (view) ->
-    view.render()
-    @el.html view.el
+    @$el.html view.render().el
     if view.onShow
       view.onShow()

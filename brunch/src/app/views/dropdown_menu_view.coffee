@@ -27,7 +27,7 @@ class exports.DropdownMenuView extends Backbone.View
         @options.commands['Undelete'] = app.util.undeleteModel
         delete @options.commands['Delete']
 
-    $(@el).html(DropdownMenuTemplate( commands: @options.commands ))
+    @$el.html(DropdownMenuTemplate( commands: @options.commands ))
     @
 
   executeCommand: (e) =>
@@ -35,13 +35,13 @@ class exports.DropdownMenuView extends Backbone.View
     @options.commands[command].call(@, @model)
 
   markCommand: (e) =>
-    @$('li.active').removeClass('active')
+    @$el.find('li.active').removeClass('active')
     $(e.target).addClass('active')
 
   toggleActive: =>
-    @$('.commands').toggle()
-    $(@el).toggleClass('active')
+    @$el.find('.commands').toggle()
+    @$el.toggleClass('active')
 
   hide: =>
-    @$('.commands').hide()
-    $(@el).removeClass('active')
+    @$el.find('.commands').hide()
+    @$el.removeClass('active')

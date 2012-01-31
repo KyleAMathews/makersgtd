@@ -6,7 +6,7 @@ class exports.ExpandingAreaView extends Backbone.View
     context = {}
     for k,v of @options
       context[k] = v
-    $(@el).html(expandingArea( context ))
+    @$el.html(expandingArea( context ))
 
     # Wait for the HTML to be inserted first.
     _.defer @makeAreaExpandable, context.lines
@@ -23,4 +23,4 @@ class exports.ExpandingAreaView extends Backbone.View
     @$('.textareaClone').css({ 'min-height': height })
 
     # Set widget to active.
-    $(@el).addClass('active')
+    @$el.addClass('active')

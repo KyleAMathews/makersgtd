@@ -16,7 +16,7 @@ class exports.TagView extends Backbone.View
   render: =>
     json = @model.toJSON()
     json.url = @model.iurl()
-    @$(@el).html(tagTemplate(tag: json))
+    @$el.html(tagTemplate(tag: json))
 
     if @options.actions
       # Render the tag's loose actions, i.e. those without a project.
@@ -27,7 +27,7 @@ class exports.TagView extends Backbone.View
         else
           return true
 
-      inboxActions = new SubCollection [],
+      inboxActions = new SubCollection null,
         linkedModel: @model
         link_name: 'action_links'
         link_type: 'action'
@@ -39,7 +39,7 @@ class exports.TagView extends Backbone.View
       ).render()
 
     if @options.projects and @model.get('project_links').length > 0
-      subProjects = new SubCollection [],
+      subProjects = new SubCollection null,
         linkedModel: @model
         link_name: 'project_links'
         link_type: 'project'

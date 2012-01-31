@@ -3,6 +3,7 @@ app.routers = {}
 app.models = {}
 app.collections = {}
 app.views = {}
+require('mixins/color_scheme')
 
 require('jquery_plugins')
 
@@ -48,7 +49,8 @@ $(document).ready ->
         add: ->
           counter += 1
           if counter is 3
-            app.routers.main.navigate 'next-actions', true if Backbone.history.getFragment() is ''
+            #if Backbone.history.getFragment() is ''
+              #app.routers.main.navigate 'next-actions', true
             Backbone.history.start()
       }
     counter = successCounter()

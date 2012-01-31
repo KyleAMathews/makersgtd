@@ -39,20 +39,20 @@ class exports.LinkerView extends Backbone.View
       app.util.loadMultipleModels context.linking_to, ids, (models) =>
         context.models = models
 
-        $(@el).html(linkerTemplate(context))
+        @$el.html(linkerTemplate(context))
         @
 
     else
-      $(@el).html(linkerTemplate(context))
+      @$el.html(linkerTemplate(context))
       @
 
   edit: =>
-    @$(@el).addClass "editing"
+    @$el.addClass "editing"
     @$('ul.autocomplete').empty().hide()
     @$('.input').focus().val('')
 
   stopEditing: =>
-    @$(@el).removeClass "editing"
+    @$el.removeClass "editing"
 
   addFromAutoComplete: =>
     index = @$('ul.autocomplete li.active').index()

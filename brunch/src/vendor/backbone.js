@@ -447,6 +447,7 @@
     if (options.comparator) this.comparator = options.comparator;
     this._reset();
     this.initialize.apply(this, arguments);
+    console.log('value of models in collection constructor', models);
     if (models) this.reset(models, {silent: true, parse: options.parse});
   };
 
@@ -470,6 +471,8 @@
     // Add a model, or list of models to the set. Pass **silent** to avoid
     // firing the `add` event for every new model.
     add: function(models, options) {
+      //console.log('collection\'s models', this.models);
+      //console.log('models passed into collection.add', models);
       var i, index, length, model, cid, id, cids = {}, ids = {};
       options || (options = {});
       models = _.isArray(models) ? models.slice() : [models];
@@ -482,7 +485,8 @@
         }
         if (cids[cid = model.cid] || this._byCid[cid] ||
           (((id = model.id) != null) && (ids[id] || this._byId[id]))) {
-          throw new Error("Can't add the same model to a collection twice");
+          //throw new Error("Can't add the same model to a collection twice");
+          continue;
         }
         cids[cid] = ids[id] = model;
       }
@@ -507,6 +511,7 @@
         options.index = i;
         model.trigger('add', model, this, options);
       }
+      //console.log('collection\'s models', this.models);
       return this;
     },
 

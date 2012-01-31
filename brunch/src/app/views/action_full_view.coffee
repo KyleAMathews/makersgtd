@@ -15,12 +15,12 @@ class exports.ActionFullView extends Backbone.View
 
   render: =>
     json = @model.toJSON()
-    @$(@el).html(actionTemplate(
+    @$el.html(actionTemplate(
       action: json
     ))
     @logChildView editableName = new editableView(
       field: 'name'
-      el: @$('.editable-name')
+      el: @$el.find('.editable-name')
       model: @model
       options: ['save-on-enter']
       blank_slate_text: 'Add Name'
@@ -29,7 +29,7 @@ class exports.ActionFullView extends Backbone.View
     editableName.render()
     @logChildView new editableView(
       field: 'description'
-      el: @$('.editable-description')
+      el: @$el.find('.editable-description')
       model: @model
       blank_slate_text: 'Add Description'
       lines: 3
@@ -37,7 +37,7 @@ class exports.ActionFullView extends Backbone.View
       html: true
     ).render()
     @logChildView new linkerView(
-      el: @$('.linker-project')
+      el: @$el.find('.linker-project')
       model: @model
       blank_slate: 'Add to project'
       linking_to: 'project'
@@ -46,7 +46,7 @@ class exports.ActionFullView extends Backbone.View
       models: @model.get('projects')
     ).render()
     @logChildView new linkerView(
-      el: @$('.linker-tag')
+      el: @$el.find('.linker-tag')
       model: @model
       blank_slate: 'Add a tag'
       linking_to: 'tag'
@@ -55,11 +55,11 @@ class exports.ActionFullView extends Backbone.View
       models: @model.get('tags')
     ).render()
     @logChildView new DropdownMenuView(
-      el: @$('.dropdown')
+      el: @$el.find('.dropdown')
       model: @model
     ).render()
     @logChildView new MetaInfoView(
-      el: @$('.meta-info')
+      el: @$el.find('.meta-info')
       model: @model
     ).render()
     @

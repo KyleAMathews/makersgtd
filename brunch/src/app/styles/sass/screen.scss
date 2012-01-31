@@ -39,7 +39,7 @@ ul, ol {
 
 #simple-gtd-app {
   background: white;
-  width: 313px;
+  width: 400px;
   @include padding-leader(0.5);
   @include apply-side-rhythm-border('left', 2px);
   @include apply-side-rhythm-border('right', 2px);
@@ -208,7 +208,7 @@ nav {
   position: absolute;
   background: white;
   z-index: 100;
-  top: 66px;
+  top: 67px;
 }
 
 // Add to items when moving them.

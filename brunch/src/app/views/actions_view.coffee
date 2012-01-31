@@ -16,16 +16,14 @@ class exports.ActionsView extends Backbone.View
     @bindTo @collection, 'change:done', @render
 
   render: =>
-    $(@el).html actionsTemplate()
+    @$el.html actionsTemplate()
     # Return if there's no actions to render.
     if @collection.notDone().length is 0 then return @
     # Render each action.
     @addAll()
     # Add label if one is specified.
     if @options.label?
-      $(@el).prepend('<h4 class="label">' + @options.label + '</h4>')
-    # Remove the last border.
-    @$('li:last').css('border-color', 'rgba(0,0,0,0)')
+      @$el.prepend('<h4 class="label">' + @options.label + '</h4>')
     if @options.addNewModelForm?
       @logChildView new AddNewModelView(
         el: @$('.add-new-action')
@@ -37,7 +35,7 @@ class exports.ActionsView extends Backbone.View
   addOne: (action) =>
     unless action.get 'done'
       @logChildView view = new ActionView model: action
-      $("ul#actions", @el).append view.render().el
+      @$("ul#actions").append view.render().el
 
   addAll: =>
     @addOne action for action in @collection.notDone()

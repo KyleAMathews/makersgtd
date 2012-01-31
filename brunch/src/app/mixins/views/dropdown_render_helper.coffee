@@ -2,7 +2,7 @@ DropdownMenuView = require('views/dropdown_menu_view').DropdownMenuView
 exports.DropdownRenderHelper =
   renderDropdown: ->
     @logChildView @dropdownMenu = new DropdownMenuView(
-      el: @$('.dropdown')
+      el: @$el.find('.dropdown')
       model: @model
     ).render()
 
@@ -11,11 +11,11 @@ exports.DropdownRenderHelper =
       over: @showDropdown
       out: @hideDropdown
       timeout: 100
-    $(@el).hoverIntent(config)
+    @$el.hoverIntent(config)
 
   showDropdown: ->
-    @$('.dropdown').addClass('over')
+    @$el.find('.dropdown').addClass('over')
 
   hideDropdown: ->
-    @$('.dropdown').removeClass('over')
+    @$el.find('.dropdown').removeClass('over')
     @dropdownMenu.hide()
