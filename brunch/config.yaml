@@ -2,8 +2,8 @@ dependencies:
   - ConsoleDummy.js
   - jquery-1.7.js
   - jquery-ui-1.8.16.custom.min.js
-  - underscore-1.1.7.js
-  - backbone-0.5.3.js
+  - underscore.js
+  - backbone.js
   - Markdown.Converter.js
   - fuzzymatcher.js
   - jquery.hoverIntent.js
