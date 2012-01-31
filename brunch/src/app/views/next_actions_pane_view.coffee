@@ -8,19 +8,17 @@ class exports.NextActionsPaneView extends Backbone.View
 
   id: 'next-actions-pane-view'
 
+  initialize: ->
+    @bindTo app.collections.actions, 'add', @appendToInbox
+
   render: ->
     @$el.html(nextActionsPaneTemplate())
-    inboxActions = app.collections.actions.filter( (action) ->
-      if action.get('tag_links').length is 0 and action.get('project_links').length is 0
-        return true
-      else
-        return false
-    )
-    if inboxActions.length > 0
-      @$el.find('#inbox ul.inbox-actions').empty()
-    for action in inboxActions
-      @logChildView view = new ActionView model: action
-      @$el.find("#inbox ul.inbox-actions").append view.render().el
+    @renderInbox()
+
+    @logChildView new AddNewModelView(
+      el: @$('.add-new-action')
+      type: 'action'
+    ).render()
 
     for tag in app.collections.tags.models
       if tag.notDoneActions().length > 0
@@ -38,3 +36,22 @@ class exports.NextActionsPaneView extends Backbone.View
           $(@).css( color: color )
       )
     @
+
+  renderInbox: =>
+    inboxActions = app.collections.actions.filter( (action) ->
+      if action.get('tag_links').length is 0 and action.get('project_links').length is 0
+        return true
+      else
+        return false
+    )
+    if inboxActions.length > 0
+      @$el.find('#inbox ul.inbox-actions').empty()
+    for action in inboxActions
+      @logChildView view = new ActionView model: action
+      @$el.find("#inbox ul.inbox-actions").append view.render().el
+
+  appendToInbox: (action) =>
+    if action.get('tag_links').length is 0 and action.get('project_links').length is 0
+      @logChildView view = new ActionView model: action
+      @$el.find("#inbox ul.inbox-actions").append view.render().el
+

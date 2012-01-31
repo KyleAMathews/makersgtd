@@ -3,4 +3,5 @@
   <ul class="inbox-actions">
   <p>Your inbox is empty!</p>
   </ul>
+  <div class='add-new-action'></div>
 </div>

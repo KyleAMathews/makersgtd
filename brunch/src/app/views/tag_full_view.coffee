@@ -16,7 +16,6 @@ class exports.TagFullView extends Backbone.View
   className: 'full-view'
 
   initialize: ->
-    # @model.bind('change', @render)
     @model.view = @
 
   render: =>
