@@ -1,5 +1,5 @@
 <div id="inbox" class="collection-view">
-  <h4 class="label">Inbox</h4>
+  <h4 class="label">Inbox <small>(new and unsorted actions)</small></h4>
   <ul class="inbox-actions">
   <p>Your inbox is empty!</p>
   </ul>
