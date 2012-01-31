@@ -3,5 +3,5 @@
     @<%= @tag.name %>
   </a>
 </div>
-<div class="inbox"></div>
+<div class="inbox collection-view"></div>
 <div class="projects"></div>

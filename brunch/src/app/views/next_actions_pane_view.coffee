@@ -6,7 +6,6 @@ TagView = require('views/tag_view').TagView
 
 class exports.NextActionsPaneView extends Backbone.View
 
-  className: 'collection-view'
   id: 'next-actions-pane-view'
 
   render: ->
@@ -18,10 +17,10 @@ class exports.NextActionsPaneView extends Backbone.View
         return false
     )
     if inboxActions.length > 0
-      @$('#inbox').empty()
+      @$('#inbox ul').empty()
     for action in inboxActions
       @logChildView view = new ActionView model: action
-      $("#inbox", @el).append view.render().el
+      $("#inbox ul", @el).append view.render().el
 
     for tag in app.collections.tags.models
       if tag.notDoneActions().length > 0

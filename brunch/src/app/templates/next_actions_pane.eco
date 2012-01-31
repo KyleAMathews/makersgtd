@@ -1,4 +1,6 @@
-<h4 class="label">Inbox</h4>
-<ul id='inbox'>
-<p>Your inbox is empty!</p>
-</ul>
+<div id="inbox" class="collection-view">
+  <h4 class="label">Inbox</h4>
+  <ul>
+  <p>Your inbox is empty!</p>
+  </ul>
+</div>

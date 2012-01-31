@@ -3,4 +3,4 @@
       #<%= @project.name %>
     </a>
 </div>
-<div class="actions-view"></div>
+<div class="actions-view collection-view"></div>

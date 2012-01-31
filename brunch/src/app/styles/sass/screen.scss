@@ -8,7 +8,6 @@
 @import "typography";
 @import "compass/css3";
 @import "fancy-buttons";
-@import "colors";
 
 @import "ie";
 @import "ie6";
@@ -78,7 +77,7 @@ ul, ol {
     font-weight: bold;
   }
   ul {
-    list-style-type: none;
+    @include no-bullets();
     padding: 0;
   }
   li {
@@ -109,6 +108,7 @@ ul, ol {
 
 #projects-pane-view, #next-actions-pane-view {
   .tag {
+    text-align: center;
     a.model-link {
       font-weight: bolder;
       @include adjust-font-size-to(16px);
@@ -129,7 +129,7 @@ ul, ol {
   }
 }
 
-#actions, #projects, #tags {
+#actions, .projects, #tags {
   .check {
     position: relative;
     top: 3px;
@@ -140,7 +140,9 @@ ul, ol {
     text-decoration: line-through;
     color: #777777;
   }
-
+  ul {
+    @include no-bullets();
+  }
 }
 
 #done-actions-view {
@@ -232,15 +234,19 @@ nav {
 }
 
 .tag-list-item {
-  @include trailer(0.5);
+  @include trailer(1);
 }
-#next-actions-pane-view {
+#next-actions-pane-view, #tags #projects-view {
   .project-list-item {
     .project {
-      background: $grey90;
       color: $grey20;
+      text-align: center;
+      @include adjust-font-size-to(14px);
       @include padding-leader(0.5);
       @include padding-trailer(0.5);
+      a {
+        font-weight: bolder;
+      }
     }
   }
 }
