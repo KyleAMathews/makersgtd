@@ -136,13 +136,14 @@ ul, ol {
     margin: 0 7px 0 7px;
     float: left;
   }
-  .done .name {
-    text-decoration: line-through;
-    color: #777777;
-  }
   ul {
     @include no-bullets();
   }
+}
+/* strikeout done actions */
+.done .name {
+  text-decoration: line-through;
+  color: #777777;
 }
 
 #done-actions-view {
