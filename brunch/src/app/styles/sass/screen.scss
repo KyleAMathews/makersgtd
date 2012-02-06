@@ -209,7 +209,7 @@ nav {
   position: absolute;
   background: white;
   z-index: 100;
-  top: 67px;
+  top: 66px;
 }
 
 // Add to items when moving them.
@@ -504,13 +504,9 @@ code {
     }
   }
   .project-link {
-    background: lightgreen;
-    @include border-radius(5px);
-    padding: 1px 5px;
-    a {
-      @include unstyled-link();
-      cursor: pointer;
-    }
+    cursor: pointer;
+    color: $grey40;
+    text-decoration: underline;
   }
   .tag-link {
     background: palegoldenrod;
