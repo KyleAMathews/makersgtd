@@ -56,9 +56,10 @@ exports.ModelLinker =
     field[type + "_links"] = new_links
     if temp then @set field else @save field
 
-    app.util.loadModel(type, id, (model) =>
-      @trigger('delete:' + type + "_link", model)
-    )
+    unless temp
+      app.util.loadModel(type, id, (model) =>
+        @trigger('delete:' + type + "_link", model)
+      )
 
   saveOrderLinkedModels: (link_name, orderedIds) ->
     links = @get(link_name)
