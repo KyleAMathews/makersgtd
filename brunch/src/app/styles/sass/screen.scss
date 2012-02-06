@@ -4,7 +4,6 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
 @import "normalize";
-@import "base";
 @import "typography";
 @import "compass/css3";
 @import "fancy-buttons";
@@ -55,7 +54,6 @@ ul, ol {
   }
 
   h1 {
-    font-weight: bold;
     text-align: center;
     @include leader(0);
     @include trailer(0.25);
@@ -73,9 +71,6 @@ ul, ol {
 }
 
 .collection-view {
-  h4 {
-    font-weight: bold;
-  }
   ul {
     @include no-bullets();
     padding: 0;
