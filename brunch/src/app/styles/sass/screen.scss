@@ -374,11 +374,7 @@ nav {
     font-weight: bolder;
     cursor: pointer;
     a {
-      @include unstyled-link();
-      background-color: lightgreen;
       color: $grey40;
-      @include border-radius(5px);
-      padding: 1px 5px;
     }
     .delete {
       visibility: hidden;
