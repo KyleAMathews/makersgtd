@@ -225,6 +225,9 @@ nav {
   }
 }
 #next-actions-pane-view, #tags #projects-view {
+  ul {
+    @include no-bullets();
+  }
   .project-list-item {
     .project {
       color: $grey20;
