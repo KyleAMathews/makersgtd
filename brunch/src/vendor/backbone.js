@@ -515,7 +515,7 @@
         }
         if (cids[cid = model.cid] || this._byCid[cid] ||
           (((id = model.id) != null) && (ids[id] || this._byId[id]))) {
-          throw new Error("Can't add the same model to a collection twice");
+          //throw new Error("Can't add the same model to a collection twice");
         }
         cids[cid] = ids[id] = model;
       }
