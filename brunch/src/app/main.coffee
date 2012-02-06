@@ -195,7 +195,10 @@ app.util.undeleteModel = (model) ->
 
 # Extend the Backbone model prototype to add an internal url generator.
 Backbone.Model.prototype.iurl = ->
-  return '#' + @get('type') + 's/' + @id
+  if @id?
+    return '#' + @get('type') + 's/' + @id
+  else
+    return '#' + @get('type') + 's/' + @cid
 
 # Mixin capitalize function to underscore.
 _.mixin(
