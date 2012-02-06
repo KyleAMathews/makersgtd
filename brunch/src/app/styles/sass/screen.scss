@@ -275,13 +275,14 @@ nav {
     width: 100px;
     background: white;
     @include rhythm-borders(1px, 0.25);
-  }
-  .command {
-    padding: 0.375em 0.75em;
-    cursor: pointer;
-    border: none;
-    &.active {
-      background: $hovering;
+    .command {
+      padding: 0.375em 0.75em;
+      cursor: pointer;
+      border: none;
+      background: white;
+      &.active {
+        background: $hovering;
+      }
     }
   }
 }
