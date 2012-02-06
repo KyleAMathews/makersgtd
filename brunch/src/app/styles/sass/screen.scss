@@ -19,7 +19,7 @@ ul, ol {
 }
 
 // Everything should have 16px of horizontal padding.
-.model-link, .label, .editable, .linker, .meta-info, .add-new-model {
+.model-link, .label, .editable, .linker, .meta-info, .add-new-model, .editable ul {
   padding: 0 16px;
 }
 
@@ -129,17 +129,6 @@ ul, ol {
   }
 }
 
-#actions, .projects, #tags {
-  .check {
-    position: relative;
-    top: 3px;
-    margin: 0 7px 0 7px;
-    float: left;
-  }
-  ul {
-    @include no-bullets();
-  }
-}
 /* strikeout done actions */
 .done .name {
   text-decoration: line-through;
@@ -236,6 +225,9 @@ nav {
 
 .tag-list-item {
   @include trailer(1);
+  ul {
+    @include no-bullets();
+  }
 }
 #next-actions-pane-view, #tags #projects-view {
   .project-list-item {
