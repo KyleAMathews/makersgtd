@@ -37,7 +37,9 @@ class exports.SubCollection extends Backbone.Collection
     @options.linkedModel.saveOrderLinkedModels(@options.link_name, orderedIds)
 
   addModel: (model) ->
-    @add model
+    # Only add if the model isn't already here.
+    unless @get(model.id)? or @getByCid(model.cid)?
+      @add model
 
   deleteModel: (model) ->
     @remove model
