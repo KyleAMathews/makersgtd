@@ -9,9 +9,9 @@ exports.Sortable =
     @$('ul').bind('sortupdate', @resetOrder)
 
   resetOrder: ->
-    that = @
     order = []
-    @$('li div.action').each (index) ->
+    window.projectel = @$el
+    @$el.children('ul').find('> li > .model-list-item').each (index) ->
       order.push $(@).data('id')
 
     @collection.saveOrder(order)

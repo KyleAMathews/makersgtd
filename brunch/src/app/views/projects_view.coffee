@@ -2,6 +2,7 @@ ProjectView = require('views/project_view').ProjectView
 projectsTemplate = require('templates/projects')
 AddNewModelView = require('views/add_new_model_view').AddNewModelView
 TagView = require('views/tag_view').TagView
+Sortable = require('mixins/views/sortable').Sortable
 
 class exports.ProjectsView extends Backbone.View
 
@@ -9,6 +10,8 @@ class exports.ProjectsView extends Backbone.View
   id: 'projects-view'
 
   initialize: ->
+    # We use bindAll when we're using a mixin that's called by jquery.
+    _.bindAll(@)
     @bindTo @collection, 'add', @addOne
     @bindTo @collection, 'reset', @render
 
@@ -37,3 +40,8 @@ class exports.ProjectsView extends Backbone.View
   addAll: =>
     @$('ul#projects').empty()
     @addOne project for project in @collection.notDone()
+    @makeSortable('ul#projects')
+
+# Add Mixins
+exports.ProjectsView.prototype = _.extend exports.ProjectsView.prototype,
+  Sortable
