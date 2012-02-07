@@ -54,18 +54,21 @@ class exports. GlobalSearch extends Backbone.View
           model = _.filter models, (model) -> return model.id is match.id
           model = model[0]
           # Get tag and project names to add.
-          tag_names = []
-          project_names = []
+          tags_info = []
+          projects_info = []
           unless model? then continue
           unless model.get('type') is 'tag'
             tags = model.get('tag_links')
             projects = model.get('project_links')
             if projects?
               for project in projects
-                project_names.push app.util.loadModelSynchronous('project', project.id).get('name')
+                projects_info.push app.util.loadModelSynchronous('project', project.id).get('name')
             if tags?
               for tag in tags
-                tag_names.push app.util.loadModelSynchronous('tag', tag.id).get('name')
+                tag = app.util.loadModelSynchronous('tag', tag.id)
+                tag_name = tag.get('name')
+                tag_colors = app.colorPalette[tag.get('color_palette')]
+                tags_info.push { name: tag_name, colors: tag_colors }
 
           classes = ""
           if model.get('done') then classes += "done "
@@ -76,8 +79,8 @@ class exports. GlobalSearch extends Backbone.View
           @$('ul.autocomplete').append(globalSearchTemplate(
             model: model
             match: match
-            tag_names: tag_names
-            project_names: project_names
+            tags_info: tags_info
+            projects_info: projects_info
             classes: classes
             prefix: prefix
           ))

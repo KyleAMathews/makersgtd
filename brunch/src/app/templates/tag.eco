@@ -1,4 +1,4 @@
-<div class="tag model-list-item <% if @tag.done: %>done<% end %>" data-id="<%- @tag.id %>">
+<div class="tag model-list-item <% if @tag.done: %>done<% end %>" data-id="<%- @tag.id %>" style="background:<%- app.colorPalette[@tag.color_palette][0] %>; color:<%- app.colorPalette[@tag.color_palette][1] %>;">
   <a class="model-link" href="<%- @tag.url %>">
     @<%= @tag.name %>
   </a>

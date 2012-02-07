@@ -13,6 +13,13 @@ class exports.Tag extends Backbone.Model
     project_links: []
     action_links: []
 
+  initialize: ->
+    # Set next color from color_palette if tag is new.
+    unless @get('color_palette')?
+      max = _.max(app.collections.tags.pluck('color_palette'))
+      newPalette = max % app.colorPalette.length + 1
+      @set( color_palette: newPalette )
+
   notDoneActions: ->
     actions = []
     for link in @get('action_links')

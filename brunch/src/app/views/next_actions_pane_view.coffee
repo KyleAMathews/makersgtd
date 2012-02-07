@@ -27,14 +27,6 @@ class exports.NextActionsPaneView extends Backbone.View
           projects: true
           actions: true
         @$el.append tagView.render().el
-
-    _.defer ->
-      $('.tag-list-item .tag').each( (index) ->
-        colorScheme = app.colorCombos[index]
-        for background,color of colorScheme
-          $(@).css( background: background )
-          $(@).css( color: color )
-      )
     @
 
   renderInbox: =>

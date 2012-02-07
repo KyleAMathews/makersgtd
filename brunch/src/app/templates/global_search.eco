@@ -1,9 +1,9 @@
 <li data-url='<%- @model.iurl() %>' class="<%- @classes %>">
 <%- @prefix %><%- @match.highlighted %>
-<% for name in @project_names: %>
+<% for name in @projects_info: %>
   <span class='project-link'>#<%- name %></span>
 <% end %>
-<% for name in @tag_names: %>
-  <span class='tag-link'>@<%- name %></span>
+<% for tag in @tags_info: %>
+  <span class='tag-link' style="background:<%- tag.colors[0] %>;color:<%- tag.colors[1] %>;">@<%- tag.name %></span>
 <% end %>
 </li>

@@ -6,7 +6,7 @@ DropdownMenuView = require('views/dropdown_menu_view').DropdownMenuView
 
 class exports.ActionFullView extends Backbone.View
 
-  id: 'actions'
+  id: 'action'
   className: 'full-view'
 
   initialize: ->

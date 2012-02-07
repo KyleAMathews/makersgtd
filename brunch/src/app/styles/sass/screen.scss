@@ -101,16 +101,6 @@ ul, ol {
   }
 }
 
-#projects-pane-view, #next-actions-pane-view {
-  .tag {
-    text-align: center;
-    a.model-link {
-      font-weight: bolder;
-      @include adjust-font-size-to(16px);
-    }
-  }
-}
-
 /* Generic edit block styles */
 .edit {
   display: none;
@@ -219,12 +209,20 @@ nav {
 }
 
 .tag-list-item {
-  @include trailer(1);
+  > .model-list-item {
+    @include padding-leader(.5);
+    @include padding-trailer(.5);
+    text-align: center;
+    a {
+      font-weight: bolder;
+      @include adjust-font-size-to(16px);
+    }
+  }
   ul {
     @include no-bullets();
   }
 }
-#next-actions-pane-view, #tags #projects-view {
+#next-actions-pane-view, #tag #projects-view {
   ul {
     @include no-bullets();
   }
@@ -238,6 +236,20 @@ nav {
       background: $grey90;
       a {
         font-weight: bolder;
+      }
+    }
+  }
+}
+
+#tag {
+  .editable-name {
+    .editable {
+      @include padding-leader(.5);
+      @include padding-trailer(.5);
+      @include margin-leader(.5);
+      text-align: center;
+      .display {
+        color: inherit;
       }
     }
   }
@@ -500,14 +512,13 @@ code {
     color: $grey40;
     text-decoration: underline;
   }
-  .tag-link {
-    background: palegoldenrod;
-    @include border-radius(5px);
-    padding: 1px 5px;
-    a {
-      @include unstyled-link();
-      cursor: pointer;
-    }
+}
+
+.tag-link {
+  @include border-radius(5px);
+  padding: 1px 5px;
+  a {
+    color: inherit;
   }
 }
 

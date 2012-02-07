@@ -39,6 +39,13 @@ class exports.LinkerView extends Backbone.View
       app.util.loadMultipleModels context.linking_to, ids, (models) =>
         context.models = models
 
+        # Add tag colors.
+        if @options.linking_to is 'tag'
+          for model in context.models
+            colors = app.colorPalette[model.get('color_palette')]
+            model.style = 'background: ' + colors[0] + '; color: ' + colors[1] + ';'
+            model.classes = "tag-link"
+
         @$el.html(linkerTemplate(context))
         @
 

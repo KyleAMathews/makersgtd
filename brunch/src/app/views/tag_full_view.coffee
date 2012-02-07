@@ -12,7 +12,7 @@ DropdownMenuView = require('views/dropdown_menu_view').DropdownMenuView
 
 class exports.TagFullView extends Backbone.View
 
-  id: 'tags'
+  id: 'tag'
   className: 'full-view'
 
   initialize: ->

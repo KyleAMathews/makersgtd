@@ -4,7 +4,7 @@
     <span class="<%- @type %> display">
     <% for model in @models: %>
       <span class="name" data-id="<%- model.id %>">
-        <a href="<%- model.iurl() %>"><%- @prefix %><%- model.get('name') %></a>
+        <a href="<%- model.iurl() %>" class="<%- model.classes %>" style="<%- model.style %>"><%- @prefix %><%- model.get('name') %></a>
         <span class="delete">x</span>
       </span>
     <% end %>

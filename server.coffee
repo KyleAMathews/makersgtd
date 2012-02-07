@@ -50,6 +50,7 @@ tagSchema = new Schema (
   deleted: { type: Boolean, default: false }
   created: Date
   changed: Date
+  color_palette: Number
   action_links: []
   project_links: []
 )

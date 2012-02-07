@@ -19,10 +19,6 @@ class exports.Tags extends Backbone.Collection
   comparator: (tag) ->
     tag.get('name').toLowerCase()
 
-  nextOrder: ->
-    return 1 unless @length
-    @last().get('order') + 1
-
 # Add Mixins
 exports.Tags.prototype = _.extend exports.Tags.prototype,
   FuzzyMatcherIntegration
