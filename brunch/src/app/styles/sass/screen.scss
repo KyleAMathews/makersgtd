@@ -82,7 +82,7 @@ ul, ol {
     cursor: default;
     @include pie-clearfix();
     &:nth-child(2n) {
-      background: #F5F5F5;
+      background: $grey96;
     }
   }
   li.editing {
@@ -232,9 +232,10 @@ nav {
     .project {
       color: $grey20;
       text-align: center;
-      @include adjust-font-size-to(14px);
-      @include padding-leader(0.5);
-      @include padding-trailer(0.5);
+      @include adjust-font-size-to(13px);
+      @include padding-leader(0.25);
+      @include padding-trailer(0.25);
+      background: $grey90;
       a {
         font-weight: bolder;
       }
