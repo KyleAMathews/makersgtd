@@ -62,13 +62,16 @@ class exports. GlobalSearch extends Backbone.View
             projects = model.get('project_links')
             if projects?
               for project in projects
-                projects_info.push app.util.loadModelSynchronous('project', project.id).get('name')
+                project = app.util.loadModelSynchronous('project', project.id).get('name')
+                if project
+                  projects_info.push project
             if tags?
               for tag in tags
                 tag = app.util.loadModelSynchronous('tag', tag.id)
-                tag_name = tag.get('name')
-                tag_colors = app.colorPalette[tag.get('color_palette')]
-                tags_info.push { name: tag_name, colors: tag_colors }
+                if tag
+                  tag_name = tag.get('name')
+                  tag_colors = app.colorPalette[tag.get('color_palette')]
+                  tags_info.push { name: tag_name, colors: tag_colors }
 
           classes = ""
           if model.get('done') then classes += "done "
