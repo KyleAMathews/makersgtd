@@ -1,3 +1,4 @@
+<div class="blank-slate"><%- @blank_slate_text %></div>
 <div class="expanding-area"></div>
 <div class="focused">
   <input type="submit" class="add" value="Add">

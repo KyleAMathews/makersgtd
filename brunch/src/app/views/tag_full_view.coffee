@@ -55,7 +55,7 @@ class exports.TagFullView extends Backbone.View
       linkedModel: @model
       link_name: 'action_links'
       link_type: 'action'
-      filters: [doneFilter]
+      filter: doneFilter
 
     @logChildView new ActionsView(
       el: @$('#inbox')

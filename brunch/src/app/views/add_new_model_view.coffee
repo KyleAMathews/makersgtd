@@ -10,13 +10,14 @@ class exports.AddNewModelView extends Backbone.View
     'keydown' : 'escapeEditing'
     'click .add' : 'save'
     'click .cancel' : 'stopEditing'
-    'focus .expanding-area .input' : 'showButtons'
+    'click .blank-slate' : 'showForm'
 
   render: =>
     context = {}
     for k,v of @options
       context[k] = v
 
+    context['blank_slate_text'] = "Add new " + context.type
     @$el.html(addNewModelTemplate(context))
     @logChildView new ExpandingAreaView(
       el: @$('.expanding-area')
@@ -100,8 +101,13 @@ class exports.AddNewModelView extends Backbone.View
     @$('.expanding-area .input').blur().val('')
     @hideButtons()
 
-  showButtons: =>
+  showForm: =>
+    @$('.blank-slate').hide()
     @$('.focused').show()
+    @$('.expanding-area').show()
+    @$('textarea').focus()
 
   hideButtons: =>
+    @$('.blank-slate').show()
     @$('.focused').hide()
+    @$('.expanding-area').hide()

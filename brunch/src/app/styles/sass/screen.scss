@@ -532,8 +532,13 @@ code {
   .cancel {
     @include cancel-link();
   }
-  .focused {
+  .focused, .expanding-area {
     display: none;
+  }
+  .blank-slate {
+    text-decoration: none;
+    cursor: pointer;
+    @include my-button($button_color, .85em);
   }
 }
 .project-link, .tag-link, .linker {
