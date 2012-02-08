@@ -67,7 +67,7 @@ class exports.MainRouter extends Backbone.Router
 
       if action?
         actionFullView = new ActionFullView model: action
-        app.pane0.show(actionFullView)
+        app.util.paneFactory('action').show(actionFullView)
 
   projectView: (id) ->
     app.util.loadModel 'project', id, (project) ->
@@ -78,7 +78,7 @@ class exports.MainRouter extends Backbone.Router
 
       if project?
         projectFullView = new ProjectFullView model: project
-        app.pane0.show(projectFullView)
+        app.util.paneFactory('project').show(projectFullView)
 
   tagView: (id) ->
     app.util.loadModel 'tag', id, (tag) ->
@@ -89,4 +89,4 @@ class exports.MainRouter extends Backbone.Router
 
       if tag?
         tagView = new TagFullView model: tag
-        app.pane0.show(tagView)
+        app.util.paneFactory('tag').show(tagView)

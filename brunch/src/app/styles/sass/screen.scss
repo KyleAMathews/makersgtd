@@ -49,6 +49,7 @@ ul, ol {
   padding-right: 0;
   position: relative;
   z-index: 3;
+  float: left;
   @media (min-width:500px) {
     margin-left: 100px;
   }
@@ -537,4 +538,21 @@ code {
 }
 .project-link, .tag-link, .linker {
   @include adjust-font-size-to(11px);
+}
+
+.pane {
+  background: white;
+  width: 400px;
+  @include apply-side-rhythm-border('left', 2px);
+  @include apply-side-rhythm-border('right', 2px);
+  @include h-borders(2px);
+  @include single-box-shadow();
+  // Reset left/right padding as panes should be a blank container.
+  padding-top: 0;
+  padding-left: 0;
+  padding-right: 0;
+  position: relative;
+  z-index: 3;
+  margin-left: 50px;
+  float: left;
 }

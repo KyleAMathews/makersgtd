@@ -33,6 +33,9 @@ $(document).ready ->
     app.collections.tags = new Tags()
 
     app.pane0 = new Pane( el: '#simple-gtd-app .content' )
+    app.pane1 = new Pane( el: '#pane1' )
+    app.pane2 = new Pane( el: '#pane2' )
+    app.pane3 = new Pane( el: '#pane3' )
 
     app.routers.main = new MainRouter()
 
@@ -290,3 +293,23 @@ Backbone.View.prototype.close = ->
 Backbone.View.prototype.logChildView = (childView) ->
   if !@children then @children = []
   @children.push childView
+
+app.util.paneFactory = (type) ->
+  typeConverter = (type) ->
+    switch type
+      when 'tag' then return 0
+      when 'project' then return 1
+      when 'action' then return 2
+      when 'note' then return 3
+      when 'empty' then return 1000
+
+  newViewType = typeConverter(type)
+  if newViewType <= typeConverter(app.pane1.type())
+    app.pane2.hide()
+    app.pane3.hide()
+    return app.pane1
+  else if newViewType <= typeConverter(app.pane2.type())
+    app.pane3.hide()
+    return app.pane2
+  else if newViewType <= typeConverter(app.pane3.type())
+    return app.pane3

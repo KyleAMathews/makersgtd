@@ -19,11 +19,26 @@ class exports.Pane
     @_closeView oldView
     @_openView view
 
+  hide: ->
+    @$el.empty()
+    @$el.hide()
+
   _closeView: (view) ->
     if view && view.close
       view.close()
 
   _openView: (view) ->
     @$el.html view.render().el
+    @$el.show()
     if view.onShow
       view.onShow()
+
+      # hierarchy -- meta > tag > project > action > note
+      # build paneFactory which returns correct pane -- it looks at type
+      # of view plus types of views already displayed and picks next
+      # one
+  type: ->
+    if @currentView?
+      return @currentView.model.get('type')
+    else
+      'empty'
