@@ -84,13 +84,13 @@ class exports.AddNewModelView extends Backbone.View
         linked_model = app.util.loadModelSynchronous(link.type, link.id)
         # Create link with the model's temporary cid.
         linked_model.createLink(model.get('type'), model.cid, true)
+        model.createLink(link.type, link.id)
       else
         linked_model = app.util.loadModelSynchronous(link.type, link.id)
         # Delete the temporary cid-based link.
         linked_model.deleteLink(model.get('type'), model.cid, true)
         # Create links on the linked model and the originating model.
         linked_model.createLink(model.get('type'), model.id)
-        model.createLink(link.type, link.id)
 
   escapeEditing: (e) =>
     if e.keyCode is 27

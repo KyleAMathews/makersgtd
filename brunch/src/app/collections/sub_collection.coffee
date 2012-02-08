@@ -14,9 +14,8 @@ class exports.SubCollection extends Backbone.Collection
       ids = (link.id for link in links)
       app.util.loadMultipleModels @options.link_type, ids, (models) =>
         # Apply filters if any.
-        if @options.filters?.length > 0
-          for filter in @options.filters
-            models = models.filter(filter)
+        if @options.filter?
+          models = models.filter(@options.filter)
         @reset(models)
 
   done: ->
@@ -39,7 +38,12 @@ class exports.SubCollection extends Backbone.Collection
   addModel: (model) ->
     # Only add if the model isn't already here.
     unless @get(model.id)? or @getByCid(model.cid)?
-      @add model
+      passed = true
+      # Check against any filter.
+      if @options.filter?
+        passed = @options.filter(model)
+      if passed
+        @add model
 
   deleteModel: (model) ->
     @remove model
