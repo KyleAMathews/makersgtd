@@ -18,10 +18,11 @@ class exports.ProjectsView extends Backbone.View
   render: ->
     @$el.html projectsTemplate(
       options: @options
+      length: @collection.notDone().length
     )
 
-    if @options.label?
-      @$el.prepend('<h4 class="label">' + @options.label + '</h4>')
+    #if @options.label?
+      #@$el.prepend('<h4 class="label">' + @options.label + '</h4>')
     @addAll()
 
     if @options.addNewModelForm?

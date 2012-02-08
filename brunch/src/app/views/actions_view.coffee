@@ -16,14 +16,15 @@ class exports.ActionsView extends Backbone.View
     @bindTo @collection, 'change:done', @render
 
   render: =>
-    @$el.html actionsTemplate()
+    @$el.html actionsTemplate(
+      options: @options
+      length: @collection.notDone().length
+    )
     # Return if there's no actions to render.
     if @collection.notDone().length is 0 then return @
     # Render each action.
     @addAll()
     # Add label if one is specified.
-    if @options.label?
-      @$el.prepend('<h4 class="label">' + @options.label + '</h4>')
     if @options.addNewModelForm?
       @logChildView new AddNewModelView(
         el: @$('.add-new-action')
