@@ -42,3 +42,6 @@ class exports.Pane
       return @currentView.model.get('type')
     else
       'empty'
+
+  visible: ->
+    return @$el.is(':visible')
