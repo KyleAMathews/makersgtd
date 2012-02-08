@@ -4,7 +4,6 @@ ActionsView = require('views/actions_view').ActionsView
 SubCollection = require('collections/sub_collection').SubCollection
 DoneActionsView = require('views/done_actions_view').DoneActionsView
 ProjectsView = require('views/projects_view').ProjectsView
-SubProjects = require('collections/sub_projects_collection').SubProjects
 DoneProjectsView = require('views/done_projects_view').DoneProjectsView
 AddNewModelView = require('views/add_new_model_view').AddNewModelView
 MetaInfoView = require('views/meta_info').MetaInfoView
