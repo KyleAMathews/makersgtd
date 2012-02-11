@@ -37,10 +37,7 @@ $status_background: #ccff88;
 $status_border_color: #bbee77;
 
 @mixin my-button($color: $grey80, $text_size: 1em) {
-  @include fancy-button($color, $text_size, 0.5em);
-  padding: 0.5em 1em;
-  line-height: 1.5;
-  font-family: inherit;
+  @include sassy-button('simple', 0.5em, $text_size, $color);
 }
 
 @mixin cancel-link() {
