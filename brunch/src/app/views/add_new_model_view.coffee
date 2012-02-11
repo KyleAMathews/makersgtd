@@ -29,6 +29,7 @@ class exports.AddNewModelView extends Backbone.View
   saveOnEnter: (e) =>
     if e.keyCode is $.ui.keyCode.ENTER
       @save()
+      return false
 
   save: =>
     # Save new model
