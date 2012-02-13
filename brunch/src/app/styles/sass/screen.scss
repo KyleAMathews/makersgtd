@@ -353,6 +353,17 @@ nav {
   @include rhythm(1);
   .display {
     cursor: pointer;
+    // Reduce h1 to h5 size and h2-h5 to h6
+    h1 {
+      @include adjust-font-size-to(14px);
+      @include leader(0);
+      @include trailer(0);
+    }
+    h2,h3,h4,h5 {
+      @include adjust-font-size-to(13px);
+      @include leader(0);
+      @include trailer(0);
+    }
   }
   input[type="submit"].save {
     @include my-button($button_color);
