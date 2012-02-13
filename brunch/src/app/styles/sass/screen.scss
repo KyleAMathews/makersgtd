@@ -121,7 +121,11 @@ ul, ol {
   color: #777777;
 }
 
-#done-actions-view {
+#actions-view, #done-actions-view, #inbox, #projects-view {
+  .label {
+    @include adjust-font-size-to(18px, 1);
+    margin-bottom: 0;
+  }
   @include leader(1);
 }
 
@@ -231,7 +235,7 @@ nav {
     .project {
       color: $grey40;
       text-align: center;
-      @include adjust-font-size-to(13px);
+      @include adjust-font-size-to(14px, 1);
       @include padding-leader(0.25);
       @include padding-trailer(0.25);
       background: $grey90;
@@ -240,6 +244,10 @@ nav {
       }
     }
   }
+}
+
+#projects-view .label {
+  @include trailer(0.25);
 }
 
 #tag {
@@ -323,7 +331,7 @@ nav {
   }
   .name {
     .display{
-      @include adjust-font-size-to(18px, 1);
+      @include adjust-font-size-to(21px, 1);
       font-weight: bold;
     }
   }
@@ -372,6 +380,7 @@ nav {
     @include cancel-link();
   }
   .label {
+    @include adjust-font-size-to(18px, 1);
     @include leader(0);
     @include trailer(0);
     padding: 0;

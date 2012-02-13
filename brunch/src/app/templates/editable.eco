@@ -1,7 +1,7 @@
 <div class="editable <%- @classes %> <%- @field %>" data-field="<%- @field %>">
   <% if @edit_text? and @edit_text isnt '': %>
     <% if @label?: %>
-      <h6 class='label'><%- @label %></h6>
+      <h3 class='label'><%- @label %></h3>
     <% end %>
     <span class="display"><%- @prefix %><%- @display_text %></span>
   <% else: %>
