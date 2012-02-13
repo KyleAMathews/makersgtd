@@ -57,10 +57,12 @@ class exports.EditableView extends Backbone.View
     if e.target.nodeName is 'A' then return
 
     @$el.addClass "editing"
+    @$el.find('.editable').css('text-align', 'left')
     @$('.input').focus()
 
   stopEditing: =>
     @$el.removeClass "editing"
+    @$el.find('.editable').css('text-align', 'inherit')
     @render()
 
   update: =>
