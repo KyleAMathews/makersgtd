@@ -167,10 +167,10 @@ nav {
       margin-right: 12px;
       margin-left: 5px;
     }
-    li.last {
-      margin-right: 5px;
-      @include float-right();
-    }
+    /*li.last {*/
+      /*margin-right: 5px;*/
+      /*@include float-right();*/
+    /*}*/
   }
 }
 
