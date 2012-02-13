@@ -216,7 +216,7 @@ nav {
     text-align: center;
     a {
       font-weight: bolder;
-      @include adjust-font-size-to(16px);
+      @include adjust-font-size-to(16px, 1);
     }
   }
   ul {
