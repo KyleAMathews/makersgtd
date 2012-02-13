@@ -70,12 +70,11 @@ class exports.LinkerView extends Backbone.View
     match = @matches[index]
     @addNewLink(match.id)
 
-  addNewLink: (linked_id) =>
-    @model.createLink(@options.linking_to, linked_id)
-    app.util.loadModel @options.linking_to, linked_id, (linkedToModel) ->
-      linkedToModel.createLink(@model.get('type'), @model.id)
-
-      @stopEditing()
+  addNewLink: (match_id) =>
+    match = app.util.loadModelSynchronous(@options.linking_to, match_id)
+    @model.createLink(match.get('type'), match.id)
+    match.createLink(@model.get('type'), @model.id)
+    @stopEditing()
 
   updateOnEnter: (e) ->
     @addFromAutoComplete() if e.keyCode is $.ui.keyCode.ENTER
