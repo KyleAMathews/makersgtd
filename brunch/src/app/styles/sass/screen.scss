@@ -479,6 +479,7 @@ input[type="submit"], input[type="button"], button, .button {
     /* Make the text soft-wrap */
     white-space: pre-wrap;
     word-wrap: break-word;
+    color: $grey30;
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
         -ms-box-sizing: border-box;
