@@ -229,7 +229,7 @@ nav {
   }
   .project-list-item {
     .project {
-      color: $grey20;
+      color: $grey40;
       text-align: center;
       @include adjust-font-size-to(13px);
       @include padding-leader(0.25);
@@ -251,6 +251,21 @@ nav {
       text-align: center;
       .display {
         color: inherit;
+      }
+    }
+  }
+}
+
+#project {
+  .editable-name {
+    .editable {
+      @include padding-leader(.5);
+      @include padding-trailer(.5);
+      @include margin-leader(.5);
+      text-align: center;
+      background: $grey90;
+      .display {
+        color: $grey40;
       }
     }
   }
