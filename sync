@@ -1,1 +1,0 @@
-rsync * -r --stats --progress root@69.164.194.245:/var/nodejs/SimpleGTD
