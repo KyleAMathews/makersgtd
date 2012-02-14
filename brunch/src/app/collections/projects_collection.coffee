@@ -1,6 +1,7 @@
 Project = require('models/project_model').Project
 FuzzyMatcherIntegration = require('mixins/collections/fuzzy_matcher_integration').FuzzyMatcherIntegration
 DoneOrNot = require('mixins/collections/done_or_not').DoneOrNot
+RemoveWhenDeleted = require('mixins/collections/remove_when_deleted').RemoveWhenDeleted
 
 class exports.Projects extends Backbone.Collection
 
@@ -9,6 +10,7 @@ class exports.Projects extends Backbone.Collection
 
   initialize: ->
     @type = 'projects'
+    @on('change:deleted', @removeWhenDeleted)
 
   nextOrder: ->
     return 1 unless @length
@@ -16,4 +18,4 @@ class exports.Projects extends Backbone.Collection
 
 # Add Mixins
 exports.Projects.prototype = _.extend exports.Projects.prototype,
-  FuzzyMatcherIntegration, DoneOrNot
+  FuzzyMatcherIntegration, DoneOrNot, RemoveWhenDeleted
