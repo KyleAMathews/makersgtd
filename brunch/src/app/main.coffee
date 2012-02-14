@@ -296,6 +296,13 @@ Backbone.View.prototype.logChildView = (childView) ->
   @children.push childView
 
 app.util.paneFactory = (type) ->
+  # If we're on a mobile device, everything gets added to pane0
+  if $(window).width() < 400
+    app.pane1.hide()
+    app.pane2.hide()
+    app.pane3.hide()
+    return app.pane0
+
   typeConverter = (type) ->
     switch type
       when 'tag' then return 0
