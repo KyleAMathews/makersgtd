@@ -39,7 +39,6 @@ ul, ol {
 #simple-gtd-app {
   background: white;
   width: 400px;
-  @include padding-leader(0.5);
   @include apply-side-rhythm-border('left', 2px);
   @include apply-side-rhythm-border('right', 2px);
   @include h-borders(2px);
@@ -126,7 +125,6 @@ ul, ol {
     @include adjust-font-size-to(18px, 1);
     margin-bottom: 0;
   }
-  @include leader(1);
 }
 
 nav {

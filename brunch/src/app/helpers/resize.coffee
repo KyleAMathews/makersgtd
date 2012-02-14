@@ -3,6 +3,9 @@ resize = ->
   unit = windowWidth / 45
 
   if $(window).width() > 400
+    $('#global-search').css('margin-left', 100)
+    $('#global-search').css('width', 300)
+
     # Set max and min
     if unit > 40 then unit = 40
     if unit < 25 then unit = 25
@@ -27,6 +30,8 @@ resize = ->
   else
     winWidth = $(window).width() - 5
     $('body').width('auto')
+    $('#global-search').css('margin-left', 0)
+    $('#global-search').css('width', winWidth - 25)
     # This code runs before panes are setup sometimes.
     if app.pane1?
       app.pane1.hide()
