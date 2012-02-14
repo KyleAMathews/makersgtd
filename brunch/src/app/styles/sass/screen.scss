@@ -411,11 +411,16 @@ nav {
     float: left;
     margin-right: 0.5em;
   }
+  .project .name a {
+    background: $grey90;
+  }
   .name {
     font-weight: bolder;
     cursor: pointer;
     a {
       color: $grey40;
+      @include border-radius(5px);
+      padding: 1px 5px;
     }
     .delete {
       visibility: hidden;

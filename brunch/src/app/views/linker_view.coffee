@@ -33,6 +33,7 @@ class exports.LinkerView extends Backbone.View
 
     # Add models from ids.
     links = @model.get(@options.linking_to + "_links")
+    context.type = @options.linking_to
     context.models = []
     if links.length > 0
       ids = (link.id for link in links)
