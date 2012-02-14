@@ -5,6 +5,7 @@ app.collections = {}
 app.views = {}
 require('helpers/color_scheme')
 require('helpers/resize')
+require('helpers/fuzzymatcher_integration')
 
 require('jquery_plugins')
 

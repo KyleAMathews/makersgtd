@@ -9,13 +9,6 @@ class exports.Tags extends Backbone.Collection
   initialize: ->
     @type = 'tags'
 
-    # Tie collection our fuzzymatcher quicksearch.
-    @addToFuzzymatcher()
-    @bindTo(@, 'reset', @addToFuzzymatcher)
-    @bindTo(@, 'add', @addToFuzzymatcher)
-    @bindTo(@, 'remove', @addToFuzzymatcher)
-    @bindTo(@, 'change:name', @addToFuzzymatcher)
-
   comparator: (tag) ->
     tag.get('name').toLowerCase()
 
