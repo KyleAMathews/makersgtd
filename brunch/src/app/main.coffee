@@ -3,8 +3,8 @@ app.routers = {}
 app.models = {}
 app.collections = {}
 app.views = {}
-require('mixins/color_scheme')
-require('mixins/resize')
+require('helpers/color_scheme')
+require('helpers/resize')
 
 require('jquery_plugins')
 
@@ -22,7 +22,7 @@ Tag = require('models/tag_model').Tag
 GlobalSearch = require('views/global_search').GlobalSearch
 
 # Pane
-Pane = require('mixins/pane').Pane
+Pane = require('helpers/pane').Pane
 
 MainRouter = require('routers/main_router').MainRouter
 
