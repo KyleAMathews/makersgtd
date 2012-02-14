@@ -8,3 +8,4 @@ dependencies:
   - fuzzymatcher.js
   - jquery.hoverIntent.js
   - expanding.js
+  - humane.js

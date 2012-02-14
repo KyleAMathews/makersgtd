@@ -18,7 +18,7 @@ ul, ol {
 }
 
 // Everything should have 16px of horizontal padding.
-.model-link, .label, .editable, .linker, .meta-info, .add-new-model, .editable ul, .inbox-actions p {
+.model-list-item, .label, .editable, .linker, .meta-info, .add-new-model, .editable ul, .inbox-actions p {
   padding: 0 16px;
 }
 
@@ -115,7 +115,7 @@ ul, ol {
 }
 
 /* strikeout done actions */
-.done .name {
+.done .name a.model-link {
   text-decoration: line-through;
   color: #777777;
 }
@@ -344,6 +344,11 @@ nav {
   @include leader(1);
   @include leading-border(2px, .5);
   border-color: $grey90;
+  color: $grey60;
+  @include adjust-font-size-to(11px);
+}
+
+.date {
   color: $grey60;
   @include adjust-font-size-to(11px);
 }

@@ -3,6 +3,9 @@
     <a class="model-link" href="<%- @action.url %>">
       <%= @action.name %>
     </a>
+    <% if @action.done: %>
+      <span class="date" title='<%- @action.completed %>'><%- @action.completed %></span>
+    <% end %>
   </div>
   <span class='dropdown'></span>
   </div>

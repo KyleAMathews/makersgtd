@@ -27,7 +27,7 @@ Pane = require('helpers/pane').Pane
 MainRouter = require('routers/main_router').MainRouter
 
 # App bootstrapping on document ready
-$(document).ready ->
+$ ->
   app.initialize = ->
     app.collections.actions = new Actions()
     app.collections.projects = new Projects()
@@ -44,6 +44,9 @@ $(document).ready ->
       el: $('#global-search')
     )
     $('#global-search input').val('')
+
+    # Refresh dates every 60 seconds.
+    setInterval((-> $('span.date').humaneDates()), 60000)
 
     # GET models from server.
     # Don't initialize router until all the collection fetches have returned.

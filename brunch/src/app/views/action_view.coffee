@@ -21,6 +21,7 @@ class exports.ActionView extends Backbone.View
       action: json
     ))
     @renderDropdown()
+    @$('span.date').humaneDates()
     @
 
   toggleDone: ->
