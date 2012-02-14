@@ -2,6 +2,16 @@ resize = ->
   windowWidth = $(window).width()
   unit = windowWidth / 45
 
+  # Set max and min
+  if unit > 40 then unit = 40
+  if unit < 25 then unit = 25
+
+  # If width is to small, set body width such that everything fits.
+  if unit is 25
+    $('body').width(unit * 45)
+  else
+    $('body').width('auto')
+
   # Panes
   $('.pane').css('margin-left', unit)
   $('.pane').css('width', unit * 10)
