@@ -4,6 +4,7 @@ app.models = {}
 app.collections = {}
 app.views = {}
 require('mixins/color_scheme')
+require('mixins/resize')
 
 require('jquery_plugins')
 

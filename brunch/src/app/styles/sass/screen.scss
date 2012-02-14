@@ -136,6 +136,7 @@ nav {
   @media (min-width:500px) {
     margin-left: 100px;
   }
+  @include clearfix();
   ul {
     @include pie-clearfix();
     margin: 0;
@@ -594,7 +595,7 @@ code {
   padding-right: 0;
   position: relative;
   z-index: 3;
-  margin-left: 50px;
+  margin-left: 20px;
   float: left;
   display: none; // Panes are empty by default.
 }
