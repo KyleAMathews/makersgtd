@@ -64,8 +64,6 @@ class exports.AddNewModelView extends Backbone.View
     app.collections[collection].add newModel
     @addAutoLinks(newModel, true)
     newModel.save({}, { success: (model, response) =>
-      # Reset fuzzymatcher list now that our model has an id.
-      model.collection.addToFuzzymatcher()
       @addAutoLinks(model, false)
     })
 
