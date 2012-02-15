@@ -3,6 +3,7 @@ app.routers = {}
 app.models = {}
 app.collections = {}
 app.views = {}
+app.eventBus = _.extend({}, Backbone.Events)
 require('helpers/color_scheme')
 require('helpers/resize')
 require('helpers/fuzzymatcher_integration')

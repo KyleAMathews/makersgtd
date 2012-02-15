@@ -18,10 +18,12 @@ class exports.Pane
 
     @_closeView oldView
     @_openView view
+    app.eventBus.trigger('pane:show')
 
   hide: ->
     @$el.empty()
     @$el.hide()
+    app.eventBus.trigger('pane:hide')
 
   _closeView: (view) ->
     if view && view.close
