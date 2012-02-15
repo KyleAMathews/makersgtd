@@ -19,12 +19,14 @@ class exports.ProjectView extends Backbone.View
     json = @model.toJSON()
     json.url = @model.iurl()
     @$el.html(projectTemplate(project: json))
+
     # Render the project's actions.
     if @options.actions
       subActions = new SubCollection null,
         linkedModel: @model
         link_name: 'action_links'
         link_type: 'action'
+        max_display: 2
 
       @logChildView new ActionsView(
         el: @$('.actions-view')

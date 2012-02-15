@@ -32,6 +32,7 @@ class exports.TagView extends Backbone.View
         link_name: 'action_links'
         link_type: 'action'
         filter: doneFilter
+        max_display: 2
 
       @logChildView new ActionsView(
         el: @$('.inbox')

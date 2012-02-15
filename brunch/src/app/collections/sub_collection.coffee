@@ -16,7 +16,21 @@ class exports.SubCollection extends Backbone.Collection
         # Apply filters if any.
         if _.isFunction @options.filter
           models = models.filter(@options.filter)
-        @reset(models)
+
+        @reset(models, {silent: true})
+
+        # Slice if needed.
+        if @options.max_display?
+          count = 0
+          results = @filter (model) =>
+            if model.get('completed') or count >= @options.max_display
+              return false
+            else
+              count += 1
+              return true
+          @reset(results, {silent:true})
+
+        @trigger('reset')
 
   done: ->
     items = @filter (model) ->
