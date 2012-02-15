@@ -2,7 +2,7 @@
 <div class="editable-name"></div>
 <div class="linker-tag"></div>
 <div class="editable-outcome-vision"></div>
-<div class="editable-description"></div>
+<div class="editable-note"></div>
 <div id="actions-view" class="collection-view"></div>
 <div class='add-new-action'></div>
 <div id="done-actions-view" class="collection-view"></div>

@@ -31,11 +31,11 @@ class exports.TagFullView extends Backbone.View
     ).render()
     @logChildView new EditableView(
       field: 'description'
-      el: @$('.editable-description')
+      el: @$('.editable-note')
       model: @model
       lines: 3
-      blank_slate_text: 'Add Description'
-      label: 'Description'
+      blank_slate_text: 'Add Notes'
+      label: 'Notes'
       html: true
     ).render()
     @logChildView new DropdownMenuView(

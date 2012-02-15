@@ -42,11 +42,11 @@ class exports.ProjectFullView extends Backbone.View
     ).render()
     @logChildView new editableView(
       field: 'description'
-      el: @$('.editable-description')
+      el: @$('.editable-note')
       model: @model
       lines: 3
-      blank_slate_text: 'Add Description'
-      label: 'Description'
+      blank_slate_text: 'Add Notes'
+      label: 'Notes'
       html: true
     ).render()
     @logChildView new linkerView(

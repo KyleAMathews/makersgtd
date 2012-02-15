@@ -29,11 +29,11 @@ class exports.ActionFullView extends Backbone.View
     editableName.render()
     @logChildView new editableView(
       field: 'description'
-      el: @$el.find('.editable-description')
+      el: @$el.find('.editable-note')
       model: @model
-      blank_slate_text: 'Add Description'
+      blank_slate_text: 'Add Notes'
       lines: 3
-      label: 'Description'
+      label: 'Notes'
       html: true
     ).render()
     @logChildView new linkerView(
