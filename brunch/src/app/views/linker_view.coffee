@@ -101,7 +101,7 @@ class exports.LinkerView extends Backbone.View
     id = @$(e.target).parent().data('id')
 
     @model.deleteLink(@options.linking_to, id)
-    app.util.loadModel @options.linking_to, id, (linkedToModel) ->
+    app.util.loadModel @options.linking_to, id, (linkedToModel) =>
       linkedToModel.deleteLink(@model.get('type'), @model.id)
 
 # Add Mixins
