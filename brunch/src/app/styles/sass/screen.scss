@@ -204,7 +204,6 @@ nav {
     @include unstyled-link();
     cursor: pointer;
     font-weight: normal;
-    display: inline-block;
   }
   .dropdown {
     display: none;
@@ -351,6 +350,7 @@ nav {
 .date {
   color: $grey60;
   @include adjust-font-size-to(11px);
+  padding-left: 5px;
 }
 
 /* Blank slate class */
