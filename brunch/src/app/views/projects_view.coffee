@@ -21,8 +21,6 @@ class exports.ProjectsView extends Backbone.View
       length: @collection.notDone().length
     )
 
-    #if @options.label?
-      #@$el.prepend('<h4 class="label">' + @options.label + '</h4>')
     @addAll()
 
     if @options.addNewModelForm?
