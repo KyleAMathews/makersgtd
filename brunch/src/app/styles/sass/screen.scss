@@ -219,7 +219,7 @@ nav {
     text-align: center;
     a {
       font-weight: bolder;
-      @include adjust-font-size-to(16px, 1);
+      @include adjust-font-size-to(18px, 1);
     }
   }
   ul {
