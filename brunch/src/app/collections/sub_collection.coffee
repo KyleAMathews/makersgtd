@@ -14,7 +14,7 @@ class exports.SubCollection extends Backbone.Collection
       ids = (link.id for link in links)
       app.util.loadMultipleModels @options.link_type, ids, (models) =>
         # Apply filters if any.
-        if @options.filter?
+        if _.isFunction @options.filter
           models = models.filter(@options.filter)
         @reset(models)
 
