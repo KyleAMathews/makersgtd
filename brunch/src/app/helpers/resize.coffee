@@ -1,32 +1,34 @@
 resize = ->
   windowWidth = $(window).width()
-  unit = windowWidth / 45
+  unit = windowWidth / 65
+  console.log unit
 
   if $(window).width() > 400
     $('#global-search').css('margin-left', 100)
     $('#global-search').css('width', 300)
 
     # Set max and min
-    if unit > 40 then unit = 40
-    if unit < 25 then unit = 25
+    if unit > 27 then unit = 27
+    if unit < 18 then unit = 18
+    console.log unit
 
     # If width is to small, set body width such that everything fits.
-    if unit is 25
-      $('body').width(unit * 45)
+    if unit is 18
+      $('body').width(unit * 65)
     else
       $('body').width('auto')
 
     # Panes
     $('.pane').css('margin-left', unit)
-    $('.pane').css('width', unit * 10)
+    $('.pane').css('width', unit * 15)
 
     # SimpleGTD pane
     $('#simple-gtd-app').css('margin-left', unit)
-    $('#simple-gtd-app').css('width', unit * 10)
+    $('#simple-gtd-app').css('width', unit * 15)
     $('nav').css('margin-left', unit)
-    $('nav').css('width', unit * 9)
+    $('nav').css('width', unit * 14)
     $('#shadow-cover').css('margin-left', unit + 2)
-    $('#shadow-cover').css('width', unit * 9)
+    $('#shadow-cover').css('width', unit * 14)
   else
     winWidth = $(window).width() - 5
     $('body').width('auto')
