@@ -131,6 +131,9 @@ nav {
   width: 319px;
   margin-bottom: -2px;
   @include leader(2);
+  @media (max-width:500px) {
+    margin-top: 9px;
+  }
   @media (min-width:500px) {
     margin-left: 100px;
   }
@@ -514,6 +517,9 @@ code {
   top: 0;
   @include single-box-shadow();
   color: $grey93;
+  @media (max-width:500px) {
+    position: relative;
+  }
 }
 
 #global-search {
