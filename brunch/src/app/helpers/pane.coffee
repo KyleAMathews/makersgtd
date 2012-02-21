@@ -18,6 +18,11 @@ class exports.Pane
 
     @_closeView oldView
     @_openView view
+
+    if app.device is 'mobile'
+      window.scrollTo(0,0)
+    #else if app.device is 'small' # Scroll left and right
+
     app.eventBus.trigger('pane:show')
 
   hide: ->

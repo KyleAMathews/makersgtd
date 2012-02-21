@@ -1,7 +1,14 @@
 resize = ->
   windowWidth = $(window).width()
   unit = windowWidth / 65
-  console.log unit
+
+  # Set some useful global variables
+  if windowWidth < 400
+    app.device = 'mobile'
+  else if windowWidth < 1170
+    app.device = 'small'
+  else
+    app.device = 'large'
 
   if $(window).width() > 400
     $('#global-search').css('margin-left', 100)
@@ -10,7 +17,6 @@ resize = ->
     # Set max and min
     if unit > 27 then unit = 27
     if unit < 18 then unit = 18
-    console.log unit
 
     # If width is to small, set body width such that everything fits.
     if unit is 18
