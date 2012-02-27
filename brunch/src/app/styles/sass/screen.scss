@@ -46,6 +46,7 @@ ul, ol {
   // Reset left/right padding as panes should be a blank container.
   padding-left: 0;
   padding-right: 0;
+  padding-top: 9px;
   position: relative;
   z-index: 3;
   float: left;
@@ -186,7 +187,7 @@ nav {
   @media (min-width:500px) {
     margin-left: 102px;
   }
-  height: 10px;
+  height: 5px;
   position: absolute;
   background: white;
   z-index: 100;
