@@ -1,4 +1,5 @@
 resetFuzzymatcher = (arg1, arg2) ->
+  unless arg1? and arg2? then return
   if arg1 instanceof Backbone.Collection
     collection = arg1
   else if arg2 instanceof Backbone.Collection

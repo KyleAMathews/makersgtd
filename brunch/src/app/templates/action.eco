@@ -1,5 +1,6 @@
 <div class="action model-list-item <% if @action.done: %>done<% end %>" data-id="<%- @action.id %>">
   <div class="name">
+    <span class="checkbox <% if @action.done: %>done<% end %>"></span>
     <a class="model-link" href="<%- @action.url %>">
       <%= @action.name %>
     </a>

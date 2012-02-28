@@ -1,10 +1,11 @@
 actionTemplate = require('templates/action')
-DropdownMenuView = require('views/dropdown_menu_view').DropdownMenuView
-DropdownRenderHelper = require('mixins/views/dropdown_render_helper').DropdownRenderHelper
 
 class exports.ActionView extends Backbone.View
 
   tagName:  "li"
+
+  events:
+    'click .checkbox': "toggleDone"
 
   initialize: ->
     # We use bindAll when we're using a mixin that's called by jquery.
@@ -20,13 +21,8 @@ class exports.ActionView extends Backbone.View
     @$el.html(actionTemplate(
       action: json
     ))
-    @renderDropdown()
     @$('span.date').humaneDates()
     @
 
-  toggleDone: ->
+  toggleDone: =>
     @model.toggle()
-
-# Add Mixins DropdownRenderHelper
-exports.ActionView.prototype = _.extend exports.ActionView.prototype,
-  DropdownRenderHelper

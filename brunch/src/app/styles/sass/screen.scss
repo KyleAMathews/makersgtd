@@ -121,6 +121,23 @@ ul, ol {
   color: #777777;
 }
 
+ul#actions {
+  a.model-link {
+    padding-left: 20px;
+  }
+  .checkbox {
+    background: url(../img/checkbox.png) no-repeat 0 0;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 2.5px;
+    cursor: pointer;
+    &.done {
+      background-position: -16px 0;
+    }
+  }
+}
+
 #actions-view, #done-actions-view, #inbox, #projects-view {
   .label {
     @include adjust-font-size-to(18px, 1);
