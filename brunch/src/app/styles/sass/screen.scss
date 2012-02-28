@@ -546,7 +546,7 @@ code {
   position: relative;
   input {
     margin-top: 5px;
-    height: 16px;
+    height: 20px;
     width: 100%;
     @include border-radius(10px);
     padding: 2px 10px;
@@ -557,6 +557,7 @@ code {
   ul.autocomplete {
     list-style: none;
     position: absolute;
+    max-width: 500px;
     left: 10px;
     right: -200px;
     top: 30px;

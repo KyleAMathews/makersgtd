@@ -13,6 +13,7 @@ resize = ->
   if $(window).width() > 400
     $('#global-search').css('margin-left', 100)
     $('#global-search').css('width', 300)
+    $('#global-search ul.autocomplete').css('max-width', 500)
 
     # Set max and min
     if unit > 27 then unit = 27
@@ -39,7 +40,8 @@ resize = ->
     winWidth = $(window).width() - 5
     $('body').width('auto')
     $('#global-search').css('margin-left', 0)
-    $('#global-search').css('width', winWidth - 25)
+    $('#global-search').css('width', winWidth - 10)
+    $('#global-search ul.autocomplete').css('max-width', winWidth - 20)
     # This code runs before panes are setup sometimes.
     if app.pane1?
       app.pane1.hide()
