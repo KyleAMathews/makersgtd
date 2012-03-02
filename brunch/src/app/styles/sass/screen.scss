@@ -11,6 +11,9 @@
 @import "ie";
 @import "ie6";
 
+// Widgets
+@import "widgets/expanding_textarea";
+
 // A few resets.
 ul, ol {
   padding: 0;
@@ -497,29 +500,6 @@ input[type="submit"], input[type="button"], button, .button {
   @include my-button();
 }
 
-.expanding-area {
-  textarea {
-    padding: 10px;
-    background: transparent;
-    border: 0;
-    outline: none;
-    margin: 0;
-    overflow: hidden;
-    font: inherit;
-    /* Make the text soft-wrap */
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    color: $grey30;
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-        -ms-box-sizing: border-box;
-            box-sizing: border-box;
-    width: 100%;
-    @include trailer(0.25);
-    @include single-box-shadow($inset: true);
-  }
-}
-
 code {
   background: $grey93;
   padding: 1px 5px 1px 5px;
@@ -602,7 +582,7 @@ code {
   .cancel {
     @include cancel-link();
   }
-  .focused, .expanding-area {
+  .focused, .expanding-textarea {
     display: none;
   }
   .blank-slate {

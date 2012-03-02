@@ -1,5 +1,5 @@
 <div class="blank-slate"><%- @blank_slate_text %></div>
-<div class="expanding-area"></div>
+<div class="expanding-textarea"></div>
 <div class="focused">
   <input type="submit" class="add" value="Add">
   <span class="cancel">cancel</span>

@@ -1,5 +1,5 @@
 editableTemplate = require('templates/editable')
-ExpandingAreaView = require('views/expanding_area_view').ExpandingAreaView
+ExpandingTextareaView = require('widgets/expanding_textarea/expanding_textarea_view').ExpandingTextareaView
 
 class exports.EditableView extends Backbone.View
 
@@ -43,8 +43,8 @@ class exports.EditableView extends Backbone.View
     app.util.makeExternalLinksOpenNewTab(@$('.display'))
     app.util.shortenLongLinks(@$('.display'))
 
-    @logChildView new ExpandingAreaView(
-      el: @$('.expanding-area')
+    @logChildView new ExpandingTextareaView(
+      el: @$('.expanding-textarea')
       edit_text: @model.get(@options.field)
       placeholder: context.blank_slate_text
       lines: context.lines

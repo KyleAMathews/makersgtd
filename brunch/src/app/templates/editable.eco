@@ -8,7 +8,7 @@
     <div class="blank-slate"><%- @blank_slate_text %></div>
   <% end %>
   <div class="edit">
-    <div class="expanding-area"></div>
+    <div class="expanding-textarea"></div>
     <input type="submit" class="save" value="Save">
     <span class="cancel">cancel</span>
   </div>

@@ -1,5 +1,5 @@
 addNewModelTemplate = require('templates/add_new_model')
-ExpandingAreaView = require('views/expanding_area_view').ExpandingAreaView
+ExpandingTextareaView = require('widgets/expanding_textarea/expanding_textarea_view').ExpandingTextareaView
 
 class exports.AddNewModelView extends Backbone.View
 
@@ -19,8 +19,8 @@ class exports.AddNewModelView extends Backbone.View
 
     context['blank_slate_text'] = "Add " + context.type
     @$el.html(addNewModelTemplate(context))
-    @logChildView new ExpandingAreaView(
-      el: @$('.expanding-area')
+    @logChildView new ExpandingTextareaView(
+      el: @$('.expanding-textarea')
       placeholder: "Add new " + context.type
     ).render()
     @$el.addClass('add-new-model')
@@ -70,8 +70,8 @@ class exports.AddNewModelView extends Backbone.View
   newAttributes: =>
     attributes = {}
     attributes.name = @$("textarea").val()
-    @$('.expanding-area textarea').val('')
-    @$('.expanding-area .textareaClone div').empty()
+    @$('.expanding-textarea textarea').val('')
+    @$('.expanding-textarea .textareaClone div').empty()
     return attributes
 
   addAutoLinks: (model, temp) ->
@@ -95,16 +95,16 @@ class exports.AddNewModelView extends Backbone.View
       @stopEditing()
 
   stopEditing: =>
-    @$('.expanding-area .input').blur().val('')
+    @$('.expanding-textarea .input').blur().val('')
     @hideButtons()
 
   showForm: =>
     @$('.blank-slate').hide()
     @$('.focused').show()
-    @$('.expanding-area').show()
+    @$('.expanding-textarea').show()
     @$('textarea').focus()
 
   hideButtons: =>
     @$('.blank-slate').show()
     @$('.focused').hide()
-    @$('.expanding-area').hide()
+    @$('.expanding-textarea').hide()
