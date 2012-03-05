@@ -1,0 +1,1 @@
+<textarea class="input" placeholder="<%- @placeholder %>"><%= @edit_text %></textarea>

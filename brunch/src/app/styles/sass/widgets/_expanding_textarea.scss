@@ -1,0 +1,22 @@
+.expanding-textarea {
+  textarea {
+    padding: 10px;
+    background: transparent;
+    border: 0;
+    outline: none;
+    margin: 0;
+    overflow: hidden;
+    font: inherit;
+    /* Make the text soft-wrap */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #4D4D4D;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+            box-sizing: border-box;
+    width: 100%;
+    @include trailer(0.25);
+    @include single-box-shadow($inset: true);
+  }
+}
