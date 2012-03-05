@@ -1,16 +1,21 @@
 express = require('express')
 mongoose = require('mongoose')
 util = require('util')
-_und = require('underscore')
+_ = require('underscore')
 moment = require('moment')
+htmlOrNot = require('./middleware/html_or_not')
 
 app = express.createServer()
 
 # Setup Express middleware.
-app.use express.bodyParser()
-app.use express.methodOverride()
-app.use app.router
-app.use express.static __dirname + '/brunch'
+app.configure ->
+  app.set 'views', __dirname + '/views'
+  app.set 'view engine', 'jade'
+  app.use express.bodyParser()
+  app.use express.methodOverride()
+  app.use htmlOrNot
+  app.use app.router
+  app.use express.static __dirname + '/brunch'
 
 # Setup MongoDB connection.
 mongoose.connect('mongodb://localhost/simpleGTD')
@@ -72,10 +77,12 @@ queryMultiple = (type, ids, callback) ->
           model.setValue('id', model.getValue('_id'))
         callback(models)
 
+app.get '/', (req, res) ->
+  #console.log req.headers
+  res.render 'index'
 
 # REST endpoint for Actions
 app.get '/actions', (req, res) ->
-  console.log 'getting actions'
   if req.query.ids?
     queryMultiple 'action', req.query.ids, (models) ->
       res.json models
@@ -266,4 +273,4 @@ app.del '/tag/:id', (req, res) ->
 
 # Listen on port 3000
 app.listen(3000)
-console.log "Listening on port 3000"
+console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env)

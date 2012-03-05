@@ -61,7 +61,7 @@ $ ->
           if counter is 3
             Backbone.history.start({pushState: true})
             if Backbone.history.getFragment() is ''
-              app.routers.main.navigate 'tags'
+              app.routers.main.navigate 'tags', { trigger: true }
       }
     counter = successCounter()
 
