@@ -22,6 +22,13 @@ html(lang='en')
       window.jQuery || document.write('<script src="javascripts/libs/jquery-1.7.1.min.js"><\\/script>')
     script(src='/build/web/js/app.js')
     script require('main');
+    script $(document).ready(function() {
+      _.defer(function() {
+        app.collections.tags.reset(!{ JSON.stringify(tags_json) })
+        app.collections.projects.reset(!{ JSON.stringify(projects_json) })
+        app.collections.actions.reset(!{ JSON.stringify(actions_json) })
+      });
+      });
     //-script(src='javascripts/plugins.js')
     //-script(src='javascripts/script.js')
     //- change UA-XXXXX-X to your id and outdent the following:

@@ -51,23 +51,9 @@ $ ->
     # Refresh dates every 60 seconds.
     setInterval((-> $('span.date').humaneDates()), 60000)
 
-    # GET models from server.
-    # Don't initialize router until all the collection fetches have returned.
-    successCounter = ->
-      counter = 0
-      return {
-        add: ->
-          counter += 1
-          if counter is 3
-            Backbone.history.start({pushState: true})
-            if Backbone.history.getFragment() is ''
-              app.routers.main.navigate 'tags', { trigger: true }
-      }
-    counter = successCounter()
-
-    app.collections.actions.fetch success: => counter.add()
-    app.collections.projects.fetch success: => counter.add()
-    app.collections.tags.fetch success: => counter.add()
+    Backbone.history.start({pushState: true})
+    if Backbone.history.getFragment() is ''
+      app.routers.main.navigate 'tags', { trigger: true }
 
   app.initialize()
 

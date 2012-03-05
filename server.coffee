@@ -7,6 +7,30 @@ htmlOrNot = require('./middleware/html_or_not')
 
 app = express.createServer()
 
+# Return index.jade if html is requested, otherwise return JSON or static files.
+htmlOrNot =
+  handle: (req, res, next) ->
+    if req.headers.accept? and req.headers.accept.indexOf('text/html') isnt -1
+      console.log 'loading models'
+      successCounter = ->
+        counter = 0
+        json = {}
+        return {
+          add: (data) ->
+            counter += 1
+            for k,v of data
+              console.log k
+              json[k] = v
+            if counter is 3
+              res.render 'index', json
+        }
+      counter = successCounter()
+      getAllModels('action', (actions) -> counter.add( actions_json: actions ))
+      getAllModels('project', (projects) -> counter.add( projects_json: projects ))
+      getAllTags (tags) -> counter.add( tags_json: tags )
+    else
+      next()
+
 # Setup Express middleware.
 app.configure ->
   app.set 'views', __dirname + '/views'
@@ -77,6 +101,21 @@ queryMultiple = (type, ids, callback) ->
           model.setValue('id', model.getValue('_id'))
         callback(models)
 
+getAllModels = (type, callback) ->
+  modelType = mongoose.model type
+  date = moment().subtract('hours', 12)
+  query = modelType.find()
+  query
+    # Only get completed actions from past 12 hours.
+    .or([{ 'done': false }, {'completed': { $gte : date.native()}}])
+    .notEqualTo('deleted', true)
+    .run (err, models) ->
+      unless err or not models?
+        newModels = []
+        for model in models
+          model.setValue('id', model.getValue('_id'))
+        callback(models)
+
 app.get '/', (req, res) ->
   #console.log req.headers
   res.render 'index'
@@ -88,20 +127,8 @@ app.get '/actions', (req, res) ->
       res.json models
 
   else
-    Action = mongoose.model 'action'
-    date = moment().subtract('hours', 12)
-    query = Action.find()
-    query
-      # Only get completed actions from past 12 hours.
-      .or([{ 'done': false }, {'completed': { $gte : date.native()}}])
-      .notEqualTo('deleted', true)
-      .run (err, actions) ->
-        unless err or not actions?
-          newModels = []
-          for action in actions
-            action.setValue('id', action.getValue('_id'))
-
-          res.json actions
+    getAllModels 'action', (actions) ->
+      res.json actions
 
 app.get '/actions/:id', (req, res) ->
   Action = mongoose.model 'action'
@@ -155,19 +182,8 @@ app.get '/projects', (req, res) ->
       res.json models
 
   else
-    Project = mongoose.model 'project'
-    date = moment().subtract('hours', 12)
-    query = Project.find()
-    query
-      # Only get completed actions from past 12 hours.
-      .or([{ 'done': false }, {'completed': { $gte : date.native()}}])
-      .notEqualTo('deleted', true)
-      .run (err, projects) ->
-        unless err or not projects?
-          for project in projects
-            project.setValue('id', project.getValue('_id'))
-
-          res.json projects
+    getAllModels 'project', (projects) ->
+      res.json projects
 
 app.get '/projects/:id', (req, res) ->
   Project = mongoose.model 'project'
@@ -214,8 +230,7 @@ app.del '/projects/:id', (req, res) ->
       project.save()
 
 # REST endpoint for Tags
-app.get '/tags', (req, res) ->
-  console.log 'getting tags'
+getAllTags = (callback) ->
   Tag = mongoose.model 'tag'
   query = Tag.find()
   query
@@ -224,8 +239,12 @@ app.get '/tags', (req, res) ->
       unless err or not tags?
         for tag in tags
           tag.setValue('id', tag.getValue('_id'))
+        callback(tags)
 
-        res.json tags
+app.get '/tags', (req, res) ->
+  console.log 'getting tags'
+  getAllTags (tags) ->
+    res.json tags
 
 app.get '/tags/:id', (req, res) ->
   Tag = mongoose.model 'tag'
