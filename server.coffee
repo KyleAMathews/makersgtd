@@ -3,7 +3,6 @@ mongoose = require('mongoose')
 util = require('util')
 _ = require('underscore')
 moment = require('moment')
-htmlOrNot = require('./middleware/html_or_not')
 
 app = express.createServer()
 
