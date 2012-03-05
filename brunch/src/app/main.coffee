@@ -7,6 +7,7 @@ app.eventBus = _.extend({}, Backbone.Events)
 require('helpers/color_scheme')
 require('helpers/resize')
 require('helpers/fuzzymatcher_integration')
+require('helpers/pushState')
 
 require('jquery_plugins')
 
@@ -58,9 +59,9 @@ $ ->
         add: ->
           counter += 1
           if counter is 3
-            #if Backbone.history.getFragment() is ''
-              #app.routers.main.navigate 'next-actions', true
-            Backbone.history.start()
+            Backbone.history.start({pushState: true})
+            if Backbone.history.getFragment() is ''
+              app.routers.main.navigate 'tags'
       }
     counter = successCounter()
 
@@ -205,9 +206,9 @@ app.util.undeleteModel = (model) ->
 # Extend the Backbone model prototype to add an internal url generator.
 Backbone.Model.prototype.iurl = ->
   if @id?
-    return '#' + @get('type') + 's/' + @id
+    return @get('type') + 's/' + @id
   else
-    return '#' + @get('type') + 's/' + @cid
+    return @get('type') + 's/' + @cid
 
 # Mixin capitalize function to underscore.
 _.mixin(
