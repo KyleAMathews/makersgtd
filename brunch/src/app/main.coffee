@@ -62,6 +62,7 @@ $ ->
       app.routers.main.navigate 'tags', { trigger: true }
 
     $('#simple-gtd-app').show()
+    $('nav').show()
 
   app.initialize()
 

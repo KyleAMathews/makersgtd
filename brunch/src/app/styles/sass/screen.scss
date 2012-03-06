@@ -150,6 +150,7 @@ ul#actions {
 }
 
 nav {
+  display: none;
   width: 319px;
   margin-bottom: -2px;
   @include leader(2);
