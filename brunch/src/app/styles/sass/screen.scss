@@ -40,6 +40,7 @@ ul, ol {
 }
 
 #simple-gtd-app {
+  display: none;
   background: white;
   width: 400px;
   @include apply-side-rhythm-border('left', 2px);

@@ -61,6 +61,8 @@ $ ->
     if Backbone.history.getFragment() is ''
       app.routers.main.navigate 'tags', { trigger: true }
 
+    $('#simple-gtd-app').show()
+
   app.initialize()
 
 window.markdown = new Markdown.Converter()
