@@ -12,19 +12,19 @@ resetFuzzymatcher = (arg1, arg2) ->
     return # This wasn't a collection.
 
   # Success
-  fuzzymatcher.addList(collection.type, collection.toJSON())
+  window.fuzzymatcher.addList(collection.type, collection.toJSON())
 
 # Prevent collections from being reset repeatedly on rapid events like adding
 # models when a sub_collection loads.
-actions_debounced = _.debounce(resetFuzzymatcher, 500)
-projects_debounced = _.debounce(resetFuzzymatcher, 500)
-tags_debounced = _.debounce(resetFuzzymatcher, 500)
+actions_debounced = _.debounce(resetFuzzymatcher, 50)
+projects_debounced = _.debounce(resetFuzzymatcher, 50)
+tags_debounced = _.debounce(resetFuzzymatcher, 50)
 
 $ ->
   # Defer so collections can be created first.
   _.defer ->
     events = ['add', 'remove', 'reset', 'change:done', 'change:name', 'change:deleted',
-    'add:action_link', 'add:project_link', 'add_tag_link']
+    'add:action_link', 'add:project_link', 'add_tag_link', 'reset_fuzzymatcher']
     for event in events
       app.collections.actions.on(event, actions_debounced)
       app.collections.projects.on(event, projects_debounced)

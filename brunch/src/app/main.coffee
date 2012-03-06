@@ -40,6 +40,11 @@ $ ->
     app.collections.actions.reset actions_json
     app.collections.projects.reset projects_json
     app.collections.tags.reset tags_json
+    # Setup Fuzzymatcher.
+    _.defer ->
+      app.collections.actions.trigger('reset_fuzzymatcher', app.collections.actions, app.collections.actions)
+      app.collections.projects.trigger('reset_fuzzymatcher', app.collections.projects, app.collections.projects)
+      app.collections.tags.trigger('reset_fuzzymatcher', app.collections.tags, app.collections.tags)
 
 
     app.pane0 = new Pane( el: '#simple-gtd-app .content' )

@@ -400,7 +400,7 @@
     // Check that the lists exist.
     var l = listNames.length;
     for (var i = 0; i < l; i++) {
-      if (typeof lists[listNames[i]] === 'undefined') return false;
+      if (typeof lists[listNames[i]] === 'undefined') return "List doesn't exist";
     }
 
     // Iterate over each list and concatenate the match arrays.
