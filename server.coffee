@@ -242,8 +242,12 @@ getAllTags = (callback) ->
 
 app.get '/tags', (req, res) ->
   console.log 'getting tags'
-  getAllTags (tags) ->
-    res.json tags
+  if req.query.ids?
+    queryMultiple 'tag', req.query.ids, (tags) ->
+      res.json tags
+  else
+    getAllTags (tags) ->
+      res.json tags
 
 app.get '/tags/:id', (req, res) ->
   Tag = mongoose.model 'tag'
