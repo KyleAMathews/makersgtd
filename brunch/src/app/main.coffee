@@ -36,6 +36,12 @@ $ ->
     app.collections.projects = new Projects()
     app.collections.tags = new Tags()
 
+    # Reset collections.
+    app.collections.actions.reset actions_json
+    app.collections.projects.reset projects_json
+    app.collections.tags.reset tags_json
+
+
     app.pane0 = new Pane( el: '#simple-gtd-app .content' )
     app.pane1 = new Pane( el: '#pane1' )
     app.pane2 = new Pane( el: '#pane2' )
