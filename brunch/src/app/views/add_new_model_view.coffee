@@ -70,8 +70,7 @@ class exports.AddNewModelView extends Backbone.View
   newAttributes: =>
     attributes = {}
     attributes.name = @$("textarea").val()
-    @$('.expanding-textarea textarea').val('')
-    @$('.expanding-textarea .textareaClone div').empty()
+    @$('.expanding-textarea textarea').val('').trigger('input')
     return attributes
 
   addAutoLinks: (model, temp) ->
@@ -95,7 +94,7 @@ class exports.AddNewModelView extends Backbone.View
       @stopEditing()
 
   stopEditing: =>
-    @$('.expanding-textarea .input').blur().val('')
+    @$('.expanding-textarea .input').blur().val('').trigger('input')
     @hideButtons()
 
   showForm: =>
