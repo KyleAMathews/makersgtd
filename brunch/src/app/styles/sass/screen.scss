@@ -35,7 +35,7 @@ ul, ol {
 }
 @media (min-width:1280px) {
   body {
-    background: url(../img/connect.png);
+    background: inline-image("connect.png");
   }
 }
 
@@ -130,7 +130,7 @@ ul#actions {
     padding-left: 20px;
   }
   .checkbox {
-    background: url(../img/checkbox.png) no-repeat 0 0;
+    background: inline-image("checkbox.png") no-repeat 0 0;
     width: 16px;
     height: 16px;
     position: absolute;
@@ -465,7 +465,7 @@ nav {
     }
   }
   .edit-icon {
-    background: url(../img/edit.png) no-repeat 0 0;
+    background: inline-image("edit.png") no-repeat 0 0;
     width: 15px;
     height: 21px;
     position: absolute;
