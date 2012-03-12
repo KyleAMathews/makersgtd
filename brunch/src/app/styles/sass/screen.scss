@@ -304,6 +304,15 @@ nav {
   }
 }
 
+// Action full view
+#action {
+  .editable-name {
+    .editable {
+      @include adjust-font-size-to(18px, 1, 21px);
+    }
+  }
+}
+
 .dropdown {
   position: absolute;
   right: 5px;
