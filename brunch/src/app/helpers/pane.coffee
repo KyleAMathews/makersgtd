@@ -13,6 +13,12 @@ class exports.Pane
   # `onShow` and `close` method on your view, just after showing
   # or just before closing the view, respectively.
   show: (view) ->
+    # Check if the new view is the same as the old view.
+    # Compare collections first
+    if @currentView? and view.collection and view.collection is @currentView.collection
+      return
+    else if @currentView? and view.model and view.model.id is @currentView.model.id
+      return
     oldView = @currentView
     @currentView = view
 
@@ -26,6 +32,7 @@ class exports.Pane
     app.eventBus.trigger('pane:show')
 
   hide: ->
+    @currentView = null
     @$el.empty()
     @$el.hide()
     app.eventBus.trigger('pane:hide')
@@ -45,10 +52,16 @@ class exports.Pane
       # of view plus types of views already displayed and picks next
       # one
   type: ->
-    if @currentView?
+    if @currentView? and @currentView.model?
       return @currentView.model.get('type')
     else
       'empty'
+
+  getModel: ->
+    if @currentView?.model?
+      return @currentView.model
+    else
+      return false
 
   visible: ->
     return @$el.is(':visible')

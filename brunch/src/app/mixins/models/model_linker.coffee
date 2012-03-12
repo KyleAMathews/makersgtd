@@ -6,10 +6,7 @@ exports.ModelLinker =
     #   action_links: []
     # @model.save(f)
 
-  createLink: (type, id, temp) ->
-    # Default to false.
-    unless temp? then temp = false
-
+  createLink: (type, id, temp = false) ->
     links = @get(type + "_links")
     limit = @get(type + "_links_limit")
 

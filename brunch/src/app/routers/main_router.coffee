@@ -53,40 +53,25 @@ class exports.MainRouter extends Backbone.Router
     $('nav li a.active').removeClass('active')
     $('nav li a.tags').addClass('active')
 
-    #$('#simple-gtd-app h1.title').show().html 'Tags'
     app.pane0.show(tags)
 
   actionView: (id) ->
     app.util.loadModel 'action', id, (action) ->
       $('#simple-gtd-app h1.title').hide()
 
-      # TODO this stuff should be in a view and it be listening to something...
-      # but not too important as it'll all disappear at some point.
-      #$('nav li a.active').removeClass('active')
-      #$('nav li a.next-actions').addClass('active')
-
       if action?
-        actionFullView = new ActionFullView model: action
-        app.util.paneFactory('action').show(actionFullView)
+        app.util.renderPanes action
 
   projectView: (id) ->
     app.util.loadModel 'project', id, (project) ->
       $('#simple-gtd-app h1.title').hide()
 
-      #$('nav li a.active').removeClass('active')
-      #$('nav li a.projects').addClass('active')
-
       if project?
-        projectFullView = new ProjectFullView model: project
-        app.util.paneFactory('project').show(projectFullView)
+        app.util.renderPanes project
 
   tagView: (id) ->
     app.util.loadModel 'tag', id, (tag) ->
       $('#simple-gtd-app h1.title').hide()
 
-      #$('nav li a.active').removeClass('active')
-      #$('nav li a.tags').addClass('active')
-
       if tag?
-        tagView = new TagFullView model: tag
-        app.util.paneFactory('tag').show(tagView)
+        app.util.renderPanes tag

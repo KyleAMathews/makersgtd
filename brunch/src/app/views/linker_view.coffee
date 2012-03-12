@@ -73,7 +73,9 @@ class exports.LinkerView extends Backbone.View
 
   addNewLink: (match_id) =>
     match = app.util.loadModelSynchronous(@options.linking_to, match_id)
+    # Create link from the current model to the match
     @model.createLink(match.get('type'), match.id)
+    # Create link on the match to the current model
     match.createLink(@model.get('type'), @model.id)
     @stopEditing()
 

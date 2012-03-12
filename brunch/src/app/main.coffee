@@ -1,4 +1,5 @@
 window.app = {}
+app.util = {}
 app.routers = {}
 app.models = {}
 app.collections = {}
@@ -8,6 +9,7 @@ require('helpers/color_scheme')
 require('helpers/resize')
 require('helpers/fuzzymatcher_integration')
 require('helpers/pushState')
+require('helpers/pane_factory')
 
 require('jquery_plugins')
 
@@ -23,6 +25,7 @@ Tag = require('models/tag_model').Tag
 
 # Views
 GlobalSearch = require('views/global_search').GlobalSearch
+TagsView = require('views/tags_view').TagsView
 
 # Pane
 Pane = require('helpers/pane').Pane
@@ -40,6 +43,7 @@ $ ->
     app.collections.actions.reset actions_json
     app.collections.projects.reset projects_json
     app.collections.tags.reset tags_json
+
     # Setup Fuzzymatcher.
     _.defer ->
       app.collections.actions.trigger('reset_fuzzymatcher', app.collections.actions, app.collections.actions)
@@ -51,6 +55,13 @@ $ ->
     app.pane1 = new Pane( el: '#pane1' )
     app.pane2 = new Pane( el: '#pane2' )
     app.pane3 = new Pane( el: '#pane3' )
+
+    # Render tags view
+    tags = new TagsView(
+      collection: app.collections.tags
+    )
+    app.pane0.show(tags)
+    $('nav .tags').addClass('active')
 
     app.routers.main = new MainRouter()
 
@@ -73,7 +84,6 @@ $ ->
 
 window.markdown = new Markdown.Converter()
 
-app.util = {}
 app.util.loadModelSynchronous = (type, id) ->
   unless id? and type? then return
   collection_name = type + "s"
@@ -300,30 +310,3 @@ Backbone.View.prototype.close = ->
 Backbone.View.prototype.logChildView = (childView) ->
   if !@children then @children = []
   @children.push childView
-
-app.util.paneFactory = (type) ->
-  # If we're on a mobile device, everything gets added to pane0
-  if $(window).width() < 400
-    app.pane1.hide()
-    app.pane2.hide()
-    app.pane3.hide()
-    return app.pane0
-
-  typeConverter = (type) ->
-    switch type
-      when 'tag' then return 0
-      when 'project' then return 1
-      when 'action' then return 2
-      when 'note' then return 3
-      when 'empty' then return 1000
-
-  newViewType = typeConverter(type)
-  if newViewType <= typeConverter(app.pane1.type())
-    app.pane2.hide()
-    app.pane3.hide()
-    return app.pane1
-  else if newViewType <= typeConverter(app.pane2.type())
-    app.pane3.hide()
-    return app.pane2
-  else if newViewType <= typeConverter(app.pane3.type())
-    return app.pane3
