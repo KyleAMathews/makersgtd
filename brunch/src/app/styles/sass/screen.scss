@@ -309,6 +309,7 @@ nav {
   .editable-name {
     .editable {
       @include adjust-font-size-to(18px, 1, 21px);
+      margin-top: 21px;
     }
   }
 }
