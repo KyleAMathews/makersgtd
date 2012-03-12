@@ -4,7 +4,9 @@ TagFullView = require('views/tag_full_view').TagFullView
 
 app.util.renderPanes = (newModel) ->
   # Mobile devices just get one pane.
-  if $(window).width() < 400 then _renderSolo(model)
+  if $(window).width() < 400
+    _renderSolo(newModel)
+    return
 
   # Get the models from the current panes.
   c_models = _getCurrentModels()

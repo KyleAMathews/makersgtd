@@ -15,10 +15,12 @@ class exports.Pane
   show: (view) ->
     # Check if the new view is the same as the old view.
     # Compare collections first
-    if @currentView? and view.collection and view.collection is @currentView.collection
-      return
-    else if @currentView? and view.model and view.model.id is @currentView.model.id
-      return
+    unless app.device is 'mobile'
+      if @currentView? and view.collection and view.collection is @currentView.collection
+        return
+      else if @currentView? and view.model and view.model.id is @currentView.model.id
+        return
+
     oldView = @currentView
     @currentView = view
 
