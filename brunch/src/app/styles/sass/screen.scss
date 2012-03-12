@@ -258,7 +258,6 @@ nav {
   .project-list-item {
     .project {
       color: $grey40;
-      text-align: center;
       @include adjust-font-size-to(14px, 1);
       @include padding-leader(0.25);
       @include padding-trailer(0.25);
@@ -274,6 +273,7 @@ nav {
   @include trailer(0.25);
 }
 
+// Tag full view
 #tag {
   .editable-name {
     .editable {
@@ -288,6 +288,7 @@ nav {
   }
 }
 
+// Project full view
 #project {
   .editable-name {
     .editable {
