@@ -50,12 +50,12 @@ Schema = mongoose.Schema
 actionSchema = new Schema (
   name: String
   description: String
-  done: Boolean
-  deleted: { type: Boolean, default: false }
+  done: { type: Boolean, index: true }
+  deleted: { type: Boolean, default: false, index: true }
   order: Number
-  completed: Date
+  completed: { type:Date, index: true }
   created: Date
-  changed: Date
+  changed: { type: Date, index: true }
   project_links: []
   tag_links: []
 )
@@ -64,11 +64,11 @@ projectSchema = new Schema (
   name: String
   outcome_vision: String
   description: String
-  done: Boolean
-  deleted: { type: Boolean, default: false }
-  completed: Date
+  done: { type: Boolean, index: true }
+  deleted: { type: Boolean, default: false, index: true }
+  completed: { type:Date, index: true }
   created: Date
-  changed: Date
+  changed: { type: Date, index: true }
   tag_links: []
   action_links: []
 )
@@ -76,9 +76,9 @@ projectSchema = new Schema (
 tagSchema = new Schema (
   name: String
   description: String
-  deleted: { type: Boolean, default: false }
+  deleted: { type: Boolean, default: false, index: true }
   created: Date
-  changed: Date
+  changed: { type: Date, index: true }
   color_palette: Number
   action_links: []
   project_links: []
