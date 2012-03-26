@@ -13,6 +13,7 @@ class exports.ProjectView extends Backbone.View
     @bindTo(@model, 'change', @render)
     @bindTo(@model, 'destroy', @remove)
     @bindTo(@model, 'remove', @remove)
+    @bindTo(@model, 'change:action_links', @render)
     @model.view = @
 
   render: =>
