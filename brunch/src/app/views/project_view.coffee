@@ -18,6 +18,7 @@ class exports.ProjectView extends Backbone.View
   render: =>
     json = @model.toJSON()
     json.url = @model.iurl()
+    json.undone = @model.notDoneActions().length
     @$el.html(projectTemplate(project: json))
 
     # Render the project's actions.

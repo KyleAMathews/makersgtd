@@ -1,6 +1,6 @@
 <div class="project model-list-item <% if @project.done: %>done<% end %>" data-id="<%- @project.id %>">
     <a class="model-link" href="<%- @project.url %>">
-      #<%= @project.name %>
+      #<%= @project.name %> <small>(<%= @project.undone %>)</small>
     </a>
 </div>
 <div class="actions-view collection-view"></div>
