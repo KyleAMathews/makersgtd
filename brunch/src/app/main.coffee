@@ -71,7 +71,7 @@ $ ->
     $('#global-search input').val('')
 
     # Refresh dates every 60 seconds.
-    setInterval((-> $('span.date').humaneDates()), 60000)
+    setInterval((-> $('span.date').timeago()), 60000)
 
     Backbone.history.start({pushState: true})
     if Backbone.history.getFragment() is ''

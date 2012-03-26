@@ -21,7 +21,7 @@ class exports.ActionView extends Backbone.View
     @$el.html(actionTemplate(
       action: json
     ))
-    @$('span.date').humaneDates()
+    @$('span.date').timeago()
     @
 
   toggleDone: =>
