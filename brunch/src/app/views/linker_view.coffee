@@ -48,11 +48,12 @@ class exports.LinkerView extends Backbone.View
             model.classes = "tag-link"
 
         @$el.html(linkerTemplate(context))
-        @
 
     else
       @$el.html(linkerTemplate(context))
-      @
+
+    @$('a').fastButton(app.util.clickHandler)
+    @
 
   edit: =>
     @$el.addClass "editing"

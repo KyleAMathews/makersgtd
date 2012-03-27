@@ -34,4 +34,7 @@ class exports.ProjectView extends Backbone.View
         el: @$('.actions-view')
         collection: subActions
       ).render()
+
+    # Make links fast.
+    @$('a').fastButton(app.util.clickHandler)
     @

@@ -49,6 +49,7 @@ class exports.EditableView extends Backbone.View
       placeholder: context.blank_slate_text
       lines: context.lines
     ).render()
+
     @
 
 

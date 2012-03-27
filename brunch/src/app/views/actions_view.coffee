@@ -31,6 +31,9 @@ class exports.ActionsView extends Backbone.View
         type: 'action'
       ).render()
 
+    # Make links fast.
+    @$('a').fastButton(app.util.clickHandler)
+
     @
 
   addOne: (action) =>

@@ -22,6 +22,9 @@ class exports.ActionView extends Backbone.View
       action: json
     ))
     @$('span.date').timeago()
+
+    # Make links fast.
+    @$('a').fastButton(app.util.clickHandler)
     @
 
   toggleDone: =>

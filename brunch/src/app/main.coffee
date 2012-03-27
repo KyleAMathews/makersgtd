@@ -80,6 +80,9 @@ $ ->
     $('#simple-gtd-app').show()
     $('nav').show()
 
+    # Make tabs "fast"
+    $('.tags').fastButton(app.util.clickHandler)
+
   app.initialize()
 
 window.markdown = new Markdown.Converter()
