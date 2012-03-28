@@ -8,4 +8,4 @@ dependencies:
   - jquery.hoverIntent.js
   - expanding.js
   - jquery.timeago.js
-  - jquery-fast-click/jQuery.fastClick.js
+  - jQuery.fastClick.js
