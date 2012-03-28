@@ -3,7 +3,7 @@
 <div class="editable-note"></div>
 <div id="inbox" class="collection-view"></div>
 <div class='tag-add-new-action'></div>
-<div id="projects-view"></div>
-<div id="done-projects-view"></div>
+<div id="projects-view" class="collection-view"></div>
+<div id="done-projects-view" class="collection-view"></div>
 <div class='tag-add-new-project'></div>
 <div class="meta-info"></div>

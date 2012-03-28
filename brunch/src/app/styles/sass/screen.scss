@@ -120,7 +120,7 @@ ul, ol {
 }
 
 /* strikeout done actions */
-.done .name a.model-link {
+.done.model-list-item a.model-link {
   text-decoration: line-through;
   color: #777777;
 }
@@ -142,7 +142,7 @@ ul#actions {
   }
 }
 
-#actions-view, #done-actions-view, #inbox, #projects-view {
+#actions-view, #done-actions-view, #inbox, #projects-view, #done-projects-view {
   .label {
     @include adjust-font-size-to(18px, 1);
     margin-bottom: 0;
@@ -249,23 +249,6 @@ nav {
   }
   ul {
     @include no-bullets();
-  }
-}
-#next-actions-pane-view, #tag #projects-view {
-  ul {
-    @include no-bullets();
-  }
-  .project-list-item {
-    .project {
-      color: $grey40;
-      @include adjust-font-size-to(14px, 1);
-      @include padding-leader(0.25);
-      @include padding-trailer(0.25);
-      background: $grey90;
-      a {
-        font-weight: bolder;
-      }
-    }
   }
 }
 

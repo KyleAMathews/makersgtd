@@ -23,17 +23,17 @@ class exports.ProjectView extends Backbone.View
     @$el.html(projectTemplate(project: json))
 
     # Render the project's actions.
-    if @options.actions
-      subActions = new SubCollection null,
-        linkedModel: @model
-        link_name: 'action_links'
-        link_type: 'action'
-        max_display: 2
+    #if @options.actions
+      #subActions = new SubCollection null,
+        #linkedModel: @model
+        #link_name: 'action_links'
+        #link_type: 'action'
+        #max_display: 2
 
-      @logChildView new ActionsView(
-        el: @$('.actions-view')
-        collection: subActions
-      ).render()
+      #@logChildView new ActionsView(
+        #el: @$('.actions-view')
+        #collection: subActions
+      #).render()
 
     # Make links fast.
     @$('a').fastButton(app.util.clickHandler)
