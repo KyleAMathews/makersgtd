@@ -22,18 +22,8 @@ class exports.ProjectView extends Backbone.View
     json.undone = @model.notDoneActions().length
     @$el.html(projectTemplate(project: json))
 
-    # Render the project's actions.
-    #if @options.actions
-      #subActions = new SubCollection null,
-        #linkedModel: @model
-        #link_name: 'action_links'
-        #link_type: 'action'
-        #max_display: 2
-
-      #@logChildView new ActionsView(
-        #el: @$('.actions-view')
-        #collection: subActions
-      #).render()
+    # Humanize dates
+    @$('span.date').timeago()
 
     # Make links fast.
     @$('a').fastButton(app.util.clickHandler)

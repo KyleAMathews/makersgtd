@@ -2,5 +2,8 @@
     <a class="model-link" href="<%- @project.url %>">
       #<%= @project.name %><% unless @project.done: %> (<%= @project.undone %>)<% end %>
     </a>
+    <% if @project.done: %>
+      <span class="date" title='<%- @project.completed %>'><%- @project.completed %></span>
+    <% end %>
 </div>
 <div class="actions-view collection-view"></div>
