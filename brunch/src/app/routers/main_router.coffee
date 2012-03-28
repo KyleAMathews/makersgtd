@@ -6,9 +6,6 @@ AddNewModelView = require('views/add_new_model_view').AddNewModelView
 # Actions
 NextActionsPaneView = require('views/next_actions_pane_view').NextActionsPaneView
 
-# Projects
-ProjectsPaneView = require('views/projects_pane_view').ProjectsPaneView
-
 # Tags
 TagsView = require('views/tags_view').TagsView
 
@@ -34,16 +31,6 @@ class exports.MainRouter extends Backbone.Router
 
     #$('#simple-gtd-app h1.title').show().html 'Next Actions'
     app.pane0.show(actions)
-
-  projects: ->
-    projects = new ProjectsPaneView()
-    $('#simple-gtd-app .content').empty()
-
-    $('nav li a.active').removeClass('active')
-    $('nav li a.projects').addClass('active')
-
-    #$('#simple-gtd-app h1.title').show().html 'Projects'
-    app.pane0.show(projects)
 
   tags: ->
     tags = new TagsView(
