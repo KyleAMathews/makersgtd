@@ -289,6 +289,9 @@ nav {
     .editable {
       @include adjust-font-size-to(18px, 1, 21px);
       margin-top: 21px;
+      .expanding-textarea textarea {
+        @include adjust-font-size-to(13px, 1, 11px);
+      }
     }
   }
 }
