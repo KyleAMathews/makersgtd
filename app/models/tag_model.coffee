@@ -17,7 +17,10 @@ class exports.Tag extends Backbone.Model
     # Set next color from color_palette if tag is new.
     unless @get('color_palette')?
       max = _.max(app.collections.tags.pluck('color_palette'))
-      newPalette = max % app.colorPalette.length + 1
+      if max?
+        newPalette = max % app.colorPalette.length + 1
+      else
+        newPalette = 0
       @set( color_palette: newPalette )
 
   notDoneActions: ->
