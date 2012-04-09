@@ -249,12 +249,6 @@ $(document).keypress (e) ->
 
   if keyNav.length is 2
     switch keyNav.toString()
-      when 'g,n'
-        app.routers.main.navigate '#next-actions', true
-        keyNav = []
-      when 'g,p'
-        app.routers.main.navigate '#projects', true
-        keyNav = []
       when 'g,t'
         app.routers.main.navigate '#tags', true
         keyNav = []

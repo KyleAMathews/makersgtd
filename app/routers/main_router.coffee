@@ -3,34 +3,16 @@ ProjectFullView = require('views/project_full_view').ProjectFullView
 TagFullView = require('views/tag_full_view').TagFullView
 AddNewModelView = require('views/add_new_model_view').AddNewModelView
 
-# Actions
-NextActionsPaneView = require('views/next_actions_pane_view').NextActionsPaneView
-
 # Tags
 TagsView = require('views/tags_view').TagsView
 
 class exports.MainRouter extends Backbone.Router
   routes :
-    "next-actions": "nextActions"
     "projects": "projects"
     "tags": "tags"
     "actions/:id": "actionView"
     "projects/:id": "projectView"
     "tags/:id": "tagView"
-
-  nextActions: ->
-    actions = new NextActionsPaneView(
-      collection: app.collections.actions
-      addNewModelForm: 1
-    )
-
-    $('#simple-gtd-app .content').empty()
-
-    $('nav li a.active').removeClass('active')
-    $('nav li a.next-actions').addClass('active')
-
-    #$('#simple-gtd-app h1.title').show().html 'Next Actions'
-    app.pane0.show(actions)
 
   tags: ->
     tags = new TagsView(
