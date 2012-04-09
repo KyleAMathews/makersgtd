@@ -1,18 +1,16 @@
 {
-  "name": "Pantheon-Dashboard",
-  "description": "Pantheon's rad dashboard web app",
+  "name": "MakersGTD",
+  "description": "Rad GTD app",
   "version": "0.0.1",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/pantheon-systems/titan-mt"
-  },
   "engines": {
     "node": "~0.6.10"
   },
-  "scripts": {
-    "start": "brunch watch --server"
-  },
   "dependencies": {
+    "express": "2.x.x",
+    "jade": "0.x.x",
+    "moment": "1.x.x",
+    "underscore": "1.x.x",
+    "mongoose": "2.x.x",
     "javascript-brunch": "1.0.x",
     "coffee-script-brunch": "1.0.x",
     "eco-brunch": "1.0.x",
