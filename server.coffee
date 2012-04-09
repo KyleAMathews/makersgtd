@@ -249,6 +249,8 @@ app.del '/tag/:id', (req, res) ->
       tag.remove()
       tag.save()
 
-# Listen on port 3000
-app.listen(3000)
+# Listen on port 3000 or a passed-in port
+args = process.argv.splice(2)
+if args[0]? then port = parseInt(args[0], 10) else port = 3000
+app.listen(port)
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env)
