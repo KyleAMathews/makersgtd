@@ -104,7 +104,7 @@ app.post '/actions', (req, res) ->
   action.changed = new Date()
   action.save (err) ->
     unless err
-      res.json id: action._id
+      res.json id: action._id, created: action.created
 
 app.put '/actions/:id', (req, res) ->
   console.log 'updating an action'
@@ -159,7 +159,7 @@ app.post '/projects', (req, res) ->
   project.changed = new Date()
   project.save (err) ->
     unless err
-      res.json id: project._id
+      res.json id: project._id, created: project.created
 
 app.put '/projects/:id', (req, res) ->
   console.log 'updating an project'
@@ -224,7 +224,7 @@ app.post '/tags', (req, res) ->
   tag.changed = new Date()
   tag.save (err) ->
     unless err
-      res.json id: tag._id
+      res.json id: tag._id, created: tag.created
 
 app.put '/tags/:id', (req, res) ->
   console.log 'updating an tag'

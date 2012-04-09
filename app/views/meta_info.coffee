@@ -6,6 +6,7 @@ class exports.MetaInfoView extends Backbone.View
 
   initialize: ->
     @model.view = @
+    @bindTo @model, 'change:created change:done change:changed', @render
 
   render: =>
     $(@el).html(metaInfoTemplate( @model.toJSON() ))
