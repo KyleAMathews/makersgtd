@@ -2,3 +2,4 @@ node_modules
 brunch/build/
 .sass-cache
 dump/
+public/

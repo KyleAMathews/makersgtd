@@ -1,0 +1,25 @@
+{
+  "name": "Pantheon-Dashboard",
+  "description": "Pantheon's rad dashboard web app",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pantheon-systems/titan-mt"
+  },
+  "engines": {
+    "node": "~0.6.10"
+  },
+  "scripts": {
+    "start": "brunch watch --server"
+  },
+  "dependencies": {
+    "javascript-brunch": "1.0.x",
+    "coffee-script-brunch": "1.0.x",
+    "eco-brunch": "1.0.x",
+    "uglify-js-brunch": "1.0.x"
+  },
+  "devDependencies": {
+    "mocha": "1.0.0",
+    "expect.js": "0.1.2"
+  }
+}

@@ -21,6 +21,8 @@ class exports.ActionView extends Backbone.View
     @$el.html(actionTemplate(
       action: json
     ))
+
+    # Humanize dates
     @$('span.date').timeago()
 
     # Make links fast.

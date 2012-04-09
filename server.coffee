@@ -40,7 +40,7 @@ app.configure ->
   app.use express.methodOverride()
   app.use htmlOrNot
   app.use app.router
-  app.use express.static __dirname + '/brunch'
+  app.use express.static __dirname + '/public'
 
 
 queryMultiple = (type, ids, callback) ->

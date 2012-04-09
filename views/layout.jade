@@ -14,7 +14,7 @@ html(lang='en')
     title Plans.io
     meta(name='description', content='')
     meta(name='viewport', content='user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0')
-    link(rel='stylesheet', href='/build/web/css/screen.css', type="text/css", media="screen")
+    link(rel='stylesheet', href='/css/screen.css', type="text/css", media="screen")
     //-script(src='javascripts/libs/modernizr-2.5.3.min.js')
   body!=body
     script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
@@ -24,7 +24,8 @@ html(lang='en')
       tags_json = !{ JSON.stringify(tags_json) }
       projects_json = !{ JSON.stringify(projects_json) }
       actions_json = !{ JSON.stringify(actions_json) }
-    script(src='/build/web/js/app.js')
+    script(src='/javascripts/vendor.js')
+    script(src='/javascripts/app.js')
     script require('main');
     //-script(src="http://jsconsole.com/remote.js?B5815EDA-5423-4D66-AAFE-8B6FB6B922BF")
     //-script(src='javascripts/plugins.js')
