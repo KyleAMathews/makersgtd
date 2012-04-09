@@ -1,11 +1,12 @@
 mongoose = require('mongoose')
+bcrypt = require 'bcrypt'
 # Setup MongoDB connection.
 mongoose.connect('mongodb://localhost/simpleGTD')
 
 # Setup MongoDB schemas.
 Schema = mongoose.Schema
 
-actionSchema = new Schema (
+ActionSchema = new Schema (
   name: String
   description: String
   done: { type: Boolean, index: true }
@@ -18,7 +19,7 @@ actionSchema = new Schema (
   tag_links: []
 )
 
-projectSchema = new Schema (
+ProjectSchema = new Schema (
   name: String
   outcome_vision: String
   description: String
@@ -31,7 +32,7 @@ projectSchema = new Schema (
   action_links: []
 )
 
-tagSchema = new Schema (
+TagSchema = new Schema (
   name: String
   description: String
   deleted: { type: Boolean, default: false, index: true }
@@ -42,12 +43,40 @@ tagSchema = new Schema (
   project_links: []
 )
 
-userSchema = new Schema (
+toLower = (v) ->
+  return v.toLowerCase()
+
+UserSchema = new Schema (
   name: String
-  email: String
+  email: { type: String, unique: true, set: toLower }
+  password: String
 )
 
-mongoose.model 'action', actionSchema
-mongoose.model 'project', projectSchema
-mongoose.model 'tag', tagSchema
-mongoose.model 'user', userSchema
+UserSchema.methods.setPassword = (password, done) ->
+  console.log 'inside setPassword'
+  bcrypt.genSalt 10, (err, salt) =>
+    bcrypt.hash password, salt, (err, hash) =>
+      console.log 'hash ', hash
+      @password = hash
+      done()
+
+UserSchema.methods.verifyPassword = (password, callback) ->
+  console.log password
+  console.log @
+  bcrypt.compare(password, @password, callback);
+
+UserSchema.statics.authenticate = (email, password, callback) ->
+  email = toLower(email)
+  @findOne { email: email }, (err, user) ->
+    if err then return callback err
+    if not user then return callback null, false
+    user.verifyPassword password, (err, passwordCorrect) ->
+      if err then return callback err
+      if not passwordCorrect then return callback null, false
+      # Successful authentication!
+      callback null, user
+
+mongoose.model 'action', ActionSchema
+mongoose.model 'project', ProjectSchema
+mongoose.model 'tag', TagSchema
+mongoose.model 'user', UserSchema

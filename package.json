@@ -11,6 +11,7 @@
     "moment": "1.x.x",
     "underscore": "1.x.x",
     "mongoose": "2.x.x",
+    "bcrypt": "0.x.x",
     "javascript-brunch": "1.0.x",
     "coffee-script-brunch": "1.0.x",
     "eco-brunch": "1.0.x",
