@@ -42,9 +42,9 @@ htmlOrNot =
               res.render 'index', json
         }
       counter = successCounter()
-      getAllModels('action', (actions) -> counter.add( actions_json: actions ))
-      getAllModels('project', (projects) -> counter.add( projects_json: projects ))
-      getAllTags (tags) -> counter.add( tags_json: tags )
+      getAllModels('action', req.user, (actions) -> counter.add( actions_json: actions ))
+      getAllModels('project', req.user, (projects) -> counter.add( projects_json: projects ))
+      getAllTags req.user, (tags) -> counter.add( tags_json: tags )
 
     # Every request by this point should be authenticated.
     else if not req.isAuthenticated()
@@ -69,12 +69,13 @@ app.configure ->
   app.use express.static __dirname + '/public'
 
 
-queryMultiple = (type, ids, callback) ->
+queryMultiple = (type, ids, user, callback) ->
   ModelObj = mongoose.model type
   query = ModelObj.find()
   query
     .where('_id').in(ids)
     .notEqualTo('deleted', true)
+    .where('_user', user._id)
     .run (err, models) ->
       unless err or not models?
         newModels = []
@@ -82,7 +83,7 @@ queryMultiple = (type, ids, callback) ->
           model.setValue('id', model.getValue('_id'))
         callback(models)
 
-getAllModels = (type, callback) ->
+getAllModels = (type, user, callback) ->
   modelType = mongoose.model type
   date = moment().subtract('hours', 12)
   query = modelType.find()
@@ -90,6 +91,7 @@ getAllModels = (type, callback) ->
     # Only get completed actions from past 12 hours.
     .or([{ 'done': false }, {'completed': { $gte : date.native()}}])
     .notEqualTo('deleted', true)
+    .where('_user', user._id)
     .run (err, models) ->
       unless err or not models?
         newModels = []
@@ -120,17 +122,16 @@ app.get '/logout', (req, res) ->
   res.redirect '/login'
 
 app.get '/', (req, res) ->
-  #console.log req.headers
   res.render 'index'
 
 # REST endpoint for Actions
 app.get '/actions', (req, res) ->
   if req.query.ids?
-    queryMultiple 'action', req.query.ids, (models) ->
+    queryMultiple 'action', req.query.ids, req.user, (models) ->
       res.json models
 
   else
-    getAllModels 'action', (actions) ->
+    getAllModels 'action', req.user, (actions) ->
       res.json actions
 
 app.get '/actions/:id', (req, res) ->
@@ -150,6 +151,7 @@ app.post '/actions', (req, res) ->
     action[k] = v
   action.created = new Date()
   action.changed = new Date()
+  action._user = req.user._id.toString()
   action.save (err) ->
     unless err
       res.json id: action._id, created: action.created
@@ -158,7 +160,7 @@ app.put '/actions/:id', (req, res) ->
   console.log 'updating an action'
   Action = mongoose.model 'action'
   Action.findById req.params.id, (err, action) ->
-    unless err or not action?
+    unless err or not action? or action._user.toString() isnt req.user._id.toString()
       for k,v of req.body
         if k is 'id' then continue
         action[k] = v
@@ -173,7 +175,7 @@ app.del '/actions/:id', (req, res) ->
   console.log 'deleting an action'
   Action = mongoose.model 'action'
   Action.findById req.params.id, (err, action) ->
-    unless err or not action?
+    unless err or not action? or action._user.toString() isnt req.user._id.toString()
       action.remove()
       action.save()
 
@@ -181,17 +183,17 @@ app.del '/actions/:id', (req, res) ->
 app.get '/projects', (req, res) ->
   console.log 'getting projects'
   if req.query.ids?
-    queryMultiple 'project', req.query.ids, (models) ->
+    queryMultiple 'project', req.query.ids, req.user, (models) ->
       res.json models
 
   else
-    getAllModels 'project', (projects) ->
+    getAllModels 'project', req.user, (projects) ->
       res.json projects
 
 app.get '/projects/:id', (req, res) ->
   Project = mongoose.model 'project'
   Project.findById req.params.id, (err, project) ->
-    unless err or not project?
+    unless err or not project? or project._user.toString() isnt req.user._id.toString()
       console.log 'Getting project: ' + project.name
       res.json project
     else
@@ -205,6 +207,7 @@ app.post '/projects', (req, res) ->
     project[k] = v
   project.created = new Date()
   project.changed = new Date()
+  project._user = req.user._id.toString()
   project.save (err) ->
     unless err
       res.json id: project._id, created: project.created
@@ -213,7 +216,7 @@ app.put '/projects/:id', (req, res) ->
   console.log 'updating an project'
   Project = mongoose.model 'project'
   Project.findById req.params.id, (err, project) ->
-    unless err or not project?
+    unless err or not project? or project._user.toString() isnt req.user._id.toString()
       for k,v of req.body
         if k is 'id' then continue
         project[k] = v
@@ -228,16 +231,17 @@ app.del '/projects/:id', (req, res) ->
   console.log 'deleting an project'
   Project = mongoose.model 'project'
   Project.findById req.params.id, (err, project) ->
-    unless err or not project?
+    unless err or not project? or project._user.toString() isnt req.user._id.toString()
       project.remove()
       project.save()
 
 # REST endpoint for Tags
-getAllTags = (callback) ->
+getAllTags = (user, callback) ->
   Tag = mongoose.model 'tag'
   query = Tag.find()
   query
     .notEqualTo('deleted', true)
+    .where('_user', user._id)
     .run (err, tags) ->
       unless err or not tags?
         for tag in tags
@@ -247,16 +251,16 @@ getAllTags = (callback) ->
 app.get '/tags', (req, res) ->
   console.log 'getting tags'
   if req.query.ids?
-    queryMultiple 'tag', req.query.ids, (tags) ->
+    queryMultiple 'tag', req.query.ids, req.user, (tags) ->
       res.json tags
   else
-    getAllTags (tags) ->
+    getAllTags req.user, (tags) ->
       res.json tags
 
 app.get '/tags/:id', (req, res) ->
   Tag = mongoose.model 'tag'
   Tag.findById req.params.id, (err, tag) ->
-    unless err or not tag?
+    unless err or not tag? or tag._user.toString() isnt req.user._id.toString()
       console.log 'Getting tag: ' + tag.name
       res.json tag
     else
@@ -270,6 +274,7 @@ app.post '/tags', (req, res) ->
     tag[k] = v
   tag.created = new Date()
   tag.changed = new Date()
+  tag._user = req.user._id.toString()
   tag.save (err) ->
     unless err
       res.json id: tag._id, created: tag.created
@@ -278,7 +283,7 @@ app.put '/tags/:id', (req, res) ->
   console.log 'updating an tag'
   Tag = mongoose.model 'tag'
   Tag.findById req.params.id, (err, tag) ->
-    unless err or not tag?
+    unless err or not tag? or tag._user.toString() isnt req.user._id.toString()
       for k,v of req.body
         if k is 'id' then continue
         tag[k] = v
@@ -293,7 +298,7 @@ app.del '/tag/:id', (req, res) ->
   console.log 'deleting an tag'
   Tag = mongoose.model 'tag'
   Tag.findById req.params.id, (err, tag) ->
-    unless err or not tag?
+    unless err or not tag? or tag._user.toString() isnt req.user._id.toString()
       tag.remove()
       tag.save()
 

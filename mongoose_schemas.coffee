@@ -12,6 +12,7 @@ mongoose.connect('mongodb://localhost/simpleGTD')
 Schema = mongoose.Schema
 
 ActionSchema = new Schema (
+  _user: { type: Schema.ObjectId, ref: 'User', index: true }
   name: String
   description: String
   done: { type: Boolean, index: true }
@@ -25,6 +26,7 @@ ActionSchema = new Schema (
 )
 
 ProjectSchema = new Schema (
+  _user: { type: Schema.ObjectId, ref: 'User', index: true }
   name: String
   outcome_vision: String
   description: String
@@ -38,6 +40,7 @@ ProjectSchema = new Schema (
 )
 
 TagSchema = new Schema (
+  _user: { type: Schema.ObjectId, ref: 'User', index: true }
   name: String
   description: String
   deleted: { type: Boolean, default: false, index: true }
