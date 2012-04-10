@@ -72,12 +72,13 @@ UserSchema.methods.verifyPassword = (password, callback) ->
 
 UserSchema.statics.authenticate = (email, password, callback) ->
   email = toLower(email)
+  failMessage = "Your email or password was not correct."
   @findOne { email: email }, (err, user) ->
     if err then return callback err
-    if not user then return callback null, false
+    if not user then return callback null, false, { message: failMessage }
     user.verifyPassword password, (err, passwordCorrect) ->
       if err then return callback err
-      if not passwordCorrect then return callback null, false
+      if not passwordCorrect then return callback null, false, { message: failMessage }
       # Successful authentication!
       callback null, user
 
@@ -86,8 +87,8 @@ UserSchema.statics.authenticate = (email, password, callback) ->
 mongoose.model 'user', UserSchema
 User = mongoose.model 'user'
 Passport.use new LocalStrategy usernameField: 'email', (email, password, done) ->
-    User.authenticate email, password, (err, user) ->
-      return done(err, user);
+    User.authenticate email, password, (err, user, message) ->
+      return done(err, user, message);
 
 # serialize user on login
 Passport.serializeUser (user, done) ->

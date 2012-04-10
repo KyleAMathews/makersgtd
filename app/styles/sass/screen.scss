@@ -659,3 +659,12 @@ form#login {
     margin-bottom: 0.8125em;
   }
 }
+
+ul.error {
+  @include no-bullets();
+  @include trailer(.5);
+
+  padding: 3px 6px;
+  color: #D8000C;
+  background-color: #FFBABA;
+}

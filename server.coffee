@@ -102,12 +102,17 @@ app.get '/login', (req, res) ->
     tags_json: {}
     projects_json: {}
     actions_json: {}
+    errorMessages: []
+  messages = req.flash()
+  if messages.error?
+    json.errorMessages = messages.error
   res.render 'login', json
 
-app.post '/login',passport.authenticate('local',
+app.post '/login', passport.authenticate('local',
   {
     successRedirect: '/'
     failureRedirect: '/login'
+    failureFlash: true
   })
 
 app.get '/logout', (req, res) ->

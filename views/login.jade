@@ -1,6 +1,10 @@
 div#menu-bar
 
 form#login(name="form", method="post", action="login")
+  if errorMessages.length > 0
+    ul.error
+      for message in errorMessages
+        li #{ message }
   h1 MakersGTD Login
   //-p This is the basic look of my form without table
   label
