@@ -1,8 +1,10 @@
 express = require('express')
+RedisStore = require('connect-redis')(express)
 util = require('util')
 _ = require('underscore')
 moment = require('moment')
 mongoose = require('mongoose')
+passport = require 'passport'
 require('./mongoose_schemas')
 
 app = express.createServer()
@@ -10,7 +12,22 @@ app = express.createServer()
 # Return index.jade if html is requested, otherwise return JSON or static files.
 htmlOrNot =
   handle: (req, res, next) ->
+    # Let request through if the person is requesting from /login
+    # and isn't authenticated.
+    if req.url is '/login' or (req.url isnt '/' and req.headers.referer?.slice(-5) is 'login')
+      unless req.isAuthenticated()
+        return next()
+      # If the person is already authenticated redirect them back home.
+      else
+        return res.redirect '/'
+
+    # Requests to /logout should be let through.
+    if _.include ['/logout'], req.url
+      return next()
+
+    # If the person is requestion html and they are authenticated, return full monty.
     if req.headers.accept? and req.headers.accept.indexOf('text/html') isnt -1
+      unless req.isAuthenticated() then return res.redirect '/login'
       console.log 'loading models'
       successCounter = ->
         counter = 0
@@ -28,6 +45,11 @@ htmlOrNot =
       getAllModels('action', (actions) -> counter.add( actions_json: actions ))
       getAllModels('project', (projects) -> counter.add( projects_json: projects ))
       getAllTags (tags) -> counter.add( tags_json: tags )
+
+    # Every request by this point should be authenticated.
+    else if not req.isAuthenticated()
+      res.json 'Not authenticated', 403
+    # Only requests at this point should be browsers requesting JSON.
     else
       next()
 
@@ -35,9 +57,13 @@ htmlOrNot =
 app.configure ->
   app.set 'views', __dirname + '/views'
   app.set 'view engine', 'jade'
+  app.use express.cookieParser()
   app.use express.responseTime()
   app.use express.bodyParser()
   app.use express.methodOverride()
+  app.use express.session({ store: new RedisStore, secret: 'Make Stuff' })
+  app.use passport.initialize()
+  app.use passport.session()
   app.use htmlOrNot
   app.use app.router
   app.use express.static __dirname + '/public'
@@ -70,6 +96,23 @@ getAllModels = (type, callback) ->
         for model in models
           model.setValue('id', model.getValue('_id'))
         callback(models)
+
+app.get '/login', (req, res) ->
+  json =
+    tags_json: {}
+    projects_json: {}
+    actions_json: {}
+  res.render 'login', json
+
+app.post '/login',passport.authenticate('local',
+  {
+    successRedirect: '/'
+    failureRedirect: '/login'
+  })
+
+app.get '/logout', (req, res) ->
+  req.logout()
+  res.redirect '/login'
 
 app.get '/', (req, res) ->
   #console.log req.headers

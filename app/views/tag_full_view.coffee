@@ -46,7 +46,7 @@ class exports.TagFullView extends Backbone.View
     # Render the tag's loose actions, i.e. those without a project.
     # This is labeled in the UI, "Inbox"
     doneFilter = (action) ->
-      if action.get('project_links').length > 0
+      if action?.get('project_links')?.length > 0
         return false
       else
         return true

@@ -1,5 +1,10 @@
 mongoose = require('mongoose')
 bcrypt = require 'bcrypt'
+
+# dependencies for authentication
+Passport = require('passport')
+LocalStrategy = require('passport-local').Strategy;
+
 # Setup MongoDB connection.
 mongoose.connect('mongodb://localhost/simpleGTD')
 
@@ -76,7 +81,23 @@ UserSchema.statics.authenticate = (email, password, callback) ->
       # Successful authentication!
       callback null, user
 
+
+# Define local strategy for Passport
+mongoose.model 'user', UserSchema
+User = mongoose.model 'user'
+Passport.use new LocalStrategy usernameField: 'email', (email, password, done) ->
+    User.authenticate email, password, (err, user) ->
+      return done(err, user);
+
+# serialize user on login
+Passport.serializeUser (user, done) ->
+    done(null, user.id)
+
+# deserialize user on logout
+Passport.deserializeUser (id, done) ->
+  User.findById id, (err, user) ->
+    done(err, user)
+
 mongoose.model 'action', ActionSchema
 mongoose.model 'project', ProjectSchema
 mongoose.model 'tag', TagSchema
-mongoose.model 'user', UserSchema
