@@ -513,9 +513,17 @@ code {
   }
 }
 
+a#logout {
+  float: right;
+  line-height: 30px;
+  margin-right: 10px;
+  color: $grey80;
+}
+
 #global-search {
   margin-left: 100px;
   width: 297px;
+  float: left;
   position: relative;
   input {
     margin-top: 5px;
