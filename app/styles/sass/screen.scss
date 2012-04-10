@@ -8,9 +8,6 @@
 @import "compass/css3";
 @import "sassy-buttons";
 
-@import "ie";
-@import "ie6";
-
 // Widgets
 @import "widgets/expanding_textarea";
 
@@ -592,12 +589,13 @@ code {
 }
 
 .pane {
-  background: white;
-  width: 400px;
   @include apply-side-rhythm-border('left', 2px);
   @include apply-side-rhythm-border('right', 2px);
   @include h-borders(2px);
   @include single-box-shadow();
+
+  background: white;
+  width: 400px;
   // Reset left/right padding as panes should be a blank container.
   padding-top: 0;
   padding-left: 0;
@@ -613,4 +611,43 @@ code {
 // Remove outline around element on mobile devices.
 * {
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
+// Input page
+form#login {
+  @include apply-side-rhythm-border('left', 2px);
+  @include apply-side-rhythm-border('right', 2px);
+  @include h-borders(2px);
+  @include single-box-shadow();
+
+  margin: 0 auto;
+  margin-top: 100px;
+  padding: 20px;
+  width: 375px;
+  background: white;
+  h1 {
+    margin-top: 0;
+  }
+  label{
+    display:block;
+    font-weight:bold;
+    text-align:right;
+    width:90px;
+    float:left;
+  }
+  input{
+    float:left;
+    font-size:12px;
+    padding:4px 2px;
+    border:solid 1px #aacfe4;
+    width:200px;
+    margin:2px 0 20px 10px;
+  }
+  button{
+    @include my-button($button_color);
+
+    clear:both;
+    margin-left:100px;
+    margin-bottom: 0.8125em;
+  }
 }
