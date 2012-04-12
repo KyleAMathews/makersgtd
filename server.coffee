@@ -61,7 +61,7 @@ app.configure ->
   app.use express.responseTime()
   app.use express.bodyParser()
   app.use express.methodOverride()
-  app.use express.session({ store: new RedisStore, secret: 'Make Stuff' })
+  app.use express.session({ store: new RedisStore, secret: 'Make Stuff', cookie: { maxAge: 1209600000 }}) # two weeks
   app.use passport.initialize()
   app.use passport.session()
   app.use htmlOrNot
