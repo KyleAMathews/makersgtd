@@ -43,7 +43,8 @@ class exports.ActionsView extends Backbone.View
 
   addAll: =>
     @addOne action for action in @collection.notDone()
-    @makeSortable('ul#actions')
+    _.defer =>
+      @makeSortable('ul#actions')
 
   focusInput: (event) =>
     $('#new-action').focus()

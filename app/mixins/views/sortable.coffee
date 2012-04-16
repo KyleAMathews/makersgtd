@@ -1,11 +1,6 @@
 exports.Sortable =
   makeSortable: (context) ->
-    @$(context).sortable(
-      start: (event, ui) ->
-        $(event.target).parent().addClass('sorting')
-      stop: (event, ui) ->
-        $(event.target).parent().parent().children().removeClass('sorting')
-    )
+    @$(context).sortable()
     @$('ul').bind('sortupdate', @resetOrder)
 
   resetOrder: ->

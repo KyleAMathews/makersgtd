@@ -39,7 +39,8 @@ class exports.ProjectsView extends Backbone.View
   addAll: =>
     @$('ul#projects').empty()
     @addOne project for project in @collection.notDone()
-    @makeSortable('ul#projects')
+    _.defer =>
+      @makeSortable('ul#projects')
 
 # Add Mixins
 exports.ProjectsView.prototype = _.extend exports.ProjectsView.prototype,
