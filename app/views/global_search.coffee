@@ -35,11 +35,11 @@ class exports. GlobalSearch extends Backbone.View
     query = @$('input').val()
     switch query.substring(0,1)
       when '#' then @matches = fuzzymatcher.query 'projects', query.substring(1)
-      when '@' then @matches = fuzzymatcher.query 'tags', query.substring(1)
+      when '@' then @matches = fuzzymatcher.query 'contexts', query.substring(1)
       else @matches = fuzzymatcher.query 'all', query
 
     @grouped_matches = _.groupBy(@matches, (match) -> return match.type)
-    order = ['tag', 'project', 'action']
+    order = ['context', 'project', 'action']
     for type in order
       if @grouped_matches[type]?
         matches = @grouped_matches[type]
@@ -53,36 +53,36 @@ class exports. GlobalSearch extends Backbone.View
           unless match.id? then match.id = match._id
           model = _.filter models, (model) -> return model.id is match.id
           model = model[0]
-          # Get tag and project names to add.
-          tags_info = []
+          # Get context and project names to add.
+          contexts_info = []
           projects_info = []
           unless model? then continue
-          unless model.get('type') is 'tag'
-            tags = model.get('tag_links')
+          unless model.get('type') is 'context'
+            contexts = model.get('context_links')
             projects = model.get('project_links')
             if projects?
               for project in projects
                 project = app.util.loadModelSynchronous('project', project.id)
                 if project
                   projects_info.push project.get('name')
-            if tags?
-              for tag in tags
-                tag = app.util.loadModelSynchronous('tag', tag.id)
-                if tag
-                  tag_name = tag.get('name')
-                  tag_colors = app.colorPalette[tag.get('color_palette')]
-                  tags_info.push { name: tag_name, colors: tag_colors }
+            if contexts?
+              for context in contexts
+                context = app.util.loadModelSynchronous('context', context.id)
+                if context
+                  context_name = context.get('name')
+                  context_colors = app.colorPalette[context.get('color_palette')]
+                  contexts_info.push { name: context_name, colors: context_colors }
 
           classes = ""
           if model.get('done') then classes += "done "
           prefix = ""
           switch model.get('type')
-            when 'tag' then prefix = "@"
+            when 'context' then prefix = "@"
             when 'project' then prefix = "#"
           @$('ul.autocomplete').append(globalSearchTemplate(
             model: model
             match: match
-            tags_info: tags_info
+            contexts_info: contexts_info
             projects_info: projects_info
             classes: classes
             prefix: prefix

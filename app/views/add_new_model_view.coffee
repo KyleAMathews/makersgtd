@@ -40,7 +40,7 @@ class exports.AddNewModelView extends Backbone.View
     # has a value the second time through which causes things to fail
     # unless it's set to nothing.
     newModel.set("project_links": [])
-    newModel.set("tag_links": [])
+    newModel.set("context_links": [])
     for k,v of @newAttributes()
       prop = {}
       prop[k] = v

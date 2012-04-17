@@ -49,7 +49,7 @@ class exports.Pane
     if view.onShow
       view.onShow()
 
-      # hierarchy -- meta > tag > project > action > note
+      # hierarchy -- meta > context > project > action > note
       # build paneFactory which returns correct pane -- it looks at type
       # of view plus types of views already displayed and picks next
       # one

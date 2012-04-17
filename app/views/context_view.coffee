@@ -1,11 +1,11 @@
-tagTemplate = require('templates/tag')
+contextTemplate = require('templates/context')
 SubCollection = require('collections/sub_collection').SubCollection
 pv = require('views/projects_view')
 ActionsView = require('views/actions_view').ActionsView
 
-class exports.TagView extends Backbone.View
+class exports.ContextView extends Backbone.View
 
-  className: 'tag-list-item'
+  className: 'context-list-item'
 
   initialize: ->
     # We use bindAll when we're using a mixin that's called by jquery.
@@ -16,7 +16,7 @@ class exports.TagView extends Backbone.View
   render: =>
     json = @model.toJSON()
     json.url = @model.iurl()
-    @$el.html(tagTemplate(tag: json))
+    @$el.html(contextTemplate(context: json))
 
     # Make links fast.
     @$('a').fastButton(app.util.clickHandler)

@@ -21,7 +21,7 @@ class exports.DropdownMenuView extends Backbone.View
         @options.commands['Not done'] = @options.commands['Complete']
         delete @options.commands['Complete']
 
-    if _.include ['action','project','tag'], type
+    if _.include ['action','project','context'], type
       @options.commands['Delete'] = app.util.deleteModel
       if @model.get('deleted')
         @options.commands['Undelete'] = app.util.undeleteModel

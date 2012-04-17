@@ -1,7 +1,7 @@
 ProjectView = require('views/project_view').ProjectView
 projectsTemplate = require('templates/projects')
 AddNewModelView = require('views/add_new_model_view').AddNewModelView
-TagView = require('views/tag_view').TagView
+ContextView = require('views/context_view').ContextView
 Sortable = require('mixins/views/sortable').Sortable
 
 class exports.ProjectsView extends Backbone.View

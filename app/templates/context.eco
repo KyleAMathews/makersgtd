@@ -1,0 +1,7 @@
+<div class="context model-list-item <% if @context.done: %>done<% end %>" data-id="<%- @context.id %>" style="background:<%- app.colorPalette[@context.color_palette][0] %>; color:<%- app.colorPalette[@context.color_palette][1] %>;">
+  <a class="model-link" href="<%- @context.url %>">
+    @<%= @context.name %>
+  </a>
+</div>
+<div class="inbox collection-view"></div>
+<div class="projects"></div>

@@ -1,4 +1,4 @@
-tagTemplate = require('templates/tag_full')
+contextTemplate = require('templates/context_full')
 EditableView = require('views/editable_view').EditableView
 ActionsView = require('views/actions_view').ActionsView
 SubCollection = require('collections/sub_collection').SubCollection
@@ -9,9 +9,9 @@ AddNewModelView = require('views/add_new_model_view').AddNewModelView
 MetaInfoView = require('views/meta_info').MetaInfoView
 DropdownMenuView = require('views/dropdown_menu_view').DropdownMenuView
 
-class exports.TagFullView extends Backbone.View
+class exports.ContextFullView extends Backbone.View
 
-  id: 'tag'
+  id: 'context'
   className: 'full-view'
 
   initialize: ->
@@ -19,7 +19,7 @@ class exports.TagFullView extends Backbone.View
 
   render: =>
     json = @model.toJSON()
-    @$el.html(tagTemplate(tag: json))
+    @$el.html(contextTemplate(context: json))
 
     @logChildView new EditableView(
       field: 'name'
@@ -43,7 +43,7 @@ class exports.TagFullView extends Backbone.View
       model: @model
     ).render()
 
-    # Render the tag's loose actions, i.e. those without a project.
+    # Render the context's loose actions, i.e. those without a project.
     # This is labeled in the UI, "Inbox"
     doneFilter = (action) ->
       if action?.get('project_links')?.length > 0
@@ -63,7 +63,7 @@ class exports.TagFullView extends Backbone.View
       label: 'Inbox'
     ).render()
 
-    # Render the tags's projects.
+    # Render the contexts's projects.
     subProjects = new SubCollection null,
       linkedModel: @model
       link_name: 'project_links'
@@ -74,7 +74,7 @@ class exports.TagFullView extends Backbone.View
       collection: subProjects
       label: 'Projects'
       actions: true
-      tag: @model.id
+      context: @model.id
     ).render()
     @logChildView new DoneProjectsView(
       el: @$('#done-projects-view')
@@ -82,21 +82,21 @@ class exports.TagFullView extends Backbone.View
       label: 'Completed Projects'
     ).render()
     @logChildView new AddNewModelView(
-      el: @$('.tag-add-new-action')
+      el: @$('.context-add-new-action')
       type: 'action'
       links: [
         {
-          type: 'tag'
+          type: 'context'
           id: @model.id
         }
       ]
     ).render()
     @logChildView new AddNewModelView(
-      el: @$('.tag-add-new-project')
+      el: @$('.context-add-new-project')
       type: 'project'
       links: [
         {
-          type: 'tag'
+          type: 'context'
           id: @model.id
         }
       ]

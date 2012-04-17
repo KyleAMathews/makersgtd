@@ -1,28 +1,24 @@
 ActionFullView = require('views/action_full_view').ActionFullView
 ProjectFullView = require('views/project_full_view').ProjectFullView
-TagFullView = require('views/tag_full_view').TagFullView
+ContextFullView = require('views/context_full_view').ContextFullView
 AddNewModelView = require('views/add_new_model_view').AddNewModelView
 
-# Tags
-TagsView = require('views/tags_view').TagsView
+# Contexts
+ContextsView = require('views/contexts_view').ContextsView
 
 class exports.MainRouter extends Backbone.Router
   routes :
     "projects": "projects"
-    "tags": "tags"
+    "contexts": "contexts"
     "actions/:id": "actionView"
     "projects/:id": "projectView"
-    "tags/:id": "tagView"
+    "contexts/:id": "contextView"
 
-  tags: ->
-    tags = new TagsView(
-      collection: app.collections.tags
+  contexts: ->
+    contexts = new ContextsView(
+      collection: app.collections.contexts
     )
-
-    $('nav li a.active').removeClass('active')
-    $('nav li a.tags').addClass('active')
-
-    app.pane0.show(tags)
+    app.pane0.show(contexts)
 
   actionView: (id) ->
     app.util.loadModel 'action', id, (action) ->
@@ -38,9 +34,9 @@ class exports.MainRouter extends Backbone.Router
       if project?
         app.util.renderPanes project
 
-  tagView: (id) ->
-    app.util.loadModel 'tag', id, (tag) ->
+  contextView: (id) ->
+    app.util.loadModel 'context', id, (context) ->
       $('#simple-gtd-app h1.title').hide()
 
-      if tag?
-        app.util.renderPanes tag
+      if context?
+        app.util.renderPanes context

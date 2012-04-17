@@ -2,7 +2,7 @@ exports.ModelLinker =
   # constructor: (@model) ->
     # f =
     #   project_links: []
-    #   tag_links: []
+    #   context_links: []
     #   action_links: []
     # @model.save(f)
 

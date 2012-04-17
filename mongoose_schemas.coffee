@@ -22,7 +22,7 @@ ActionSchema = new Schema (
   created: Date
   changed: { type: Date, index: true }
   project_links: []
-  tag_links: []
+  context_links: []
 )
 
 ProjectSchema = new Schema (
@@ -35,11 +35,11 @@ ProjectSchema = new Schema (
   completed: { type:Date, index: true }
   created: Date
   changed: { type: Date, index: true }
-  tag_links: []
+  context_links: []
   action_links: []
 )
 
-TagSchema = new Schema (
+ContextSchema = new Schema (
   _user: { type: Schema.ObjectId, ref: 'User', index: true }
   name: String
   description: String
@@ -104,4 +104,4 @@ Passport.deserializeUser (id, done) ->
 
 mongoose.model 'action', ActionSchema
 mongoose.model 'project', ProjectSchema
-mongoose.model 'tag', TagSchema
+mongoose.model 'context', ContextSchema

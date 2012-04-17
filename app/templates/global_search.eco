@@ -3,7 +3,7 @@
 <% for name in @projects_info: %>
   <span class='project-link'>#<%- name %></span>
 <% end %>
-<% for tag in @tags_info: %>
-  <span class='tag-link' style="background:<%- tag.colors[0] %>;color:<%- tag.colors[1] %>;">@<%- tag.name %></span>
+<% for context in @contexts_info: %>
+  <span class='context-link' style="background:<%- context.colors[0] %>;color:<%- context.colors[1] %>;">@<%- context.name %></span>
 <% end %>
 </li>

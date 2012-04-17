@@ -50,13 +50,13 @@ class exports.ProjectFullView extends Backbone.View
       html: true
     ).render()
     @logChildView new linkerView(
-      el: @$('.linker-tag')
+      el: @$('.linker-context')
       model: @model
-      blank_slate: 'Add a tag'
-      linking_to: 'tag'
-      intro: 'tagged with '
+      blank_slate: 'Add a context'
+      linking_to: 'context'
+      intro: 'contexts '
       prefix: '@'
-      models: @model.get('tags')
+      models: @model.get('contexts')
     ).render()
     @logChildView new DropdownMenuView(
       el: @$('.dropdown')
@@ -72,9 +72,9 @@ class exports.ProjectFullView extends Backbone.View
         }
       ]
     )
-    # New actions should also inherit their parent project's tags.
-    for tag in @model.get('tag_links')
-      newAction.options.links.push tag
+    # New actions should also inherit their parent project's contexts.
+    for context in @model.get('context_links')
+      newAction.options.links.push context
     newAction.render()
     @logChildView newAction
     @logChildView new MetaInfoView(

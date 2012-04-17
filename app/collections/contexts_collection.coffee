@@ -1,19 +1,19 @@
-Tag = require('models/tag_model').Tag
+Context = require('models/context_model').Context
 FuzzyMatcherIntegration = require('mixins/collections/fuzzy_matcher_integration').FuzzyMatcherIntegration
 RemoveWhenDeleted = require('mixins/collections/remove_when_deleted').RemoveWhenDeleted
 
-class exports.Tags extends Backbone.Collection
+class exports.Contexts extends Backbone.Collection
 
-  model: Tag
-  url: '/tags'
+  model: Context
+  url: '/contexts'
 
   initialize: ->
-    @type = 'tags'
+    @type = 'context'
     @on('change:deleted', @removeWhenDeleted)
 
-  comparator: (tag) ->
-    tag.get('name').toLowerCase()
+  comparator: (context) ->
+    context.get('name').toLowerCase()
 
 # Add Mixins
-exports.Tags.prototype = _.extend exports.Tags.prototype,
+exports.Contexts.prototype = _.extend exports.Contexts.prototype,
   FuzzyMatcherIntegration, RemoveWhenDeleted

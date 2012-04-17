@@ -44,7 +44,7 @@ htmlOrNot =
       counter = successCounter()
       getAllModels('action', req.user, (actions) -> counter.add( actions_json: actions ))
       getAllModels('project', req.user, (projects) -> counter.add( projects_json: projects ))
-      getAllTags req.user, (tags) -> counter.add( tags_json: tags )
+      getAllContexts req.user, (contexts) -> counter.add( contexts_json: contexts )
 
     # Every request by this point should be authenticated.
     else if not req.isAuthenticated()
@@ -101,7 +101,7 @@ getAllModels = (type, user, callback) ->
 
 app.get '/login', (req, res) ->
   json =
-    tags_json: {}
+    contexts_json: {}
     projects_json: {}
     actions_json: {}
     errorMessages: []
@@ -235,72 +235,72 @@ app.del '/projects/:id', (req, res) ->
       project.remove()
       project.save()
 
-# REST endpoint for Tags
-getAllTags = (user, callback) ->
-  Tag = mongoose.model 'tag'
-  query = Tag.find()
+# REST endpoint for Contexts
+getAllContexts = (user, callback) ->
+  Context = mongoose.model 'context'
+  query = Context.find()
   query
     .notEqualTo('deleted', true)
     .where('_user', user._id)
-    .run (err, tags) ->
-      unless err or not tags?
-        for tag in tags
-          tag.setValue('id', tag.getValue('_id'))
-        callback(tags)
+    .run (err, contexts) ->
+      unless err or not contexts?
+        for context in contexts
+          context.setValue('id', context.getValue('_id'))
+        callback(contexts)
 
-app.get '/tags', (req, res) ->
-  console.log 'getting tags'
+app.get '/contexts', (req, res) ->
+  console.log 'getting contexts'
   if req.query.ids?
-    queryMultiple 'tag', req.query.ids, req.user, (tags) ->
-      res.json tags
+    queryMultiple 'context', req.query.ids, req.user, (contexts) ->
+      res.json contexts
   else
-    getAllTags req.user, (tags) ->
-      res.json tags
+    getAllContexts req.user, (contexts) ->
+      res.json contexts
 
-app.get '/tags/:id', (req, res) ->
-  Tag = mongoose.model 'tag'
-  Tag.findById req.params.id, (err, tag) ->
-    unless err or not tag? or tag._user.toString() isnt req.user._id.toString()
-      console.log 'Getting tag: ' + tag.name
-      res.json tag
+app.get '/contexts/:id', (req, res) ->
+  Context = mongoose.model 'context'
+  Context.findById req.params.id, (err, context) ->
+    unless err or not context? or context._user.toString() isnt req.user._id.toString()
+      console.log 'Getting context: ' + context.name
+      res.json context
     else
-      res.json { error: 'Couldn\'t load tag' }
+      res.json { error: 'Couldn\'t load context' }
 
-app.post '/tags', (req, res) ->
-  console.log 'saving new tag'
-  Tag = mongoose.model 'tag'
-  tag = new Tag()
+app.post '/contexts', (req, res) ->
+  console.log 'saving new context'
+  Context = mongoose.model 'context'
+  context = new Context()
   for k,v of req.body
-    tag[k] = v
-  tag.created = new Date()
-  tag.changed = new Date()
-  tag._user = req.user._id.toString()
-  tag.save (err) ->
+    context[k] = v
+  context.created = new Date()
+  context.changed = new Date()
+  context._user = req.user._id.toString()
+  context.save (err) ->
     unless err
-      res.json id: tag._id, created: tag.created
+      res.json id: context._id, created: context.created
 
-app.put '/tags/:id', (req, res) ->
-  console.log 'updating an tag'
-  Tag = mongoose.model 'tag'
-  Tag.findById req.params.id, (err, tag) ->
-    unless err or not tag? or tag._user.toString() isnt req.user._id.toString()
+app.put '/contexts/:id', (req, res) ->
+  console.log 'updating an context'
+  Context = mongoose.model 'context'
+  Context.findById req.params.id, (err, context) ->
+    unless err or not context? or context._user.toString() isnt req.user._id.toString()
       for k,v of req.body
         if k is 'id' then continue
-        tag[k] = v
-      tag.changed = new Date()
-      tag.save()
+        context[k] = v
+      context.changed = new Date()
+      context.save()
       res.json {
         saved: true
-        changed: tag.changed
+        changed: context.changed
       }
 
-app.del '/tag/:id', (req, res) ->
-  console.log 'deleting an tag'
-  Tag = mongoose.model 'tag'
-  Tag.findById req.params.id, (err, tag) ->
-    unless err or not tag? or tag._user.toString() isnt req.user._id.toString()
-      tag.remove()
-      tag.save()
+app.del '/context/:id', (req, res) ->
+  console.log 'deleting an context'
+  Context = mongoose.model 'context'
+  Context.findById req.params.id, (err, context) ->
+    unless err or not context? or context._user.toString() isnt req.user._id.toString()
+      context.remove()
+      context.save()
 
 # Listen on port 3000 or a passed-in port
 args = process.argv.splice(2)

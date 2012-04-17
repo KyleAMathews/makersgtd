@@ -5,7 +5,7 @@ exports.DeleteModel =
     @view.close()
 
     # Delete any inbound links to this model.
-    for links in [@get('tag_links'), @get('action_links'), @get('project_links')]
+    for links in [@get('context_links'), @get('action_links'), @get('project_links')]
       if links? and links.length > 0
         for link in links
           model = app.util.loadModelSynchronous(link.type, link.id)

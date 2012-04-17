@@ -1,6 +1,6 @@
 ActionFullView = require('views/action_full_view').ActionFullView
 ProjectFullView = require('views/project_full_view').ProjectFullView
-TagFullView = require('views/tag_full_view').TagFullView
+ContextFullView = require('views/context_full_view').ContextFullView
 
 app.util.renderPanes = (newModel) ->
   # Mobile devices just get one pane.
@@ -17,26 +17,26 @@ app.util.renderPanes = (newModel) ->
     # Current panes are prefered if they're connected to the new model.
     switch newModel.get 'type'
       when 'action'
-        if c_models.tag? and _isConnected('tag', c_models.tag.id, newModel)
-          newModels.tag = c_models.tag
+        if c_models.context? and _isConnected('context', c_models.context.id, newModel)
+          newModels.context = c_models.context
         else
-          newModels.tag = ancestors.tag
+          newModels.context = ancestors.context
         if c_models.project? and _isConnected('project', c_models.project.id, newModel)
           newModels.project = c_models.project
         else
           newModels.project = ancestors.project
         newModels.action = newModel
       when 'project'
-        if c_models.tag? and _isConnected('tag', c_models.tag.id, newModel)
-          newModels.tag = c_models.tag
+        if c_models.context? and _isConnected('context', c_models.context.id, newModel)
+          newModels.context = c_models.context
         else
-          newModels.tag = ancestors.tag
+          newModels.context = ancestors.context
         newModels.project = newModel
         if c_models.action? and _isConnected('action', c_models.action.id, newModel)
           if _.find(newModel.get('action_links'), (action) -> c.models.action.id is action.id)
             newModels.action = c.models.action
-      when 'tag'
-        newModels.tag = newModel
+      when 'context'
+        newModels.context = newModel
         if c_models.project? and _isConnected('project', c_models.project.id, newModel)
           if _.find(newModel.get('project_links'), (project) -> c.models.project.id is project.id)
             newModels.project = c.models.project
@@ -44,11 +44,11 @@ app.util.renderPanes = (newModel) ->
           if _.find(newModel.get('action_links'), (action) -> c.models.action.id is action.id)
             newModels.action = c.models.action
 
-    # Render the panes in order from tags to actions.
+    # Render the panes in order from contexts to actions.
     panes = [app.pane1, app.pane2, app.pane3]
-    if newModels.tag
-      tagFullView = new TagFullView model: newModels.tag
-      panes.shift().show(tagFullView)
+    if newModels.context
+      contextFullView = new ContextFullView model: newModels.context
+      panes.shift().show(contextFullView)
     if newModels.project
       projectFullView = new ProjectFullView model: newModels.project
       panes.shift().show(projectFullView)
@@ -77,28 +77,28 @@ _getCurrentModels = ->
     panes.push app.pane3.getModel()
 
   c_models = {}
-  c_models.tag = _.find(panes, (model) -> return model.get('type') is 'tag')
+  c_models.context = _.find(panes, (model) -> return model.get('type') is 'context')
   c_models.project = _.find(panes, (model) -> return model.get('type') is 'project')
   c_models.action = _.find(panes, (model) -> return model.get('type') is 'action')
 
   return c_models
 
-# Fetch ancestors of this model. Prefer the project's tag not the actions tag.
+# Fetch ancestors of this model. Prefer the project's context not the actions context.
 _getAncestors = (model, callback) ->
   if model.get('project_links')?.length > 0
     project_id = model.get('project_links').slice(0,1)[0].id
     app.util.loadModel 'project', project_id, (project) ->
-      if project.get('tag_links').length > 0
-        tag_id = project.get('tag_links').slice(0,1)[0].id
-        app.util.loadModel 'tag', tag_id, (tag) ->
-          callback { project: project, tag: tag }
+      if project.get('context_links').length > 0
+        context_id = project.get('context_links').slice(0,1)[0].id
+        app.util.loadModel 'context', context_id, (context) ->
+          callback { project: project, context: context }
       else
         callback { project: project }
 
-  else if model.get('tag_links')?.length > 0
-    tag_id = model.get('tag_links').slice(0,1)[0].id
-    app.util.loadModel 'tag', tag_id, (tag) ->
-      callback { tag: tag }
+  else if model.get('context_links')?.length > 0
+    context_id = model.get('context_links').slice(0,1)[0].id
+    app.util.loadModel 'context', context_id, (context) ->
+      callback { context: context }
 
   else
     callback {}
@@ -107,17 +107,17 @@ _viewFactory = (model) ->
   switch model.get('type')
     when 'action' then return new ActionFullView model: model
     when 'project' then return new ProjectFullView model: model
-    when 'tag' then return new TagFullView model: model
+    when 'context' then return new ContextFullView model: model
 
 _isConnected = (type, id, model) ->
   switch model.get('type')
-    when 'tag'
+    when 'context'
       return _.include(model.get(type + "_links"), id)
     when 'project'
       return _.include(model.get(type + "_links"), id)
     when 'action'
-      # Tags can be connected either directly or through the actions project.
-      if type is 'tag'
+      # Contexts can be connected either directly or through the actions project.
+      if type is 'context'
         if _.include(model.get(type + "_links"), id)
           return true
         else if model.get('project_links').length > 0

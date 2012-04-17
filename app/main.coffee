@@ -16,16 +16,16 @@ require('jquery_plugins')
 # Collections
 Actions = require('collections/actions_collection').Actions
 Projects = require('collections/projects_collection').Projects
-Tags = require('collections/tags_collection').Tags
+Contexts = require('collections/contexts_collection').Contexts
 
 # Models
 Action = require('models/action_model').Action
 Project = require('models/project_model').Project
-Tag = require('models/tag_model').Tag
+Context = require('models/context_model').Context
 
 # Views
 GlobalSearch = require('views/global_search').GlobalSearch
-TagsView = require('views/tags_view').TagsView
+ContextsView = require('views/contexts_view').ContextsView
 
 # Pane
 Pane = require('helpers/pane').Pane
@@ -37,18 +37,18 @@ $ ->
   app.initialize = ->
     app.collections.actions = new Actions()
     app.collections.projects = new Projects()
-    app.collections.tags = new Tags()
+    app.collections.contexts = new Contexts()
 
     # Reset collections.
     app.collections.actions.reset actions_json
     app.collections.projects.reset projects_json
-    app.collections.tags.reset tags_json
+    app.collections.contexts.reset contexts_json
 
     # Setup Fuzzymatcher.
     _.defer ->
       app.collections.actions.trigger('reset_fuzzymatcher', app.collections.actions, app.collections.actions)
       app.collections.projects.trigger('reset_fuzzymatcher', app.collections.projects, app.collections.projects)
-      app.collections.tags.trigger('reset_fuzzymatcher', app.collections.tags, app.collections.tags)
+      app.collections.contexts.trigger('reset_fuzzymatcher', app.collections.contexts, app.collections.contexts)
 
 
     app.pane0 = new Pane( el: '#simple-gtd-app .content' )
@@ -56,12 +56,12 @@ $ ->
     app.pane2 = new Pane( el: '#pane2' )
     app.pane3 = new Pane( el: '#pane3' )
 
-    # Render tags view
-    tags = new TagsView(
-      collection: app.collections.tags
+    # Render contexts view
+    contexts = new ContextsView(
+      collection: app.collections.contexts
     )
-    app.pane0.show(tags)
-    $('nav .tags').addClass('active')
+    app.pane0.show(contexts)
+    $('nav .contexts').addClass('active')
 
     app.routers.main = new MainRouter()
 
@@ -75,13 +75,13 @@ $ ->
 
     Backbone.history.start({pushState: true})
     if Backbone.history.getFragment() is ''
-      app.routers.main.navigate 'tags', { trigger: true }
+      app.routers.main.navigate 'contexts', { trigger: true }
 
     $('#simple-gtd-app').show()
     $('nav').show()
 
     # Make tabs "fast"
-    $('.tags').fastButton(app.util.clickHandler)
+    $('.contexts').fastButton(app.util.clickHandler)
 
   app.initialize()
 
@@ -169,12 +169,10 @@ app.util.loadMultipleModels = (type, ids, callbacks) ->
           callback collection.get(id)
 
 app.util.modelFactory = (type) ->
-  # TODO Figure out why after loading a model with project/tag links, each
-  # model created there after has those same project/tag links??? Really strange.
   switch type
     when 'action' then return new Action()
     when 'project' then return new Project()
-    when 'tag' then return new Tag()
+    when 'context' then return new Context()
 
 app.util.makeExternalLinksOpenNewTab = (context) ->
   $("a[href^=http]", context).each ->
@@ -250,7 +248,7 @@ $(document).keypress (e) ->
   if keyNav.length is 2
     switch keyNav.toString()
       when 'g,t'
-        app.routers.main.navigate '#tags', true
+        app.routers.main.navigate '#contexts', true
         keyNav = []
       else keyNav = []
 

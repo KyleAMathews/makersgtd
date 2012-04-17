@@ -62,7 +62,7 @@ ul, ol {
   }
 }
 
-#new-action-view, #new-project-view, #new-tag-view {
+#new-action-view, #new-project-view, #new-context-view {
   position: relative;
   @include leader(0.5);
   @include trailer(2);
@@ -230,7 +230,7 @@ nav {
   }
 }
 
-.tag-list-item {
+.context-list-item {
   > .model-list-item {
     @include padding-leader(.5);
     @include padding-trailer(.5);
@@ -249,8 +249,8 @@ nav {
   @include trailer(0.25);
 }
 
-// Tag full view
-#tag {
+// context full view
+#context {
   .editable-name {
     .editable {
       @include padding-leader(.5);
@@ -566,7 +566,7 @@ a#logout {
   }
 }
 
-.tag-link {
+.context-link {
   @include border-radius(5px);
   padding: 1px 5px;
   a {
@@ -592,7 +592,7 @@ a#logout {
     @include my-button($button_color, .85em);
   }
 }
-.project-link, .tag-link, .linker {
+.project-link, .context-link, .linker {
   @include adjust-font-size-to(11px);
 }
 

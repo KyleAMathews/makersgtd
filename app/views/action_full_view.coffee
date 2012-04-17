@@ -46,13 +46,13 @@ class exports.ActionFullView extends Backbone.View
       models: @model.get('projects')
     ).render()
     @logChildView new linkerView(
-      el: @$el.find('.linker-tag')
+      el: @$el.find('.linker-context')
       model: @model
-      blank_slate: 'Add a tag'
-      linking_to: 'tag'
-      intro: 'tagged with '
+      blank_slate: 'Add a context'
+      linking_to: 'context'
+      intro: 'contexts '
       prefix: '@'
-      models: @model.get('tags')
+      models: @model.get('contexts')
     ).render()
     @logChildView new DropdownMenuView(
       el: @$el.find('.dropdown')

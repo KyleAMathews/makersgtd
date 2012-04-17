@@ -11,9 +11,9 @@ class exports.Project extends Backbone.Model
     done: false
     type: 'project'
     action_links_limit: 0
-    tag_links_limit: 0
+    context_links_limit: 0
     action_links: []
-    tag_links: []
+    context_links: []
 
   notDoneActions: ->
     actions = []

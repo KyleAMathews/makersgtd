@@ -12,20 +12,21 @@ class exports.Action extends Backbone.Model
     order: 100
     type: 'action'
     project_links_limit: 1
-    tag_links_limit: 0
+    context_links_limit: 0
     project_links: []
-    tag_links: []
+    context_links: []
 
   initialize: ->
     @on 'sync', @triggerLinkChange
 
+  # Change cid links to id links.
   triggerLinkChange: =>
     project = app.util.loadModelSynchronous('project', @get('project_links')[0]['id'])
     project.trigger('change:action_links')
 
-    for tag in @get('tag_links')
-      tagObj = app.util.loadModelSynchronous('tag', tag['id'])
-      tagObj.trigger('change:action_links')
+    for context in @get('context_links')
+      contextObj = app.util.loadModelSynchronous('context', context['id'])
+      contextObj.trigger('change:action_links')
 
 # Add Mixins
 exports.Action.prototype = _.extend exports.Action.prototype,

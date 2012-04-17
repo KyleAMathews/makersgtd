@@ -18,14 +18,14 @@ resetFuzzymatcher = (arg1, arg2) ->
 # models when a sub_collection loads.
 actions_debounced = _.debounce(resetFuzzymatcher, 50)
 projects_debounced = _.debounce(resetFuzzymatcher, 50)
-tags_debounced = _.debounce(resetFuzzymatcher, 50)
+contexts_debounced = _.debounce(resetFuzzymatcher, 50)
 
 $ ->
   # Defer so collections can be created first.
   _.defer ->
     events = ['add', 'remove', 'reset', 'change:done', 'change:name', 'change:deleted',
-    'add:action_link', 'add:project_link', 'add_tag_link', 'reset_fuzzymatcher']
+    'add:action_link', 'add:project_link', 'add_context_link', 'reset_fuzzymatcher']
     for event in events
       app.collections.actions.on(event, actions_debounced)
       app.collections.projects.on(event, projects_debounced)
-      app.collections.tags.on(event, tags_debounced)
+      app.collections.contexts.on(event, contexts_debounced)
