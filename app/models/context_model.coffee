@@ -14,6 +14,7 @@ class exports.Context extends Backbone.Model
     action_links: []
 
   initialize: ->
+    @type = "context"
     # Set next color from color_palette if context is new.
     unless @get('color_palette')?
       if app.collections.contexts.length > 0

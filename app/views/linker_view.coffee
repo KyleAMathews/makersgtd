@@ -75,9 +75,9 @@ class exports.LinkerView extends Backbone.View
   addNewLink: (match_id) =>
     match = app.util.loadModelSynchronous(@options.linking_to, match_id)
     # Create link from the current model to the match
-    @model.createLink(match.get('type'), match.id)
+    @model.createLink(match.type, match.id)
     # Create link on the match to the current model
-    match.createLink(@model.get('type'), @model.id)
+    match.createLink(@model.type, @model.id)
     @stopEditing()
 
   updateOnEnter: (e) ->
@@ -105,7 +105,7 @@ class exports.LinkerView extends Backbone.View
 
     @model.deleteLink(@options.linking_to, id)
     app.util.loadModel @options.linking_to, id, (linkedToModel) =>
-      linkedToModel.deleteLink(@model.get('type'), @model.id)
+      linkedToModel.deleteLink(@model.type, @model.id)
 
 # Add Mixins
 exports.LinkerView.prototype = _.extend exports.LinkerView.prototype,

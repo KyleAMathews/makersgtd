@@ -15,7 +15,7 @@ app.util.renderPanes = (newModel) ->
     newModels = {}
     # Merge Ancestors of the new model and the current panes.
     # Current panes are prefered if they're connected to the new model.
-    switch newModel.get 'type'
+    switch newModel.type
       when 'action'
         if c_models.context? and _isConnected('context', c_models.context.id, newModel)
           newModels.context = c_models.context
@@ -77,9 +77,9 @@ _getCurrentModels = ->
     panes.push app.pane3.getModel()
 
   c_models = {}
-  c_models.context = _.find(panes, (model) -> return model.get('type') is 'context')
-  c_models.project = _.find(panes, (model) -> return model.get('type') is 'project')
-  c_models.action = _.find(panes, (model) -> return model.get('type') is 'action')
+  c_models.context = _.find(panes, (model) -> return model.type is 'context')
+  c_models.project = _.find(panes, (model) -> return model.type is 'project')
+  c_models.action = _.find(panes, (model) -> return model.type is 'action')
 
   return c_models
 
@@ -104,13 +104,13 @@ _getAncestors = (model, callback) ->
     callback {}
 
 _viewFactory = (model) ->
-  switch model.get('type')
+  switch model.type
     when 'action' then return new ActionFullView model: model
     when 'project' then return new ProjectFullView model: model
     when 'context' then return new ContextFullView model: model
 
 _isConnected = (type, id, model) ->
-  switch model.get('type')
+  switch model.type
     when 'context'
       return _.include(model.get(type + "_links"), id)
     when 'project'

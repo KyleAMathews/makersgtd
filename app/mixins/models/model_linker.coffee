@@ -22,7 +22,7 @@ exports.ModelLinker =
     if links.length > limit and limit isnt 0
       old_link = links.shift()
       old_linked_model = app.util.loadModel(old_link.type, old_link.id, (model) =>
-        old_linked_model.deleteLink(@get('type'), @id)
+        old_linked_model.deleteLink(@type, @id)
       )
 
 

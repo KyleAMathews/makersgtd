@@ -15,6 +15,9 @@ class exports.Project extends Backbone.Model
     action_links: []
     context_links: []
 
+  initialize: ->
+    @type = "project"
+
   notDoneActions: ->
     actions = []
     for link in @get('action_links')

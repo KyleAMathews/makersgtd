@@ -9,7 +9,7 @@ exports.DeleteModel =
       if links? and links.length > 0
         for link in links
           model = app.util.loadModelSynchronous(link.type, link.id)
-          model.deleteLink(@get('type'), @id)
+          model.deleteLink(@type, @id)
 
   undelete: ->
     @save deleted: false

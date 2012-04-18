@@ -77,17 +77,19 @@ class exports.AddNewModelView extends Backbone.View
     # Add any links.
     unless @options.links? then return
     for link in @options.links
+      unless link.type? and link.id? then continue
+      if link.type is 'tag' then link.type = 'context' # TODO actually fix this before build back in tags.
       if temp
         linked_model = app.util.loadModelSynchronous(link.type, link.id)
         # Create link with the model's temporary cid.
-        linked_model.createLink(model.get('type'), model.cid, true)
+        linked_model.createLink(model.type, model.cid, true)
         model.createLink(link.type, link.id, true)
       else
         linked_model = app.util.loadModelSynchronous(link.type, link.id)
         # Delete the temporary cid-based link.
-        linked_model.deleteLink(model.get('type'), model.cid, true)
+        linked_model.deleteLink(model.type, model.cid, true)
         # Create links on the linked model.
-        linked_model.createLink(model.get('type'), model.id)
+        linked_model.createLink(model.type, model.id)
 
   escapeEditing: (e) =>
     if e.keyCode is 27

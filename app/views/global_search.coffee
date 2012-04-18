@@ -57,7 +57,7 @@ class exports. GlobalSearch extends Backbone.View
           contexts_info = []
           projects_info = []
           unless model? then continue
-          unless model.get('type') is 'context'
+          unless model.type is 'context'
             contexts = model.get('context_links')
             projects = model.get('project_links')
             if projects?
@@ -76,7 +76,7 @@ class exports. GlobalSearch extends Backbone.View
           classes = ""
           if model.get('done') then classes += "done "
           prefix = ""
-          switch model.get('type')
+          switch model.type
             when 'context' then prefix = "@"
             when 'project' then prefix = "#"
           @$('ul.autocomplete').append(globalSearchTemplate(

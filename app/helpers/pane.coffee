@@ -55,7 +55,7 @@ class exports.Pane
       # one
   type: ->
     if @currentView? and @currentView.model?
-      return @currentView.model.get('type')
+      return @currentView.model.type
     else
       'empty'
 

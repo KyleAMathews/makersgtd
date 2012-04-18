@@ -11,7 +11,7 @@ class exports.DropdownMenuView extends Backbone.View
     'mouseover .command' : 'markCommand'
 
   render: =>
-    type = @options.model.get('type')
+    type = @options.model.type
     @options.commands = {}
     if _.include ['action','project'], type
       @options.commands =

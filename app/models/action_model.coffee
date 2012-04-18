@@ -17,6 +17,7 @@ class exports.Action extends Backbone.Model
     context_links: []
 
   initialize: ->
+    @type = "action"
     @on 'sync', @triggerLinkChange
 
   # Change cid links to id links.
