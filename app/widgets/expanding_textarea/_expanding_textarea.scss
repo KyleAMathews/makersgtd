@@ -1,23 +1,22 @@
+@import "compass/css3/box-shadow";
+
 .expanding-textarea {
   textarea {
     @include trailer(0.25);
     @include single-box-shadow($inset: true);
-    @include rhythm-borders();
 
     padding: 10px;
     background: transparent;
+    border: 0;
     outline: none;
-    margin-top: 0;
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0;
     overflow: hidden;
     font: inherit;
     line-height: 1.5;
     /* Make the text soft-wrap */
     white-space: pre-wrap;
     word-wrap: break-word;
-    color: #4D4D4D; /* grey30 */
-    border-color: #CCC; /* grey80 */
+    color: #4D4D4D;
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
         -ms-box-sizing: border-box;

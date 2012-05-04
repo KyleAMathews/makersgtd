@@ -1,0 +1,43 @@
+$grey24: #3D3D3D;
+$grey30: #4D4D4D;
+$grey39: #636363;
+$grey95: #F2F2F2;
+
+.active-state {
+  @include box-shadow(#393939 0 1px 2px inset);
+  @include background(linear-gradient($grey24, $grey39));
+
+  font-size: 1em;
+  padding: 0.3em 1.5em;
+  display: inline-block;
+  cursor: default;
+  line-height: 1.5;
+  border: 1px solid $grey30;
+  color: $grey95;
+  background-color: $grey24;
+  text-shadow: #3b3b3b 0 -1px 0;
+}
+
+.toggle-group {
+  @include trailer(1);
+
+  display: block;
+  overflow: hidden;
+  button {
+    @include border-radius(0);
+    float: left;
+    &.active {
+      @include border-radius(0);
+      @extend .active-state;
+      &:hover, &:active {
+        @extend .active-state;
+      }
+    }
+  }
+  button:first-child {
+    @include border-left-radius(4px);
+  }
+  button:last-child {
+    @include border-right-radius(4px);
+  }
+}

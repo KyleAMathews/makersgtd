@@ -1,0 +1,5 @@
+<div class="toggle-group">
+  <% for button in @buttons: %>
+    <button data-machinename="<%- button.machineName %>"><%- button.label %></button>
+  <% end %>
+</div>

@@ -1,0 +1,5 @@
+<div class="ui-progress-bar ui-container transition" id="progress_bar">
+  <div class="ui-progress" style="width: 100%; ">
+    <span class="ui-label" style="display: none; ">Started</span>
+  </div>
+</div>

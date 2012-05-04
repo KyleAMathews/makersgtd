@@ -1,0 +1,82 @@
+$grey80: #CCCCCC;
+$grey98: #FAFAFA;
+
+#notifications {
+  position: fixed;
+  top: 10px;
+  right: 15px;
+}
+
+#notifications li {
+  margin-bottom: 5px;
+  list-style: none;
+}
+
+.notification {
+  @include opacity(0.8);
+  @include border-radius(6px);
+  @include box-shadow(0 0 6px #000);
+
+  position: relative;
+  min-width: 250px;
+  max-width: 350px;
+  background: black;
+  z-index: 100;
+  h1 {
+    @include adjust-font-size-to(16px, 1);
+
+    margin: 0 0 5px 0;
+    color: $grey98;
+    font-weight: bold;
+    cursor: default;
+  }
+  p {
+    @include adjust-font-size-to(12px);
+
+    color: white;
+    margin: 0;
+    padding: 0;
+    cursor: default;
+  }
+  .content {
+    @include rhythm-borders(0px, 1);
+  }
+  &:hover {
+    @include opacity(0.1);
+  }
+}
+
+/* close */
+.notification .close {
+  @include opacity(0.8);
+
+  position: absolute;
+  top: 3px;
+  right: 10px;
+  text-decoration: none;
+  color: $grey80;
+  font-size: 16px;
+  font-weight: bold;
+  display: none;
+
+  &:hover {
+    color: $grey98;
+  }
+
+  &:active {
+    margin-top: 1px;
+  }
+}
+
+.notification.closable .close {
+  display: block;
+}
+
+/* fade */
+
+.notification.fade {
+  @include transition(opacity 300ms);
+}
+.notification.fade.hide {
+  opacity: 0;
+}

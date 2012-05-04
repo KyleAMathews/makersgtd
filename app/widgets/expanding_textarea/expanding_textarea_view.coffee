@@ -9,13 +9,10 @@ class exports.ExpandingTextareaView extends Backbone.View
       context[k] = v
     @$el.html(expandingTextarea( context ))
 
-    # Wait for the HTML to be inserted first.
-    _.defer @makeAreaExpandable, context.lines
+    @makeAreaExpandable context.lines
     @
 
   makeAreaExpandable: (lines) =>
-    @$('textarea').expandingTextarea()
-
     # Set minimum number of lines.
     if not lines? then lines = 1
     fontSize = parseInt(@$('textarea').css('font-size').slice(0,-2), 10)
@@ -29,8 +26,10 @@ class exports.ExpandingTextareaView extends Backbone.View
       height = (lines * 1.5) + (paddingTop + paddingBottom) / fontSize # Num ems for padding.
 
     height = height + "em"
-    @$('textarea').css({ 'min-height': height })
-    @$('.textareaClone').css({ 'min-height': height })
 
     # Set widget to active.
     @$el.addClass('active')
+
+    _.defer =>
+      @$('textarea').expandingTextarea()
+      @$('.textareaClone').css({ 'min-height': height })
