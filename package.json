@@ -15,10 +15,10 @@
     "connect-redis": "1.x.x",
     "passport": "0.x.x",
     "passport-local": "0.x.x",
-    "javascript-brunch": "1.0.x",
-    "coffee-script-brunch": "1.0.x",
-    "eco-brunch": "1.0.x",
-    "uglify-js-brunch": "1.0.x"
+    "javascript-brunch": "1.1.x",
+    "coffee-script-brunch": "1.1.x",
+    "eco-brunch": "1.1.x",
+    "uglify-js-brunch": "1.1.x"
   },
   "devDependencies": {
     "mocha": "1.0.0",

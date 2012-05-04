@@ -89,7 +89,7 @@ getAllModels = (type, user, callback) ->
   query = modelType.find()
   query
     # Only get completed actions from past 12 hours.
-    .or([{ 'done': false }, {'completed': { $gte : date.native()}}])
+    .or([{ 'done': false }, {'completed': { $gte : date.toDate()}}])
     .notEqualTo('deleted', true)
     .where('_user', user._id)
     .run (err, models) ->
