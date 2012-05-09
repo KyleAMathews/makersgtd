@@ -19,6 +19,6 @@ class exports.ContextView extends Backbone.View
     @$el.html(contextTemplate(context: json))
 
     # Make links fast.
-    @$('a').fastButton(app.util.clickHandler)
+    @$('a').fastClick(app.util.clickHandler)
 
     @

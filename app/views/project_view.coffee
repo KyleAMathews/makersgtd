@@ -26,5 +26,5 @@ class exports.ProjectView extends Backbone.View
     @$('span.date').timeago()
 
     # Make links fast.
-    @$('a').fastButton(app.util.clickHandler)
+    @$('a').fastClick(app.util.clickHandler)
     @

@@ -81,7 +81,7 @@ $ ->
     $('nav').show()
 
     # Make tabs "fast"
-    $('.contexts').fastButton(app.util.clickHandler)
+    $('.contexts').fastClick(app.util.clickHandler)
 
   app.initialize()
 

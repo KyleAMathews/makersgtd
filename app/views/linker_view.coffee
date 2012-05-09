@@ -52,7 +52,7 @@ class exports.LinkerView extends Backbone.View
     else
       @$el.html(linkerTemplate(context))
 
-    @$('a').fastButton(app.util.clickHandler)
+    @$('a').fastClick(app.util.clickHandler)
     @
 
   edit: =>

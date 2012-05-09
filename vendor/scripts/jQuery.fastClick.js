@@ -17,7 +17,7 @@
 
 (function($) {
 
-$.fn.fastButton = function(handler) {
+$.fn.fastClick = function(handler) {
 	return $(this).each(function(){
 		$.FastButton($(this)[0], handler);
 	});
@@ -25,17 +25,16 @@ $.fn.fastButton = function(handler) {
 
 $.FastButton = function(element, handler) {
 	var startX, startY;
-	var element = element;
 
 	var reset = function() {
 		$(element).unbind('touchend');
-		$(document.fastButton).unbind('touchmove');
+		$("body").unbind('touchmove.fastClick');
 	};
 
 	var onClick = function(event) {
 		event.stopPropagation();
 		reset();
-		handler(event);
+		handler.call(this, event);
 
 		if (event.type === 'touchend') {
 			$.clickbuster.preventGhostClick(startX, startY);
@@ -53,7 +52,7 @@ $.FastButton = function(element, handler) {
 		event.stopPropagation();
 
 		$(element).bind('touchend', onClick);
-		$(document.fastButton).bind('touchmove', onTouchMove);
+		$("body").bind('touchmove.fastClick', onTouchMove);
 
 		startX = event.originalEvent.touches[0].clientX;
 		startY = event.originalEvent.touches[0].clientY;
