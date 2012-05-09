@@ -1,3 +1,5 @@
+StatsD = require('node-statsd').StatsD
+c = new StatsD('ec2-50-19-206-59.compute-1.amazonaws.com',8125)
 mongoose = require('mongoose')
 bcrypt = require 'bcrypt'
 
@@ -81,9 +83,14 @@ UserSchema.statics.authenticate = (email, password, callback) ->
     if not user then return callback null, false, { message: failMessage }
     user.verifyPassword password, (err, passwordCorrect) ->
       if err then return callback err
-      if not passwordCorrect then return callback null, false, { message: failMessage }
+      # Login fail
+      if not passwordCorrect
+        c.increment('user.login.fail')
+        return callback null, false, { message: failMessage }
       # Successful authentication!
-      callback null, user
+      else
+        c.increment('user.login.successful')
+        callback null, user
 
 
 # Define local strategy for Passport

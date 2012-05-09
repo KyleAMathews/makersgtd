@@ -5,6 +5,9 @@ _ = require('underscore')
 moment = require('moment')
 mongoose = require('mongoose')
 passport = require 'passport'
+StatsD = require('node-statsd').StatsD
+c = new StatsD('ec2-50-19-206-59.compute-1.amazonaws.com',8125)
+logger_statsd = require "connect-logger-statsd"
 require('./mongoose_schemas')
 
 app = express.createServer()
@@ -40,6 +43,7 @@ htmlOrNot =
               json[k] = v
             if counter is 3
               res.render 'index', json
+              c.increment('page.index')
         }
       counter = successCounter()
       getAllModels('action', req.user, (actions) -> counter.add( actions_json: actions ))
@@ -57,6 +61,11 @@ htmlOrNot =
 app.configure ->
   app.set 'views', __dirname + '/views'
   app.set 'view engine', 'jade'
+  app.use logger_statsd({
+    host: "ec2-50-19-206-59.compute-1.amazonaws.com",
+    port: 8125,
+    prefix: "express."
+  })
   app.use express.cookieParser()
   app.use express.responseTime()
   app.use express.bodyParser()
@@ -68,8 +77,8 @@ app.configure ->
   app.use app.router
   app.use express.static __dirname + '/public'
 
-
 queryMultiple = (type, ids, user, callback) ->
+  start = Date.now()
   ModelObj = mongoose.model type
   query = ModelObj.find()
   query
@@ -82,8 +91,11 @@ queryMultiple = (type, ids, user, callback) ->
         for model in models
           model.setValue('id', model.getValue('_id'))
         callback(models)
+      c.timing('mongodb.' + type + '.queryMultiple', Date.now() - start)
+      c.increment('mongodb.' + type + '.queryMultiple')
 
 getAllModels = (type, user, callback) ->
+  start = Date.now()
   modelType = mongoose.model type
   date = moment().subtract('hours', 12)
   query = modelType.find()
@@ -98,6 +110,8 @@ getAllModels = (type, user, callback) ->
         for model in models
           model.setValue('id', model.getValue('_id'))
         callback(models)
+        c.timing('mongodb.' + type + ".getAllModels", Date.now() - start)
+        c.increment('mongodb.' + type + '.getAllModels')
 
 app.get '/login', (req, res) ->
   json =
@@ -107,8 +121,8 @@ app.get '/login', (req, res) ->
     errorMessages: []
   messages = req.flash()
   if messages.error?
-    json.errorMessages = messages.error
-  res.render 'login', json
+    res.render 'login', json
+  c.increment('page.login')
 
 app.post '/login', passport.authenticate('local',
   {
@@ -121,8 +135,13 @@ app.get '/logout', (req, res) ->
   req.logout()
   res.redirect '/login'
 
+  c.increment('page.logout')
+  c.increment('user.logout')
+
 app.get '/', (req, res) ->
   res.render 'index'
+
+  c.increment('page.index')
 
 # REST endpoint for Actions
 app.get '/actions', (req, res) ->
@@ -135,6 +154,7 @@ app.get '/actions', (req, res) ->
       res.json actions
 
 app.get '/actions/:id', (req, res) ->
+  start = Date.now()
   Action = mongoose.model 'action'
   Action.findById req.params.id, (err, action) ->
     unless err or not action?
@@ -142,8 +162,11 @@ app.get '/actions/:id', (req, res) ->
       res.json action
     else
       res.json { error: 'Couldn\'t load action' }
+    c.timing('mongodb.action.get', Date.now() - start)
+    c.increment('mongodb.action.get')
 
 app.post '/actions', (req, res) ->
+  start = Date.now()
   console.log 'saving new action'
   Action = mongoose.model 'action'
   action = new Action()
@@ -155,8 +178,11 @@ app.post '/actions', (req, res) ->
   action.save (err) ->
     unless err
       res.json id: action._id, created: action.created
+      c.timing('mongodb.action.post', Date.now() - start)
+      c.increment('mongodb.action.post')
 
 app.put '/actions/:id', (req, res) ->
+  start = Date.now()
   console.log 'updating an action'
   Action = mongoose.model 'action'
   Action.findById req.params.id, (err, action) ->
@@ -170,14 +196,19 @@ app.put '/actions/:id', (req, res) ->
         saved: true
         changed: action.changed
       }
+      c.timing('mongodb.action.put', Date.now() - start)
+      c.increment('mongodb.action.put')
 
 app.del '/actions/:id', (req, res) ->
+  start = Date.now()
   console.log 'deleting an action'
   Action = mongoose.model 'action'
   Action.findById req.params.id, (err, action) ->
     unless err or not action? or action._user.toString() isnt req.user._id.toString()
       action.remove()
       action.save()
+      c.timing('mongodb.action.delete', Date.now() - start)
+      c.increment('mongodb.action.delete')
 
 # REST endpoint for Projects
 app.get '/projects', (req, res) ->
@@ -191,6 +222,7 @@ app.get '/projects', (req, res) ->
       res.json projects
 
 app.get '/projects/:id', (req, res) ->
+  start = Date.now()
   Project = mongoose.model 'project'
   Project.findById req.params.id, (err, project) ->
     unless err or not project? or project._user.toString() isnt req.user._id.toString()
@@ -198,8 +230,11 @@ app.get '/projects/:id', (req, res) ->
       res.json project
     else
       res.json { error: 'Couldn\'t load project' }
+    c.timing('mongodb.project.get', Date.now() - start)
+    c.increment('mongodb.project.get')
 
 app.post '/projects', (req, res) ->
+  start = Date.now()
   console.log 'saving new project'
   Project = mongoose.model 'project'
   project = new Project()
@@ -211,8 +246,11 @@ app.post '/projects', (req, res) ->
   project.save (err) ->
     unless err
       res.json id: project._id, created: project.created
+      c.timing('mongodb.project.post', Date.now() - start)
+      c.increment('mongodb.project.post')
 
 app.put '/projects/:id', (req, res) ->
+  start = Date.now()
   console.log 'updating an project'
   Project = mongoose.model 'project'
   Project.findById req.params.id, (err, project) ->
@@ -226,17 +264,23 @@ app.put '/projects/:id', (req, res) ->
         saved: true
         changed: project.changed
       }
+      c.timing('mongodb.project.put', Date.now() - start)
+      c.increment('mongodb.project.put')
 
 app.del '/projects/:id', (req, res) ->
+  start = Date.now()
   console.log 'deleting an project'
   Project = mongoose.model 'project'
   Project.findById req.params.id, (err, project) ->
     unless err or not project? or project._user.toString() isnt req.user._id.toString()
       project.remove()
       project.save()
+      c.timing('mongodb.project.delete', Date.now() - start)
+      c.increment('mongodb.project.delete')
 
 # REST endpoint for Contexts
 getAllContexts = (user, callback) ->
+  start = Date.now()
   Context = mongoose.model 'context'
   query = Context.find()
   query
@@ -247,6 +291,7 @@ getAllContexts = (user, callback) ->
         for context in contexts
           context.setValue('id', context.getValue('_id'))
         callback(contexts)
+        c.timing('mongodb.context.getAllModels', Date.now() - start)
 
 app.get '/contexts', (req, res) ->
   console.log 'getting contexts'
@@ -258,6 +303,7 @@ app.get '/contexts', (req, res) ->
       res.json contexts
 
 app.get '/contexts/:id', (req, res) ->
+  start = Date.now()
   Context = mongoose.model 'context'
   Context.findById req.params.id, (err, context) ->
     unless err or not context? or context._user.toString() isnt req.user._id.toString()
@@ -265,8 +311,11 @@ app.get '/contexts/:id', (req, res) ->
       res.json context
     else
       res.json { error: 'Couldn\'t load context' }
+      c.timing('mongodb.context.get', Date.now() - start)
+      c.increment('mongodb.context.get')
 
 app.post '/contexts', (req, res) ->
+  start = Date.now()
   console.log 'saving new context'
   Context = mongoose.model 'context'
   context = new Context()
@@ -278,8 +327,11 @@ app.post '/contexts', (req, res) ->
   context.save (err) ->
     unless err
       res.json id: context._id, created: context.created
+      c.timing('mongodb.context.post', Date.now() - start)
+      c.increment('mongodb.context.post')
 
 app.put '/contexts/:id', (req, res) ->
+  start = Date.now()
   console.log 'updating an context'
   Context = mongoose.model 'context'
   Context.findById req.params.id, (err, context) ->
@@ -293,14 +345,19 @@ app.put '/contexts/:id', (req, res) ->
         saved: true
         changed: context.changed
       }
+      c.timing('mongodb.context.put', Date.now() - start)
+      c.increment('mongodb.context.put')
 
 app.del '/context/:id', (req, res) ->
+  start = Date.now()
   console.log 'deleting an context'
   Context = mongoose.model 'context'
   Context.findById req.params.id, (err, context) ->
     unless err or not context? or context._user.toString() isnt req.user._id.toString()
       context.remove()
       context.save()
+      c.timing('mongodb.context.del', Date.now() - start)
+      c.increment('mongodb.context.del')
 
 # Listen on port 3000 or a passed-in port
 args = process.argv.splice(2)
