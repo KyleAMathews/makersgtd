@@ -1,13 +1,13 @@
 $ = jQuery
-expandingTextarea = require('widgets/expanding_textarea/expanding_textarea')
+ExpandingTextareaTemplate = require('widgets/expanding_textarea/expanding_textarea')
 
-class exports.ExpandingTextareaView extends Backbone.View
+module.exports = class ExpandingTextareaView extends Backbone.View
 
   render: =>
     context = {}
     for k,v of @options
       context[k] = v
-    @$el.html(expandingTextarea( context ))
+    @$el.html(ExpandingTextareaTemplate( context ))
 
     @makeAreaExpandable context.lines
     @

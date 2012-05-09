@@ -5,13 +5,6 @@ app.models = {}
 app.collections = {}
 app.views = {}
 app.eventBus = _.extend({}, Backbone.Events)
-require('helpers/color_scheme')
-require('helpers/resize')
-require('helpers/fuzzymatcher_integration')
-require('helpers/pushState')
-require('helpers/pane_factory')
-
-require('jquery_plugins')
 
 # Collections
 Actions = require('collections/actions_collection').Actions
@@ -31,6 +24,14 @@ ContextsView = require('views/contexts_view').ContextsView
 Pane = require('helpers/pane').Pane
 
 MainRouter = require('routers/main_router').MainRouter
+
+require('helpers/color_scheme')
+require('helpers/resize')
+require('helpers/fuzzymatcher_integration')
+require('helpers/pushState')
+require('helpers/pane_factory')
+
+require('jquery_plugins')
 
 # App bootstrapping on document ready
 $ ->

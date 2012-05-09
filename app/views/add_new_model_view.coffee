@@ -1,5 +1,5 @@
 addNewModelTemplate = require('templates/add_new_model')
-ExpandingTextareaView = require('widgets/expanding_textarea/expanding_textarea_view').ExpandingTextareaView
+ExpandingTextareaView = require('widgets/expanding_textarea/expanding_textarea_view')
 
 class exports.AddNewModelView extends Backbone.View
 

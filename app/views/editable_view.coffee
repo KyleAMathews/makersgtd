@@ -1,5 +1,5 @@
 editableTemplate = require('templates/editable')
-ExpandingTextareaView = require('widgets/expanding_textarea/expanding_textarea_view').ExpandingTextareaView
+ExpandingTextareaView = require('widgets/expanding_textarea/expanding_textarea_view')
 
 class exports.EditableView extends Backbone.View
 
