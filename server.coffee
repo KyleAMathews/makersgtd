@@ -121,7 +121,8 @@ app.get '/login', (req, res) ->
     errorMessages: []
   messages = req.flash()
   if messages.error?
-    res.render 'login', json
+    json.errorMessages = messages.error
+  res.render 'login', json
   c.increment('page.login')
 
 app.post '/login', passport.authenticate('local',
