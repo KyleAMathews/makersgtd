@@ -196,19 +196,6 @@ nav {
   }
 }
 
-#shadow-cover {
-  width: 313px;
-  margin-left: 2px;
-  @media (min-width:500px) {
-    margin-left: 102px;
-  }
-  height: 5px;
-  position: absolute;
-  background: white;
-  z-index: 100;
-  top: 66px;
-}
-
 // Add to items when moving them.
 .sorting {
   background: white;
