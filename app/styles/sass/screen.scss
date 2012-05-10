@@ -505,6 +505,9 @@ a#logout {
   line-height: 30px;
   margin-right: 10px;
   color: $grey80;
+  @media (max-width:500px) {
+    display: none;
+  }
 }
 
 #global-search {
