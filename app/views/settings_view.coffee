@@ -23,7 +23,6 @@ module.exports = class SettingsView extends Backbone.View
   save: (e) ->
     e.preventDefault()
     name = $('.modal .name').val()
-    console.log 'name', name
     email = $('.modal .email').val()
     password = $('.modal .password').val()
     password2 = $('.modal .password2').val()

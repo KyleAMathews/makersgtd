@@ -1,0 +1,27 @@
+div#menu-bar
+
+div#users-admin
+  table
+    thead
+      tr
+        th Name
+        th Email
+        th ID
+    tbody
+      each user in users
+        tr
+          each val, key in user
+            td #{ val }
+
+  h2 Create a new user
+  form#new-user(name="form", method="post", action="admin")
+    label
+      | Name:
+    input(type="text",name='name')
+    label
+      | Email:
+    input(type="email",name='email')
+    button(type="submit") Submit
+
+script
+  users = !{ JSON.stringify(users) }

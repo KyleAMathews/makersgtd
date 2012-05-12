@@ -1,7 +1,7 @@
 Autocomplete = require('mixins/views/autocomplete').Autocomplete
 globalSearchTemplate = require('templates/global_search')
 
-class exports. GlobalSearch extends Backbone.View
+class exports.GlobalSearch extends Backbone.View
 
   events:
     'keypress input'   : 'updateOnEnter'

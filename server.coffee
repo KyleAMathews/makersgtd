@@ -24,8 +24,8 @@ htmlOrNot =
       else
         return res.redirect '/'
 
-    # Requests to /logout should be let through.
-    if _.include ['/logout'], req.url
+    # Requests to /logout or /admin should be let through.
+    if _.include ['/logout', '/admin'], req.url
       return next()
 
     # If the person is requestion html and they are authenticated, return full monty.
@@ -138,6 +138,48 @@ app.post '/login', passport.authenticate('local',
     failureRedirect: '/login'
     failureFlash: true
   })
+
+app.get '/admin', (req, res) ->
+  if req.user._id.toString() isnt '4f83a4a6c91a7bb959000001'
+    res.send "Access denied", 403
+
+  json =
+    contexts_json: {}
+    projects_json: {}
+    actions_json: {}
+    user_json: {}
+    errorMessages: []
+
+  # Load every user.
+  User = mongoose.model 'user'
+  User.find {}, ['name', 'email', '_id'], (err, users) ->
+    clean = []
+    for user in users
+      clean.push _.pick(user, 'name', 'email', '_id')
+    json.users = clean
+    res.render 'admin', json
+    c.increment('page.admin')
+
+app.post '/admin', (req, res) ->
+  console.log req.body
+  if req.body.name is "" or req.body.email is "" then res.redirect '/admin'
+
+  User = mongoose.model 'user'
+  user = new User()
+  user.name = req.body.name
+  user.email = req.body.email
+  user.created = new Date()
+  user.changed = new Date()
+  user.setPassword 'password', ->
+    user.save (err) ->
+      console.log 'new user was created'
+      res.redirect '/admin'
+      # Send person an email w/ info about what's happening here + their login info
+      # Send from my email address + w/ mailgun.
+      #
+      # write the email
+      # create class for sending the email -- or I guess borrow my old one.
+      # hook up mixpanel actually as well.
 
 app.get '/logout', (req, res) ->
   req.logout()
