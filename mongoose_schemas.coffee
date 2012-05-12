@@ -60,19 +60,17 @@ UserSchema = new Schema (
   name: String
   email: { type: String, unique: true, set: toLower }
   password: String
+  created: Date
+  changed: { type: Date, index: true }
 )
 
 UserSchema.methods.setPassword = (password, done) ->
-  console.log 'inside setPassword'
   bcrypt.genSalt 10, (err, salt) =>
     bcrypt.hash password, salt, (err, hash) =>
-      console.log 'hash ', hash
       @password = hash
       done()
 
 UserSchema.methods.verifyPassword = (password, callback) ->
-  console.log password
-  console.log @
   bcrypt.compare(password, @password, callback);
 
 UserSchema.statics.authenticate = (email, password, callback) ->

@@ -15,10 +15,12 @@ Contexts = require('collections/contexts_collection').Contexts
 Action = require('models/action_model').Action
 Project = require('models/project_model').Project
 Context = require('models/context_model').Context
+User = require('models/user').User
 
 # Views
 GlobalSearch = require('views/global_search').GlobalSearch
 ContextsView = require('views/contexts_view').ContextsView
+{ManagementView} = require 'views/management_view'
 
 # Pane
 Pane = require('helpers/pane').Pane
@@ -40,10 +42,15 @@ $ ->
     app.collections.projects = new Projects()
     app.collections.contexts = new Contexts()
 
+    app.models.user = new User user_json
+
     # Reset collections.
     app.collections.actions.reset actions_json
     app.collections.projects.reset projects_json
     app.collections.contexts.reset contexts_json
+
+    # Views
+    app.views.managementView = new ManagementView(el: $('#management')).render()
 
     # Setup Fuzzymatcher.
     _.defer ->
@@ -52,6 +59,7 @@ $ ->
       app.collections.contexts.trigger('reset_fuzzymatcher', app.collections.contexts, app.collections.contexts)
 
 
+    # Panes
     app.pane0 = new Pane( el: '#simple-gtd-app .content' )
     app.pane1 = new Pane( el: '#pane1' )
     app.pane2 = new Pane( el: '#pane2' )

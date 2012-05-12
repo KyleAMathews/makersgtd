@@ -1,5 +1,6 @@
 ModalTemplate = require 'widgets/modal/modal'
-class exports.ModalView extends Backbone.View
+
+module.exports = class ModalView extends Backbone.View
 
   className: 'modal'
 

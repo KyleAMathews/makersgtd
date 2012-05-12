@@ -1,0 +1,12 @@
+<form class="account-edit">
+  <ul class="error"></ul>
+  <label>Name</label><input type="text" class="name" value="<%= @name %>">
+  <br />
+  <label>Email</label><input type="email" class="email" value="<%- @email %>">
+  <br />
+  <label>New Password</label><input type="password" class="password">
+  <br />
+  <label>Verify Password</label><input type="password" class="password2">
+  <br />
+  <button class="save">Save</button><span class="loading"></span>
+</form>

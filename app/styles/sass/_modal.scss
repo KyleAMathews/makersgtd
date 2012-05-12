@@ -1,13 +1,13 @@
 .modal-backdrop {
+  @include opacity(0.8);
+
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 1040;
-  background-color: #000000;
-  opacity: 0.8;
-  filter: alpha(opacity=80);
+  background-color: black;
 }
 .modal {
   @include border-radius(6px);
@@ -24,8 +24,7 @@
   background-color: #ffffff;
   border: 1px solid #999;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  *border: 1px solid #999;
-  /* IE6-7 */
+  *border: 1px solid #999; // IE6-7
 }
 .modal-header {
   @include rhythm(0, 0.5, 0.5, 0);
@@ -82,7 +81,5 @@
 .modal-footer:after {
   display: table;
   content: "";
-}
-.modal-footer:after {
   clear: both;
 }

@@ -42,6 +42,12 @@ htmlOrNot =
               console.log k
               json[k] = v
             if counter is 3
+              # Load user data off request object.
+              user_json = _.pick req.user, 'email', 'name', '_id'
+              user_json.id = user_json._id
+              delete user_json._id
+              json.user_json = user_json
+
               res.render 'index', json
               c.increment('page.index')
         }
@@ -118,6 +124,7 @@ app.get '/login', (req, res) ->
     contexts_json: {}
     projects_json: {}
     actions_json: {}
+    user_json: {}
     errorMessages: []
   messages = req.flash()
   if messages.error?
@@ -192,13 +199,13 @@ app.put '/actions/:id', (req, res) ->
         if k is 'id' then continue
         action[k] = v
       action.changed = new Date()
-      action.save()
-      res.json {
-        saved: true
-        changed: action.changed
-      }
-      c.timing('mongodb.action.put', Date.now() - start)
-      c.increment('mongodb.action.put')
+      action.save (err) ->
+        res.json {
+          saved: true
+          changed: action.changed
+        }
+        c.timing('mongodb.action.put', Date.now() - start)
+        c.increment('mongodb.action.put')
 
 app.del '/actions/:id', (req, res) ->
   start = Date.now()
@@ -207,9 +214,9 @@ app.del '/actions/:id', (req, res) ->
   Action.findById req.params.id, (err, action) ->
     unless err or not action? or action._user.toString() isnt req.user._id.toString()
       action.remove()
-      action.save()
-      c.timing('mongodb.action.delete', Date.now() - start)
-      c.increment('mongodb.action.delete')
+      action.save (err) ->
+        c.timing('mongodb.action.delete', Date.now() - start)
+        c.increment('mongodb.action.delete')
 
 # REST endpoint for Projects
 app.get '/projects', (req, res) ->
@@ -260,13 +267,13 @@ app.put '/projects/:id', (req, res) ->
         if k is 'id' then continue
         project[k] = v
       project.changed = new Date()
-      project.save()
-      res.json {
-        saved: true
-        changed: project.changed
-      }
-      c.timing('mongodb.project.put', Date.now() - start)
-      c.increment('mongodb.project.put')
+      project.save (err) ->
+        res.json {
+          saved: true
+          changed: project.changed
+        }
+        c.timing('mongodb.project.put', Date.now() - start)
+        c.increment('mongodb.project.put')
 
 app.del '/projects/:id', (req, res) ->
   start = Date.now()
@@ -275,9 +282,10 @@ app.del '/projects/:id', (req, res) ->
   Project.findById req.params.id, (err, project) ->
     unless err or not project? or project._user.toString() isnt req.user._id.toString()
       project.remove()
-      project.save()
-      c.timing('mongodb.project.delete', Date.now() - start)
-      c.increment('mongodb.project.delete')
+      project.save (err) ->
+        res.json 'project deleted'
+        c.timing('mongodb.project.delete', Date.now() - start)
+        c.increment('mongodb.project.delete')
 
 # REST endpoint for Contexts
 getAllContexts = (user, callback) ->
@@ -341,13 +349,13 @@ app.put '/contexts/:id', (req, res) ->
         if k is 'id' then continue
         context[k] = v
       context.changed = new Date()
-      context.save()
-      res.json {
-        saved: true
-        changed: context.changed
-      }
-      c.timing('mongodb.context.put', Date.now() - start)
-      c.increment('mongodb.context.put')
+      context.save (err) ->
+        res.json {
+          saved: true
+          changed: context.changed
+        }
+        c.timing('mongodb.context.put', Date.now() - start)
+        c.increment('mongodb.context.put')
 
 app.del '/context/:id', (req, res) ->
   start = Date.now()
@@ -356,9 +364,44 @@ app.del '/context/:id', (req, res) ->
   Context.findById req.params.id, (err, context) ->
     unless err or not context? or context._user.toString() isnt req.user._id.toString()
       context.remove()
-      context.save()
-      c.timing('mongodb.context.del', Date.now() - start)
-      c.increment('mongodb.context.del')
+      context.save (err) ->
+        res.json 'context deleted'
+        c.timing('mongodb.context.del', Date.now() - start)
+        c.increment('mongodb.context.del')
+
+app.put '/users/:id', (req, res) ->
+  start = Date.now()
+  # Check the model to be saved is the same as the
+  # logged in user.
+  if req.params.id isnt req.user._id.toString()
+    res.json 'Forbidden', 403
+    return
+  User = mongoose.model 'user'
+  User.findById req.params.id, (err, user) ->
+    unless err or not user?
+      for k,v of req.body
+        if k is 'id' then continue
+        if k is 'password' then continue
+        user[k] = v
+      user.changed = new Date()
+
+      # Callback
+      saveUser = (user) ->
+        user.save (err) ->
+          user_json = _.pick user, 'email', 'name'
+          res.json {
+            changed: user.changed
+          }
+          c.timing('mongodb.user.put', Date.now() - start)
+          c.increment('mongodb.user.put')
+
+      # If a password was sent, save it.
+      if req.body.password?
+        user.setPassword req.body.password, ->
+          saveUser(user)
+      else
+        saveUser(user)
+
 
 # Listen on port 3000 or a passed-in port
 args = process.argv.splice(2)

@@ -46,3 +46,9 @@ $status_border_color: #bbee77;
   margin-left: 0.5em;
   cursor: pointer;
 }
+
+@mixin error() {
+  padding: 3px 6px;
+  color: #D8000C;
+  background-color: #FFBABA;
+}

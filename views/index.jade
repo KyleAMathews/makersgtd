@@ -2,7 +2,16 @@ div#menu-bar
   div#global-search
     input(placeholder="search", type="text")
     ul.autocomplete
-  a#logout(href="/logout") Logout
+  span#management
+    span.menu
+      span.name
+      span.down-arrow ▼
+    ul.dropdown
+      li
+        a(href="/settings") Settings
+      li
+        a(href="/logout") Logout
+
 nav
   ul
     li.first
