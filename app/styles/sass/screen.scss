@@ -529,7 +529,7 @@ span#management {
   }
   ul.dropdown {
     @include border-radius(5px);
-    @include box-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+    @include single-box-shadow();
 
     position: absolute;
     top: 100%;
