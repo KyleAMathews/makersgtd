@@ -317,6 +317,8 @@ Backbone.View.prototype.logChildView = (childView) ->
   if !@children then @children = []
   @children.push childView
 
+Backbone.View.prototype = _.extend(Backbone.View.prototype, Backbone.Events)
+
 if(!String.prototype.trim)
   String.prototype.trim = ->
     return this.replace(/^\s+|\s+$/g,'')

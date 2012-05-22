@@ -22,8 +22,9 @@ class exports.Action extends Backbone.Model
 
   # Change cid links to id links.
   triggerLinkChange: =>
-    project = app.util.loadModelSynchronous('project', @get('project_links')[0]['id'])
-    project.trigger('change:action_links')
+    for project in @get('project_links')
+      project = app.util.loadModelSynchronous('project', project['id'])
+      project.trigger('change:action_links')
 
     for context in @get('context_links')
       contextObj = app.util.loadModelSynchronous('context', context['id'])

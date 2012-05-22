@@ -62,4 +62,5 @@ class exports.ActionFullView extends Backbone.View
       el: @$el.find('.meta-info')
       model: @model
     ).render()
+
     @
