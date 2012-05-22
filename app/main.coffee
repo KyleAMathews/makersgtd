@@ -350,3 +350,26 @@ window.deleteAllBadLinksFromContexts = ->
 window.deleteAllBadLinksFromProjects = ->
   for project in app.collections.projects.models
     deleteBadLinks('project', project.id, 'action')
+
+window.renameTagContext = ->
+  for context in app.collections.contexts.models
+    for action in context.get( 'action_links')
+      app.util.loadModel('action', action.id, (actionModel) ->
+        if _.find(actionModel.get('context_links'), (context) -> return context.type is "tag")
+          newList = for obj in actionModel.get('context_links')
+            obj.type = "context"
+            obj
+          actionModel.save context_links: newList
+        else
+          console.log 'it\'s ok!'
+      )
+    for project in context.get( 'project_links')
+      app.util.loadModel('project', project.id, (actionModel) ->
+        if _.find(actionModel.get('context_links'), (context) -> return context.type is "tag")
+          newList = for obj in actionModel.get('context_links')
+            obj.type = "context"
+            obj
+          actionModel.save context_links: newList
+        else
+          console.log 'it\'s ok!'
+      )
