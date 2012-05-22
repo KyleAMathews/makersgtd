@@ -124,15 +124,13 @@ ul, ol {
 }
 
 ul#actions {
-  a.model-link {
-    padding-left: 20px;
-  }
   .checkbox {
     background: inline-image("checkbox.png") no-repeat 0 0;
     width: 16px;
     height: 16px;
     position: absolute;
     top: 2.5px;
+    left: 16px;
     cursor: pointer;
     &.done {
       background-position: -16px 0;
@@ -208,6 +206,10 @@ nav {
 
 .model-list-item {
   position: relative;
+
+  &.action {
+    padding-left: 36px;
+  }
   a.model-link {
     @include unstyled-link();
     cursor: pointer;
