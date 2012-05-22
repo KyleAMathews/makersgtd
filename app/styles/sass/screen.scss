@@ -334,6 +334,8 @@ nav {
   .name {
     .display{
       @include adjust-font-size-to(21px, 1);
+      @include force-wrap();
+
       font-weight: bold;
     }
   }
