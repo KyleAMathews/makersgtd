@@ -383,6 +383,10 @@ nav {
       @include leader(0);
       @include trailer(0);
     }
+    // Marked.js auto adds extra line after paragraph
+    p {
+      margin: 0;
+    }
   }
   input[type="submit"].save {
     @include my-button($button_color);
@@ -707,8 +711,6 @@ form {
     text-align:right;
     width:90px;
     float:left;
-  }
-  input{
     float:left;
     font-size:12px;
     padding:4px 2px;

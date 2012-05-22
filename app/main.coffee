@@ -94,9 +94,8 @@ $ ->
 
   app.initialize()
 
-window.markdown = new Markdown.Converter()
-
 app.util.loadModelSynchronous = (type, id) ->
+  console.log 'loading model synchronous'
   unless id? and type? then return
   collection_name = type + "s"
   if app.collections[collection_name].get(id)?
@@ -314,3 +313,7 @@ Backbone.View.prototype.close = ->
 Backbone.View.prototype.logChildView = (childView) ->
   if !@children then @children = []
   @children.push childView
+
+if(!String.prototype.trim)
+  String.prototype.trim = ->
+    return this.replace(/^\s+|\s+$/g,'')
