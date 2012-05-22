@@ -97,6 +97,8 @@ queryMultiple = (type, ids, user, callback) ->
         for model in models
           model.setValue('id', model.getValue('_id'))
         callback(models)
+      else
+        console.log err
       c.timing('mongodb.' + type + '.queryMultiple', Date.now() - start)
       c.increment('mongodb.' + type + '.queryMultiple')
 

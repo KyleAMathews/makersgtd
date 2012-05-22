@@ -174,7 +174,10 @@ app.util.loadMultipleModels = (type, ids, callbacks) ->
             models.push collection.get(id)
           callbacks(models)
         for id, callback of callbacks
-          callback collection.get(id)
+          if collection.get(id)?
+            callback collection.get(id)
+          else
+            callback id
 
 app.util.modelFactory = (type) ->
   switch type
@@ -317,3 +320,33 @@ Backbone.View.prototype.logChildView = (childView) ->
 if(!String.prototype.trim)
   String.prototype.trim = ->
     return this.replace(/^\s+|\s+$/g,'')
+
+
+window.deleteBadLinks = (modelType, modelId, type) ->
+  model = app.util.loadModelSynchronous(modelType, modelId)
+  for action in model.get( type + '_links')
+    if _.isUndefined action.id then console.log action
+    if action.id?.substring(0,1) is "c"
+      console.log "Deleting dead #{ type } link #{ action.id }"
+      model.deleteLink type, action.id
+      continue
+    # Manually remove link if the link id is missing.
+    if _.isUndefined action.id
+      newList = {}
+      newList[type + "_links"] = _.filter model.get( type + "_links" ), (obj) -> return obj.id?
+      model.save newList
+
+    app.util.loadModel(type, action.id, (actionModel) ->
+      if _.isString actionModel
+        console.log "Deleting dead #{ type } link #{ actionModel }"
+        model.deleteLink type, actionModel
+    )
+
+window.deleteAllBadLinksFromContexts = ->
+  for context in app.collections.contexts.models
+    deleteBadLinks('context', context.id, 'action')
+    deleteBadLinks('context', context.id, 'project')
+
+window.deleteAllBadLinksFromProjects = ->
+  for project in app.collections.projects.models
+    deleteBadLinks('project', project.id, 'action')
