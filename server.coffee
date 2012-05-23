@@ -8,6 +8,8 @@ passport = require 'passport'
 StatsD = require('node-statsd').StatsD
 c = new StatsD('ec2-50-19-206-59.compute-1.amazonaws.com',8125)
 logger_statsd = require "connect-logger-statsd"
+mixpanel = require('mixpanel');
+mp_client = new mixpanel.Client('ee072763ded0bb22fcd4f6504b6c0664');
 require('./mongoose_schemas')
 
 app = express.createServer()
@@ -161,6 +163,9 @@ app.get '/admin', (req, res) ->
     json.users = clean
     res.render 'admin', json
     c.increment('page.admin')
+    mp_client.track("page.admin", {
+      distinct_id: req.user._id
+    })
 
 app.post '/admin', (req, res) ->
   console.log req.body
@@ -189,11 +194,17 @@ app.get '/logout', (req, res) ->
 
   c.increment('page.logout')
   c.increment('user.logout')
+  mp_client.track("page.logout", {
+    distinct_id: req.user._id
+  })
 
 app.get '/', (req, res) ->
   res.render 'index'
 
   c.increment('page.index')
+  mp_client.track("page.index", {
+    distinct_id: req.user._id
+  })
 
 # REST endpoint for Actions
 app.get '/actions', (req, res) ->
@@ -232,6 +243,9 @@ app.post '/actions', (req, res) ->
       res.json id: action._id, created: action.created
       c.timing('mongodb.action.post', Date.now() - start)
       c.increment('mongodb.action.post')
+      mp_client.track("action.create", {
+        distinct_id: req.user._id
+      })
 
 app.put '/actions/:id', (req, res) ->
   start = Date.now()
@@ -250,6 +264,9 @@ app.put '/actions/:id', (req, res) ->
         }
         c.timing('mongodb.action.put', Date.now() - start)
         c.increment('mongodb.action.put')
+        mp_client.track("action.update", {
+          distinct_id: req.user._id
+        })
 
 app.del '/actions/:id', (req, res) ->
   start = Date.now()
@@ -261,6 +278,9 @@ app.del '/actions/:id', (req, res) ->
       action.save (err) ->
         c.timing('mongodb.action.delete', Date.now() - start)
         c.increment('mongodb.action.delete')
+        mp_client.track("action.delete", {
+          distinct_id: req.user._id
+        })
 
 # REST endpoint for Projects
 app.get '/projects', (req, res) ->
@@ -300,6 +320,9 @@ app.post '/projects', (req, res) ->
       res.json id: project._id, created: project.created
       c.timing('mongodb.project.post', Date.now() - start)
       c.increment('mongodb.project.post')
+      mp_client.track("project.create", {
+        distinct_id: req.user._id
+      })
 
 app.put '/projects/:id', (req, res) ->
   start = Date.now()
@@ -318,6 +341,9 @@ app.put '/projects/:id', (req, res) ->
         }
         c.timing('mongodb.project.put', Date.now() - start)
         c.increment('mongodb.project.put')
+        mp_client.track("project.update", {
+          distinct_id: req.user._id
+        })
 
 app.del '/projects/:id', (req, res) ->
   start = Date.now()
@@ -330,6 +356,9 @@ app.del '/projects/:id', (req, res) ->
         res.json 'project deleted'
         c.timing('mongodb.project.delete', Date.now() - start)
         c.increment('mongodb.project.delete')
+        mp_client.track("project.delete", {
+          distinct_id: req.user._id
+        })
 
 # REST endpoint for Contexts
 getAllContexts = (user, callback) ->
@@ -382,6 +411,9 @@ app.post '/contexts', (req, res) ->
       res.json id: context._id, created: context.created
       c.timing('mongodb.context.post', Date.now() - start)
       c.increment('mongodb.context.post')
+      mp_client.track("context.create", {
+        distinct_id: req.user._id
+      })
 
 app.put '/contexts/:id', (req, res) ->
   start = Date.now()
@@ -400,6 +432,9 @@ app.put '/contexts/:id', (req, res) ->
         }
         c.timing('mongodb.context.put', Date.now() - start)
         c.increment('mongodb.context.put')
+        mp_client.track("context.update", {
+          distinct_id: req.user._id
+        })
 
 app.del '/context/:id', (req, res) ->
   start = Date.now()
@@ -412,6 +447,9 @@ app.del '/context/:id', (req, res) ->
         res.json 'context deleted'
         c.timing('mongodb.context.del', Date.now() - start)
         c.increment('mongodb.context.del')
+        mp_client.track("context.delete", {
+          distinct_id: req.user._id
+        })
 
 app.put '/users/:id', (req, res) ->
   start = Date.now()

@@ -17,10 +17,11 @@
     "passport-local": "0.x.x",
     "connect-logger-statsd": "0.0.x",
     "node-statsd": "0.0.x",
-    "javascript-brunch": "1.2.x",
+    "javascript-brunch": "1.x.x",
     "coffee-script-brunch": "1.2.x",
-    "eco-brunch": "1.2.x",
-    "uglify-js-brunch": "1.2.x"
+    "eco-brunch": "1.x.x",
+    "uglify-js-brunch": "1.x.x",
+    "mixpanel": "0.x.x"
   },
   "devDependencies": {
     "mocha": "1.0.x",
