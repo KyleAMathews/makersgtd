@@ -168,7 +168,6 @@ app.get '/admin', (req, res) ->
     })
 
 app.post '/admin', (req, res) ->
-  console.log req.body
   if req.body.name is "" or req.body.email is "" then res.redirect '/admin'
 
   User = mongoose.model 'user'
@@ -194,9 +193,6 @@ app.get '/logout', (req, res) ->
 
   c.increment('page.logout')
   c.increment('user.logout')
-  mp_client.track("page.logout", {
-    distinct_id: req.user._id
-  })
 
 app.get '/', (req, res) ->
   res.render 'index'
