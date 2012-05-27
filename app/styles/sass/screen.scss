@@ -138,7 +138,7 @@ ul#actions {
   }
 }
 
-#actions-view, #done-actions-view, #inbox, #projects-view, #done-projects-view {
+#actions-view, #done-actions-view, #context-actions, #projects-view, #done-projects-view {
   .label {
     @include adjust-font-size-to(18px, 1);
     margin-bottom: 0;
@@ -242,6 +242,9 @@ nav {
 
 // context full view
 #context {
+  #context-actions {
+    @include padding-trailer(.25);
+  }
   .editable-name {
     .editable {
       @include padding-leader(.5);
@@ -364,7 +367,7 @@ nav {
 
 /* Blank slate class */
 .blank-slate {
-  color: $not_important_color;
+  color: $button_color_light;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -648,11 +651,6 @@ span#management {
   }
   .focused, .expanding-textarea {
     display: none;
-  }
-  .blank-slate {
-    text-decoration: none;
-    cursor: pointer;
-    @include my-button($button_color, .85em);
   }
 }
 .project-link, .context-link, .linker {

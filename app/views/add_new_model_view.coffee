@@ -17,7 +17,7 @@ class exports.AddNewModelView extends Backbone.View
     for k,v of @options
       context[k] = v
 
-    context['blank_slate_text'] = "Add " + context.type
+    context['blank_slate_text'] = "Add new " + context.type
     @$el.html(addNewModelTemplate(context))
     @logChildView new ExpandingTextareaView(
       el: @$('.expanding-textarea')

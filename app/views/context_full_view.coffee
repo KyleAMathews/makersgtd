@@ -44,23 +44,22 @@ class exports.ContextFullView extends Backbone.View
     ).render()
 
     # Render the context's loose actions, i.e. those without a project.
-    # This is labeled in the UI, "Inbox"
     doneFilter = (action) ->
       if action?.get('project_links')?.length > 0
         return false
       else
         return true
 
-    inboxActions = new SubCollection null,
+    contextActions = new SubCollection null,
       linkedModel: @model
       link_name: 'action_links'
       link_type: 'action'
       filter: doneFilter
 
     @logChildView new ActionsView(
-      el: @$('#inbox')
-      collection: inboxActions
-      label: 'Inbox'
+      el: @$('#context-actions')
+      collection: contextActions
+      label: 'Actions'
     ).render()
 
     # Render the contexts's projects.
